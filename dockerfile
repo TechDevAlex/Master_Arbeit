@@ -1,14 +1,16 @@
-# Use a base image with Python and PyQt6 pre-installed
+# Use an official Python runtime as the base image
 FROM python:3.9
 
-# Set the working directory inside the container
+# Install PyQt6 and required OpenGL libraries
+RUN apt-get update && \
+    apt-get install -y libgl1-mesa-glx && \
+    pip install --no-cache-dir PyQt6
+
+# Set the working directory in the container
 WORKDIR /app
 
-# Install PyQt6
-RUN pip install PyQt6
+# Copy the application code into the container at /app
+COPY app.py /app/
 
-# Copy your application files into the container
-COPY . /app
-
-# Command to run your PyQt6 application
-CMD ["python", "main.py"]
+# Command to run the application
+CMD ["python", "app.py"]
