@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    image: flask-postgres-app
+    container_name: flask-app
+    ports:
+      - "8080:5000"
+    depends_on:
+      - db
+    networks:
+      - mynet
+
+  db:
+    image: postgres
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: your_db_name
+      POSTGRES_USER: your_db_user
+      POSTGRES_PASSWORD: your_db_password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - mynet
+
+networks:
+  mynet:
+
+volumes:
+  postgres-data:
