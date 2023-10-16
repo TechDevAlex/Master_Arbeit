@@ -1,4 +1,0 @@
-gui_main_app
-
-This Python script serves as the entry point for a graphical user interface (GUI) application built using the PyQt library. It initializes the application, creates the main GUI window, displays it to the user, and starts the event loop to handle user interactions.
-
