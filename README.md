@@ -3,3 +3,5 @@
 ## Installation
 
 For instructions on how to install the database, please see the [documentation](docs/INSTALL.md).
+
+# Hello Nikos World
