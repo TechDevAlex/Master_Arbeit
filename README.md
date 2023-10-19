@@ -4,4 +4,4 @@
 
 For instructions on how to install the database, please see the [documentation](docs/INSTALL.md).
 
-# Hello Nikos World
+# get remote branches: git checkout -b <local branch> <remote>/<remote branch>
