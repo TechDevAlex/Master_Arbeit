@@ -29,4 +29,7 @@ you can now access the application, open a browser and enter:
 
 localhost:8080
 
-the "users" button is still bugged
+press the "users" button 
+
+if see "user1 user2 user3" and are able to use the searchbar, you have successfully setup the database!
+

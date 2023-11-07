@@ -5,7 +5,7 @@ from sqlalchemy import text
 app = Flask("sustainable_Materials_App")  
 
 # Replace with your PostgreSQL database URI
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:400840@localhost/sample_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://testuser:12345@postgres-db/UserCredentials'
 db = SQLAlchemy(app)
 
 # Remove the User model
@@ -31,12 +31,17 @@ def users():
         password = request.form.get('password')
         insert_user(username, password)
 
-    # Query the users from the database
-    query_sql = "SELECT username FROM users"
-    result = db.session.execute(text(query_sql))
-    users = [row[0] for row in result]
+    query = request.args.get('query')
+    if query:
+        query_sql = "SELECT username FROM users WHERE username = :username"
+        result = db.session.execute(text(query_sql), {"username": query})
+    else:
+        query_sql = "SELECT username FROM users"
+        result = db.session.execute(text(query_sql))
 
+    users = [row[0] for row in result]
     return render_template('users.html', users=users)
+
 
 @app.route('/')
 def welcome():

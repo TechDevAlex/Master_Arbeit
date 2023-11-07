@@ -13,14 +13,15 @@ services:
       - mynet
 
   db:
-    image: postgres
+    image: postgres:16.0
     container_name: postgres-db
     environment:
-      POSTGRES_DB: your_db_name
-      POSTGRES_USER: your_db_user
-      POSTGRES_PASSWORD: your_db_password
+      POSTGRES_DB: UserCredentials
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: 12345
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d  # Mount a local directory containing initialization scripts
     networks:
       - mynet
 
