@@ -1,7 +1,3 @@
-pip install
-
-psycopg2
-pyqt6
-
-(lokal dev)
-conda env activate gui_env
+psycopg2==2.9.6
+PyQt6
+PyQt6_sip
