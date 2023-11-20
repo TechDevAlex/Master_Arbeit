@@ -1,0 +1,25 @@
+This is an alphabetical list of the essential files and folders of the project and can serve a baseline for a proper documentation in the future. It includes the filenames and a short description of their functionality.
+">" represents the root directory of the project.
+">examplefolder>examplefile" represents a root subfolder.
+Some files have a DOI or a link below them. These are sources of used code-snippets or setup/programming ideas.
+
+
+
+>setup.py
+A minimal setup file. It is necessary to be able to create a pip-installable package to allow python scripts to import functions in the source (src) folder.
+10.5281/zenodo.5796873
+
+>src>
+Contains reusable python modules and is setup to be pip-installable.
+
+
+>src>__init__.py
+An emtpy init file. It is necessary to have python detect a pip-installable package.
+10.5281/zenodo.5796873
+
+>src.egg-info
+Automatically created by setuptools during packaging the "src" folder.
+
+>tests
+Contains Unittests.
+
