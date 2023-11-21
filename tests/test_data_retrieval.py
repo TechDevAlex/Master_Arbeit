@@ -6,7 +6,7 @@ from src.db_connection import create_connection
 class TestDataRetrieval(unittest.TestCase):
     def setUp(self):
         # Set up a database connection for testing
-        self.connection = create_connection("users")  # Replace with your actual database name
+        self.connection = create_connection("users")  #will break if changed database name
 
     def tearDown(self):
         # Close the database connection after the test

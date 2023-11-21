@@ -8,5 +8,10 @@ src.egg-info/PKG-INFO
 src.egg-info/SOURCES.txt
 src.egg-info/dependency_links.txt
 src.egg-info/top_level.txt
+src/gui/__init__.py
+src/gui/welcome_page.py
+src/search/__init__.py
+src/search/search_logic.py
 tests/test_data_conversion.py
 tests/test_data_retrieval.py
+tests/test_search_logic.py
