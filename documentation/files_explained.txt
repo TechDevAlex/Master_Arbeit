@@ -1,12 +1,55 @@
 This is an alphabetical list of the essential files and folders of the project and can serve a baseline for a proper documentation in the future. It includes the filenames and a short description of their functionality.
+
 ">" represents the root directory of the project.
 ">examplefolder>examplefile" represents a root subfolder.
-Some files have a DOI or a link below them. These are sources of used code-snippets or setup/programming ideas.
+Some files have a DOI or a link below them. These are sources of code-snippets or setup/programming ideas.
+#params
+example function parameters(datatype or class)
+#return
+example function return(datatype or class)
+##comments for future development##
 
+
+
+>scripts
+A folder containing reusable python modules and functions. Setup to be pip-installable.
+
+>scripts>data_conversion.py
+Creates a dataframe from a list of tuples. Checks for a columns parameter. If none, creates a DataFrame with data and automatically inferred column names. If columns is not None, it creates a DataFrame with data and uses columns as the column names.
+Finally, the function returns the created DataFrame.
+#params
+data(list of tuples)
+columns(list of column names)
+#return
+df(dataframe)
+
+
+
+>scripts>data_retrieval.py
+Data retrieval module.
+The connection object is created by the create_connection function from the src.db_connection module.
+A cursor object is created using the connection.cursor() method1. This cursor allows Python code to execute PostgreSQL commands in a database session.
+The cursor.execute("SELECT * FROM users") line sends a SQL command to the database, requesting all records from the users table. ##currently no table parameter, just the static users table is being retrieved, this is for setting up the pipeline, will be changed to a more dynamic implementation##
+The data = cursor.fetchall() line retrieves all the rows returned by the SQL query and stores them in the data variable. The fetchall() method returns a list of tuples, where each tuple corresponds to a row in the table.
+Finally, the function returns the data variable, which contains all the records retrieved from the database.
+#params
+connection(psycopg2.extensions.connection)
+##table##
+#return
+data(list of tuples)
+
+>scripts>db_connection.py
+Connection module to postgres. The login-credentials have to be changed manually within the file to fit the local postgres user specifications.
+##might add a prompt for this##
+https://www.psycopg.org/docs/
+#params
+database_name(string)
+#return
+psycopg2.connect
 
 
 >setup.py
-A minimal setup file. It is necessary to be able to create a pip-installable package to allow python scripts to import functions in the source (src) folder.
+Minimal setup file. It is necessary to be able to create a pip-installable package to allow python scripts to import functions in the source (src) folder.
 10.5281/zenodo.5796873
 
 >src>
@@ -14,7 +57,7 @@ Contains reusable python modules and is setup to be pip-installable.
 
 
 >src>__init__.py
-An emtpy init file. It is necessary to have python detect a pip-installable package.
+Emtpy init file. It is necessary to have python detect a pip-installable package.
 10.5281/zenodo.5796873
 
 >src.egg-info
