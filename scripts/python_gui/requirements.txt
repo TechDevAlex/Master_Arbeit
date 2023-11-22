@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+=======
+psycopg2==2.9.6
+PyQt6
+PyQt6_sip
+>>>>>>> c04ce0ef849bd6a47cb689dadf795e684a8cf502
