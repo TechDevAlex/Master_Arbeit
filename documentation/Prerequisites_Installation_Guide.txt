@@ -2,10 +2,20 @@ assuming the following are installed:
 postgres: 15.3
 python: 3.11.4
 
-install conda to create a virtual environment and use conda to install all packages from the requirements.txt file
-$ pip install conda
+
+
 navigate to the directory of the requirements.txt file
 & cd .. \Master_Arbeit
+
+install the necessary libraries
+$pip install -r requirements.txt
+ 
+create the database by running 
+>init-scripts>init_database.py 
+
+
+##conda is currently not working as intended, a conda environment.yml file would be preferrable##
+
 
 packages used during development but not necessary to run the project:
 pylint -> code analysis tool for coding standards
