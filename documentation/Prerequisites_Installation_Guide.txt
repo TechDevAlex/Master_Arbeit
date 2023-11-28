@@ -2,19 +2,42 @@ assuming the following are installed:
 postgres: 15.3
 python: 3.11.4
 
-
+if you have conda installed, activate your environment and install python 3.11.4 inside the environment
 
 navigate to the directory of the requirements.txt file
-& cd .. \Master_Arbeit
+$ cd .. \Master_Arbeit
 
-install the necessary libraries
-$pip install -r requirements.txt
- 
+install the necessary libraries 
+
+##!!for mac use the requirements_for_mac.txt file, this has not been tested yet!!##
+windows: $pip install -r requirements.txt
+mac: $pip install -r requirements_for_mac.txt
+
+##a conda env.yml file was the original idea here but pyqt6 is not conda-installable and using pip in conda can result in a broken environment (https://thecontentauthority.com/blog/conda-vs-pip) and it is in general less secure than pip (https://pythonspeed.com/articles/conda-security-scans/)##
+
+pip-install install the local files as a package to enable them to find eachother
+for only running the project:
+$pip install .
+for development: install in editable mode, this allows changes to the source code be immediately reflected without having to reinstall
+$pip install -e .
+
 create the database by running 
 >init-scripts>init_database.py 
 
+navigate back to the root of the project
+$ cd .. \Master_Arbeit
 
-##conda is currently not working as intended, a conda environment.yml file would be preferrable##
+run the Unittests
+$python -m unittest discover
+
+if the unittests succeeded:
+navigate to the gui folder 
+>src>gui
+run the welcome_page.py
+$python welcome_page.py
+
+if the unittests failed:
+"It's not a bug – it's an undocumented feature."
 
 
 packages used during development but not necessary to run the project:
