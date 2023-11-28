@@ -38,7 +38,7 @@ class SustainableMaterialsDatabaseApp(QMainWindow):
         self.setCentralWidget(container)
 
         # Create a database connection
-        connection = create_connection(database_name="users")  # Replace with database name
+        connection = create_connection()  
 
         # Perform data retrieval
         data = retrieve_data_from_database(connection)  

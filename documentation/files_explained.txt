@@ -11,10 +11,14 @@ example function return(datatype or class)
 
 
 
->scripts
+>setup.py
+Minimal setup file. It is necessary to be able to create a pip-installable package to allow python scripts to import functions in the source (src) folder.
+10.5281/zenodo.5796873
+
+>src
 A folder containing reusable python modules and functions. Setup to be pip-installable.
 
->scripts>data_conversion.py
+>src>data_conversion.py
 Creates a dataframe from a list of tuples. Checks for a columns parameter. If none, creates a DataFrame with data and automatically inferred column names. If columns is not None, it creates a DataFrame with data and uses columns as the column names.
 Finally, the function returns the created DataFrame.
 #params
@@ -25,7 +29,7 @@ df(dataframe)
 
 
 
->scripts>data_retrieval.py
+>src>data_retrieval.py
 Data retrieval module.
 The connection object is created by the create_connection function from the src.db_connection module.
 A cursor object is created using the connection.cursor() method1. This cursor allows Python code to execute PostgreSQL commands in a database session.
@@ -34,34 +38,35 @@ The data = cursor.fetchall() line retrieves all the rows returned by the SQL que
 Finally, the function returns the data variable, which contains all the records retrieved from the database.
 #params
 connection(psycopg2.extensions.connection)
-##table##
+##tables are passed as a parameter, this will have to be reevaluated when dealing with the actual data##
 #return
 data(list of tuples)
 
->scripts>db_connection.py
-Connection module to postgres. The login-credentials have to be changed manually within the file to fit the local postgres user specifications.
-##might add a prompt for this##
+>src>db_config.py
+Module that reads the database credentials from 'db_credentials.txt'. The string-splitting is necessary to allow the 'db_credentials.txt' to be formatted 'databaser=exampledatabase' instead of containing just the dbname, port, username etc. This makes it easier for a future user/dev to edit the file.
+
+#params
+#return 
+credentials dbname, user, password, host, port (string)
+##needs to be reevaluated for security, a password in an open textfile is very suspicious##
+
+>src>db_connection.py
+Connection module to postgres. Added error handling for wrong credentials as this is the expectedly most often ocurring reason for failure.
 https://www.psycopg.org/docs/
 #params
-database_name(string)
 #return
 psycopg2.connect
-
-
->setup.py
-Minimal setup file. It is necessary to be able to create a pip-installable package to allow python scripts to import functions in the source (src) folder.
-10.5281/zenodo.5796873
-
->src>
-Contains reusable python modules and is setup to be pip-installable.
 
 
 >src>__init__.py
 Emtpy init file. It is necessary to have python detect a pip-installable package.
 10.5281/zenodo.5796873
 
+
 >src.egg-info
 Automatically created by setuptools during packaging the "src" folder.
+
+
 
 >tests
 Contains Unittests.
