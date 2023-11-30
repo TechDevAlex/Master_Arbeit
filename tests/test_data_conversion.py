@@ -8,3 +8,6 @@ class TestDataConversion(unittest.TestCase):
         df = convert_to_dataframe(data)
         self.assertIsNotNone(df)
         # more assertions
+
+if __name__ == '__main__':
+    unittest.main()

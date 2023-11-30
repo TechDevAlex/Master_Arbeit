@@ -2,6 +2,7 @@ README.md
 setup.py
 src/__init__.py
 src/data_conversion.py
+src/data_insertion.py
 src/data_retrieval.py
 src/db_config.py
 src/db_connection.py
@@ -15,8 +16,9 @@ src/gui/welcome_page.py
 src/search/__init__.py
 src/search/search_logic.py
 tests/__init__.py
-tests/test_01_db_config.py
 tests/test_data_conversion.py
+tests/test_data_insertion.py
 tests/test_data_retrieval.py
+tests/test_db_config.py
 tests/test_db_connection.py
 tests/test_search_logic.py

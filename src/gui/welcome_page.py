@@ -41,7 +41,7 @@ class SustainableMaterialsDatabaseApp(QMainWindow):
         connection = create_connection()  
 
         # Perform data retrieval
-        data = retrieve_data_from_database(connection)  
+        data = retrieve_data_from_database()  
 
         # Perform data conversion
         self.df = convert_to_dataframe(data)

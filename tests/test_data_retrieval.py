@@ -2,17 +2,21 @@
 import unittest
 from src.data_retrieval import retrieve_data_from_database
 from src.db_connection import create_connection
+from sqlalchemy.orm import sessionmaker
 
 class TestDataRetrieval(unittest.TestCase):
     def setUp(self):
         # Set up a database connection for testing
-        self.connection = create_connection()  #will connect according to db_config
+        self.engine = create_connection()  #will connect according to db_config
 
     def tearDown(self):
-        # Close the database connection after the test
-        self.connection.close()
+        # Dispose the engine after the test
+        self.engine.dispose()
 
     def test_retrieve_data(self):
-        data = retrieve_data_from_database(self.connection)
+
+        data = retrieve_data_from_database()
         self.assertIsNotNone(data)
-        # Add more assertions as needed
+
+if __name__ == '__main__':
+    unittest.main()
