@@ -9,7 +9,7 @@ example function parameters(datatype or class)
 example function return(datatype or class)
 ##comments for future development##
 
-
+##changed db_connection to create a sqlalchemy engine instead of psycopg2 connection##
 
 >setup.py
 Minimal setup file. It is necessary to be able to create a pip-installable package to allow python scripts to import functions in the source (src) folder.

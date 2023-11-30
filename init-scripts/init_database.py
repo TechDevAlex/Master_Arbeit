@@ -18,7 +18,7 @@ def create_database(db_name):
 
     # Connect to the newly created database
     connection.close()
-    connection = create_connection(db_name)
+    connection = create_connection()
     connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 
     with connection.cursor() as cursor:
