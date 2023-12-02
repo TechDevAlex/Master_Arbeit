@@ -10,7 +10,7 @@ This project aims to provide a comprehensive database of sustainable materials.
 
 
 ## Folder Structure
-- `doc`: Contains installation instructions and relevant documentation.
+- `docdocumentation`: Contains installation instructions and relevant documentation.
 - Other important folders: (...)
 
 ## Contributors
