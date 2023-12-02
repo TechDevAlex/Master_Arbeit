@@ -14,8 +14,8 @@ class TestDataRetrieval(unittest.TestCase):
         self.engine.dispose()
 
     def test_retrieve_data(self):
-
-        data = retrieve_data_from_database()
+        table_name = "testtable"
+        data = retrieve_data_from_database(table_name)
         self.assertIsNotNone(data)
 
 if __name__ == '__main__':

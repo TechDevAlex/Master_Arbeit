@@ -2,6 +2,7 @@
 import unittest
 import os
 import pandas as pd
+from sqlalchemy import text
 from src.data_insertion import create_table_from_csv
 from src.db_connection import create_connection
 
@@ -21,9 +22,10 @@ class TestCreateTableFromCSV(unittest.TestCase):
 
         create_table_from_csv(self.csv_file_path, "unittesttable")
 
-        # Add assertions here to check if the table is created as expected
-        # You can connect to the database and query for the table or use other methods to check
-
+        engine = create_connection()
+        with engine.connect() as connection:
+            connection.execute(text("DROP TABLE IF EXISTS unittesttable"))
+      
     def tearDown(self):
         # Remove the temporary CSV file after the test
         os.remove(self.csv_file_path)

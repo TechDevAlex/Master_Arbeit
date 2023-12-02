@@ -1,32 +1,44 @@
-# tests/test_data_conversion.py
+# src/tests/test_data_conversion.py
 import unittest
-import tempfile
+import pandas as pd
 import os
-from src.data_conversion import convert_to_dataframe
+from src.data_conversion import convert_table_to_dataframe, convert_csv_to_dataframe
 
 class TestDataConversion(unittest.TestCase):
     def test_convert_to_dataframe(self):
-        data = [(1, 'A', 'X'), (2, 'B', 'Y'), (3, 'C', 'Z')]
+        # Test the convert_to_dataframe function
 
-        # Create a temporary CSV file
-        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.csv') as temp_file:
-            temp_file.write('column1;column2;column3\n')
-            for row in data:
-                temp_file.write(';'.join(map(str, row)) + '\n')
+        # Mock data for testing
+        mock_table = [(1, 'user1', 'password1'), (2, 'user2', 'password2'), (3, 'user3', 'password3')]
+        columns = ['ID', 'Username', 'Password']
 
-            # Get the file path
-            file_path = temp_file.name
+        # Call the function with the mock data
+        result_df = convert_table_to_dataframe(mock_table)
 
-        try:
-            # Call the function with the file path
-            df = convert_to_dataframe(file_path)
+        # Check if the DataFrame exists
+        self.assertIsNotNone(result_df) 
 
-            # Assertions on the DataFrame
-            self.assertIsNotNone(df)
-            # Add more assertions on the DataFrame content if needed
-        finally:
-            # Remove the temporary file
-            os.remove(file_path)
+    def test_convert_csv_to_dataframe(self):
+        # Test the convert_csv_to_dataframe function
+
+        # Create a temporary CSV file for testing
+        csv_file_path = 'test_data.csv'
+        test_data = {
+            'ID': [1, 2, 3],
+            'Username': ['user1', 'user2', 'user3'],
+            'Password': ['password1', 'password2', 'password3']
+        }
+        pd.DataFrame(test_data).to_csv(csv_file_path, index=False)
+
+        # Call the function with the mock data
+        result_df = convert_csv_to_dataframe(csv_file_path)
+
+        # Check if the DataFrame exists
+        self.assertIsNotNone(result_df)
+
+        # Remove the temporary CSV file
+        os.remove(csv_file_path)
+
 
 if __name__ == '__main__':
     unittest.main()
