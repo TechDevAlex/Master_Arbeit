@@ -1,0 +1,11 @@
+Hi Niko, die folgenden Dateien sind für dich relevant zum parallel developen, fehlt alles noch in der Doku, bin gerade erst fertig geworden mit GUI bauen:
+
+\src\gui\search_window.py 
+the first window the user sees when pressing search on the main window
+
+\src\gui\controllers\search_logic_controller.py
+definitions of what happens when you press a search button
+
+\src\search\search_logic.py
+the currently called search logic
+

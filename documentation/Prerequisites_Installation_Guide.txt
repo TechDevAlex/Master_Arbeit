@@ -21,9 +21,6 @@ $pip install .
 for development: install in editable mode, this allows changes to the source code be immediately reflected without having to reinstall
 $pip install -e .
 
-create the database by running 
->init-scripts>init_database.py 
-
 navigate back to the root of the project
 $ cd .. \Master_Arbeit
 
@@ -31,10 +28,8 @@ run the Unittests
 $python -m unittest discover
 
 if the unittests succeeded:
-navigate to the gui folder 
->src>gui
-run the welcome_page.py
-$python welcome_page.py
+run the gui
+$python run_gui.py
 
 if the unittests failed:
 "It's not a bug – it's an undocumented feature."

@@ -1,7 +1,9 @@
 README.md
 setup.py
+init_scripts/__init__.py
+init_scripts/init_database.py
 src/__init__.py
-src/csv_to_postgres.py
+src/create_session.py
 src/data_conversion.py
 src/data_insertion.py
 src/data_retrieval.py
@@ -12,10 +14,14 @@ src.egg-info/SOURCES.txt
 src.egg-info/dependency_links.txt
 src.egg-info/top_level.txt
 src/gui/__init__.py
-src/gui/welcome_page.py
+src/gui/dialouges.py
+src/gui/load_data_window.py
+src/gui/main_window.py
+src/gui/search_window.py
 src/search/__init__.py
 src/search/search_logic.py
 tests/__init__.py
+tests/test_create_session.py
 tests/test_data_conversion.py
 tests/test_data_insertion.py
 tests/test_data_retrieval.py

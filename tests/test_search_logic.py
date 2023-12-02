@@ -1,7 +1,7 @@
 # tests/test_search_logic.py
 import unittest
 import pandas as pd
-from src.search.search_logic import SearchLogic
+from src.search.search_logic import search
 
 class TestSearchLogic(unittest.TestCase):
     @classmethod
@@ -14,8 +14,7 @@ class TestSearchLogic(unittest.TestCase):
         cls.materials_dataframe = pd.DataFrame(data)
 
     def test_search_keyword_in_dataframe(self):
-        search_logic = SearchLogic(dataframe=self.materials_dataframe)
-        result = search_logic.search(keyword='Aluminum')
+        result = search(self.materials_dataframe, keyword='Aluminum')
 
         # Expected result without considering indices
         expected_result = pd.DataFrame({'Material': ['Aluminum'], 'E_Modulus': [70e9]})

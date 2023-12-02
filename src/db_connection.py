@@ -7,6 +7,10 @@ def create_connection():
     try:
         # Create a SQLAlchemy engine
         engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{dbname}')
+        
+        # try to establish a connection
+        with engine.connect():
+            pass
         return engine
     except Exception as e:
         print("Unable to connect to database.", str(e))
