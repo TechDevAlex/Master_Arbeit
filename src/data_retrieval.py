@@ -1,15 +1,14 @@
 # src/data_retrieval.py
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy import text
 from src.db_connection import create_connection
+from src.create_session import create_session
 
-def retrieve_data_from_database():
+def retrieve_data_from_database(table_name):
     # Create a session
-    Session = sessionmaker(bind=create_connection())
-    session = Session()
+    session = create_session()
 
-    # Execute the query
-    result = session.execute(text("SELECT * FROM users")) 
+    # Execute the query from selected table
+    result = session.execute(text(f"SELECT * FROM {table_name}")) 
 
     # Fetch all the data
     data = result.fetchall()

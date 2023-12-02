@@ -10,7 +10,7 @@ dependencies:
   - pip=23.2.1=py312haa95532_0
   - python=3.12.0=h1d929f7_0
   - setuptools=68.0.0=py312haa95532_0
-  - sqlite=3.41.2=h2bbff1b_0
+  - sqlite=3.41.2=h2bbff1b_0git o
   - tk=8.6.12=h2bbff1b_0
   - tzdata=2023c=h04d1e81_0
   - vc=14.2=h21ff451_1

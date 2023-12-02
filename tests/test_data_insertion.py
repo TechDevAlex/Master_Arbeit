@@ -28,5 +28,6 @@ class TestCreateTableFromCSV(unittest.TestCase):
         # Remove the temporary CSV file after the test
         os.remove(self.csv_file_path)
 
+
 if __name__ == '__main__':
     unittest.main()
