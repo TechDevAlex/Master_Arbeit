@@ -10,4 +10,4 @@ def search(dataframe, keyword=None):
         )
         return dataframe[mask]
     else:
-        return dataframe
+        return dataframe    #returns entire dataframe if no keyword

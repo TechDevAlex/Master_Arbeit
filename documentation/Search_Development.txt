@@ -1,3 +1,11 @@
+Anmerkungen zum letzten Meeting, kannst du löschen nachden dus gelesen hast:
+
+case-sensitive! # PostgreSQL stores unquoted identifiers in lowercase in information_schema.tables, 
+    # so double quotes to preserve the correct case sensitivity. 
+solved this is data_retrieval.py 
+
+
+
 Hi Niko, die folgenden Dateien sind für dich relevant zum parallel developen, fehlt alles noch in der Doku, bin gerade erst fertig geworden mit GUI bauen:
 
 \src\gui\search_window.py 
@@ -8,4 +16,7 @@ definitions of what happens when you press a search button
 
 \src\search\search_logic.py
 the currently called search logic
+
+
+
 

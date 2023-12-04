@@ -17,3 +17,22 @@ def retrieve_data_from_database(table_name):
     session.close()
 
     return data
+
+def retrieve_table_names_from_database():
+    # Create a session
+    session = create_session()
+
+    # Query to retrieve all table names
+    query = text("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type = 'BASE TABLE'")
+    result = session.execute(query)
+
+    # Fetch all table names and ensure correct case
+    tables = [row[0] for row in result.fetchall()]
+    # PostgreSQL stores unquoted identifiers in lowercase in information_schema.tables, 
+    # so double quotes to preserve the correct case sensitivity.
+    tables = ['"{}"'.format(table) for table in tables]  
+
+    # Close the session
+    session.close()
+
+    return tables

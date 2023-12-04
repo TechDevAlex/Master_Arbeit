@@ -2,6 +2,7 @@
 import os
 from PyQt6.QtWidgets import QMessageBox
 from src.data_insertion import create_table_from_csv
+from src.data_conversion import convert_database_to_dataframe
 
 class LoadDataController:
     def __init__(self, view, file_dialog):
@@ -33,3 +34,8 @@ class LoadDataController:
        normalized_path = os.path.normpath(csv_filepath)
        create_table_from_csv(normalized_path,'test_data')
        QMessageBox.information(self.view, "Load Sample Data", "Sample data loaded successfully!")
+
+    def update_dataframe(self):
+        # action when "update Dataframe" button is clicked
+        convert_database_to_dataframe()
+        QMessageBox.information(self.view, "Update Dataframe", "Dataframe updated succesfully!")
