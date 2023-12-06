@@ -1,7 +1,7 @@
 from src.data_retrieval import retrieve_data_from_database
 from src.search.search_logic import search
 from src.data_conversion import convert_table_to_dataframe
-from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox
+from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox, QDialog
 
 class SearchLogicController:
     def __init__(self, view):
@@ -27,6 +27,8 @@ class SearchLogicController:
         df = convert_table_to_dataframe(data)
 
         result = search(df,keyword)
+        headers = result.loc[0,:].astype(str).tolist()
+        
         
         #display the Result
         self.view.results_table.setRowCount(len(result))
@@ -34,3 +36,4 @@ class SearchLogicController:
         for i, row in enumerate(result.values):
             for j, item in enumerate(row):
                 self.view.results_table.setItem(i, j, QTableWidgetItem(str(item)))
+

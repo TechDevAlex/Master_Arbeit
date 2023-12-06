@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QLineEdit
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QLineEdit, QComboBox
 
 class SearchWidgets(QWidget):
     def __init__(self):
@@ -20,10 +20,19 @@ class SearchWidgets(QWidget):
         search_button.clicked.connect(self.search)
         layout.addWidget(search_button)
 
+        #Add a drop down menu
+        search_options_button = QComboBox(self)
+        search_options_button.activated.connect(self.do_something)
+        layout.addWidget(self.search_options_button)
+        
+        
         # Add a button to close the search window
         close_button = QPushButton("Close")
         close_button.clicked.connect(self.close)
         layout.addWidget(close_button)
+
+
+                                            
 
     def search(self):
         # Get the search keyword from the input field
@@ -32,3 +41,7 @@ class SearchWidgets(QWidget):
         # Perform the search
         # You can add your search logic here
         print(f"Searching for: {search_keyword}")
+
+
+    def do_something(self):
+        print("Do something")

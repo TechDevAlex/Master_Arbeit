@@ -1,4 +1,4 @@
-# src/gui/load_data_window.py
+#src/gui/load_data_window.py
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QFileDialog, QLabel, QLineEdit, QPushButton
 
 from src.gui.widgets.widgets import load_data_window_widgets
