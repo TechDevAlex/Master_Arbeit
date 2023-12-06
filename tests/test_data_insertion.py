@@ -20,7 +20,7 @@ class TestCreateTableFromCSV(unittest.TestCase):
     def test_create_table_from_csv(self):
         # Test the create_table_from_csv function
 
-        create_table_from_csv(self.csv_file_path, "unittesttable")
+        create_table_from_csv(self.csv_file_path, "unittest_table")
 
         engine = create_connection()
         with engine.connect() as connection:

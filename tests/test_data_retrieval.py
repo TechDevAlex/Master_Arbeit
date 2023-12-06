@@ -1,8 +1,7 @@
 # tests/test_data_retrieval.py
 import unittest
-from src.data_retrieval import retrieve_data_from_database
+from src.data_retrieval import retrieve_data_from_database, retrieve_table_names_from_database
 from src.db_connection import create_connection
-from sqlalchemy.orm import sessionmaker
 
 class TestDataRetrieval(unittest.TestCase):
     def setUp(self):
@@ -17,6 +16,18 @@ class TestDataRetrieval(unittest.TestCase):
         table_name = "testtable"
         data = retrieve_data_from_database(table_name)
         self.assertIsNotNone(data)
+
+    def test_retrieve_data_from_unittesttable(self): #requires an existing table, therefore dependant on test_data_insertion.py
+        table_name = "unittest_table"
+        data = retrieve_data_from_database(table_name)
+        self.assertIsNotNone(data)
+        self.assertIsInstance(data, list)
+
+    def test_retrieve_data_from_non_existent_table(self):
+            table_name = "non_existent_table"
+            with self.assertRaises(Exception):
+                data = retrieve_data_from_database(table_name)
+
 
 if __name__ == '__main__':
     unittest.main()

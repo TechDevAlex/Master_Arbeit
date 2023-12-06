@@ -28,8 +28,7 @@ def retrieve_table_names_from_database():
 
     # Fetch all table names and ensure correct case
     tables = [row[0] for row in result.fetchall()]
-    # PostgreSQL stores unquoted identifiers in lowercase in information_schema.tables, 
-    # so double quotes to preserve the correct case sensitivity.
+    
     tables = ['"{}"'.format(table) for table in tables]  
 
     # Close the session
