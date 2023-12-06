@@ -1,5 +1,7 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, QFileDialog, QTableWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, QFileDialog, QTableWidget, QComboBox
 from src.gui.controllers.search_logic_controller import SearchLogicController
+
+
 
 class SearchWindow(QMainWindow):
     def __init__(self):
@@ -17,9 +19,13 @@ class SearchWindow(QMainWindow):
 
         self.search_button = QPushButton("Search", self)
 
+        self.search_options_label = QLabel("Select search options", self)
+        self.search_options_button = QComboBox(self)
+        self.search_options_button.addItems(['Name'])
+
         self.results_table = QTableWidget(self)
        
-
+        
 
         # Layout
         layout = QVBoxLayout()
@@ -28,7 +34,10 @@ class SearchWindow(QMainWindow):
         layout.addWidget(table_label)
         layout.addWidget(self.table_input)
         layout.addWidget(self.search_button)
+        layout.addWidget(self.search_options_label)
+        layout.addWidget(self.search_options_button)
         layout.addWidget(self.results_table)
+        
 
         container = QWidget()
         container.setLayout(layout)
@@ -40,10 +49,10 @@ class SearchWindow(QMainWindow):
 
         # Create an instance of SearchLogicController
         self.controller = SearchLogicController(self)
-
+        
 
 if __name__ == "__main__":
-    app = QApplication([])
+    app = QApplication(sys.argv)
     search_window = SearchWindow()
     search_window.show()
     app.exec()

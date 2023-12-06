@@ -11,7 +11,7 @@ def convert_table_to_dataframe(table):
     return df
 
 def convert_csv_to_dataframe(csv_filepath):
-    df = pd.read_csv(csv_filepath, delimiter=';')
+    df = pd.read_csv(csv_filepath, delimiter = ',', header = None)
     return df
 
 def convert_database_to_dataframe():
