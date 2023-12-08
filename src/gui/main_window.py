@@ -12,10 +12,12 @@ class MainWindow(QMainWindow):
 
 
     def initializeMainWindow(self):
+
+            self.setWindowTitle('Main Window')
             # Create widgets from widgets.py
             status_label = label("Status: ")
             database_name_label = label("Database: Not Connected")
-            connect_button = small_button("Connect")
+            connect_button = small_button("Connect") #TODO: Connection should include username plus password plus a potential licence-code; could be free atm
 
             # Create the central widget
             central_widget = QWidget()
@@ -27,9 +29,14 @@ class MainWindow(QMainWindow):
             layout.addWidget(connect_button)
 
             # Add an "Initiate Data" button
-            self.data_button = data_button("Load Data")
-            self.data_button.setEnabled(False)  # Initially disabled
-            layout.addWidget(self.data_button)
+            self.data_load_button = data_button("Load Data")
+            self.data_load_button.setEnabled(False)  # Initially disabled
+            layout.addWidget(self.data_load_button)
+
+            # Add an "Initiate Data" button
+            self.data_default_button = data_button("Go on with Default Databases")
+            self.data_default_button.setEnabled(False)  # Initially disabled
+            layout.addWidget(self.data_default_button) #TODO: Would be nice to have default datasets loaded when clicking that button
 
             # Add a "Search" button
             search_button = small_button("Search")
@@ -43,7 +50,7 @@ class MainWindow(QMainWindow):
                 status_label=status_label,
                 database_name_label=database_name_label,
                 connect_button=connect_button,
-                data_button=self.data_button
+                data_button=self.data_load_button
             )
 
             # Connect the button click event to a function that opens the search window
