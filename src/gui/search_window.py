@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, QFileDialog, QTableWidget, QComboBox
+from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QLineEdit, QPushButton, QVBoxLayout, QGridLayout, QWidget, QFileDialog, QTableWidget, QComboBox
 from src.gui.controllers.search_logic_controller import SearchLogicController
 
 
@@ -16,13 +16,15 @@ class SearchWindow(QMainWindow):
             self.setGeometry(100, 100, 400, 200)
 
             # Widgets
-            search_label = QLabel("Search Query:", self)
-            self.query_input = QLineEdit(self)
+            #search_label = QLabel("Search Query:", self)
+            #self.query_input = QLineEdit(self)
 
             table_label = QLabel("Table Name:", self)
             self.table_input = QLineEdit(self)
 
             self.search_button = QPushButton("Search", self)
+            self.search_button_2 = QPushButton("Search_2", self)
+
 
             self.search_options_label = QLabel("Select search options", self)
             self.search_options_button = QComboBox(self)
@@ -33,15 +35,17 @@ class SearchWindow(QMainWindow):
 
 
             # Layout
-            layout = QVBoxLayout()
-            layout.addWidget(search_label)
-            layout.addWidget(self.query_input)
-            layout.addWidget(table_label)
-            layout.addWidget(self.table_input)
-            layout.addWidget(self.search_button)
-            layout.addWidget(self.search_options_label)
-            layout.addWidget(self.search_options_button)
-            layout.addWidget(self.results_table)
+
+            layout = QGridLayout()
+
+
+            layout.addWidget(table_label,2,0)
+            layout.addWidget(self.table_input, 3,0)
+            layout.addWidget(self.search_button, 4,0)
+            layout.addWidget(self.search_button_2, 4,1)
+            layout.addWidget(self.search_options_label, 5,0)
+            layout.addWidget(self.search_options_button, 6,0)
+            layout.addWidget(self.results_table,7,0)
 
 
             container = QWidget()
@@ -58,6 +62,6 @@ class SearchWindow(QMainWindow):
         
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
+    app = QApplication([])
     search_window = SearchWindow()
     app.exec()
