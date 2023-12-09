@@ -15,11 +15,14 @@ mac: $pip install -r requirements_for_mac.txt
 
 ##a conda env.yml file was the original idea here but pyqt6 is not conda-installable and using pip in conda can result in a broken environment (https://thecontentauthority.com/blog/conda-vs-pip) and it is in general less secure than pip (https://pythonspeed.com/articles/conda-security-scans/)##
 
-pip-install install the local files as a package to enable them to find eachother
+pip-install install the package to handle communication with the database
+
 for only running the project:
+$cd src
 $pip install .
 for development: install in editable mode, this allows changes to the source code be immediately reflected without having to reinstall
 $pip install -e .
+
 
 navigate back to the root of the project
 $ cd .. \Master_Arbeit

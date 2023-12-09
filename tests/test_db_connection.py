@@ -1,7 +1,7 @@
 # tests/test_db_connection.py
 import unittest
 from sqlalchemy import create_engine, exc
-from src.db_connection import create_connection
+from database.db_connection import create_connection
 
 class TestDBConnection(unittest.TestCase):
     def test_create_connection_success(self):

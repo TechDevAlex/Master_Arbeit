@@ -1,3 +1,2 @@
-init_scripts
-src
+data
 tests

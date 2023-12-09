@@ -1,10 +1,7 @@
 # src/data_conversion.py
 import os
 import pandas as pd
-from src.create_session import create_session
-from sqlalchemy import text
-from src.db_connection import create_connection
-from src.data_retrieval import retrieve_table_names_from_database, retrieve_data_from_database
+from src.database.data_retrieval import retrieve_table_names_from_database, retrieve_data_from_database
 
 def convert_table_to_dataframe(table):
     df = pd.DataFrame(table)

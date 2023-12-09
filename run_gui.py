@@ -1,6 +1,6 @@
 # scripts/run_gui.py
 
-from src.gui.main_window import MainWindow
+from gui.screens.main_window import MainWindow
 from PyQt6.QtWidgets import QApplication
 
 def run():

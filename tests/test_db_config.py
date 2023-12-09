@@ -1,7 +1,7 @@
 #tests/test_db_config.py
 
 import unittest
-from src.db_config import get_db_credentials
+from database.db_config import get_db_credentials
 
 class TestDBConfig(unittest.TestCase):
     def test_get_db_credentials(self):

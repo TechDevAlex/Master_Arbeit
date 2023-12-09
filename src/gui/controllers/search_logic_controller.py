@@ -1,6 +1,6 @@
-from src.data_retrieval import retrieve_data_from_database
-from src.search.search_logic import search
-from src.data_conversion import convert_table_to_dataframe
+from database.data_retrieval import retrieve_data_from_database
+from search.search_logic import search
+from database.data_conversion import convert_table_to_dataframe
 from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox, QDialog
 
 class SearchLogicController:

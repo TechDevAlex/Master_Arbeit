@@ -1,6 +1,6 @@
 # src/tests/test_create_session.py
 import unittest
-from src.create_session import create_session
+from database.create_session import create_session
 
 class TestCreateSession(unittest.TestCase):
     def test_create_session(self):

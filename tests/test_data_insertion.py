@@ -3,8 +3,8 @@ import unittest
 import os
 import pandas as pd
 from sqlalchemy import text
-from src.data_insertion import create_table_from_csv
-from src.db_connection import create_connection
+from database.data_insertion import create_table_from_csv
+from database.db_connection import create_connection
 
 class TestCreateTableFromCSV(unittest.TestCase):
     def setUp(self):

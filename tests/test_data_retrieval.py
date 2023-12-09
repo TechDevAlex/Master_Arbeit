@@ -1,7 +1,7 @@
 # tests/test_data_retrieval.py
 import unittest
-from src.data_retrieval import retrieve_data_from_database, retrieve_table_names_from_database
-from src.db_connection import create_connection
+from database.data_retrieval import retrieve_data_from_database, retrieve_table_names_from_database
+from database.db_connection import create_connection
 
 class TestDataRetrieval(unittest.TestCase):
     def setUp(self):

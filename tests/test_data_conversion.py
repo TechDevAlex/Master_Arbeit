@@ -2,7 +2,7 @@
 import unittest
 import pandas as pd
 import os
-from src.data_conversion import convert_table_to_dataframe, convert_csv_to_dataframe
+from database.data_conversion import convert_table_to_dataframe, convert_csv_to_dataframe
 
 class TestDataConversion(unittest.TestCase):
     def test_convert_to_dataframe(self):

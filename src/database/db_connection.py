@@ -1,6 +1,6 @@
 # src/db_connection.py
 from sqlalchemy import create_engine
-from src.db_config import get_db_credentials
+from src.database.db_config import get_db_credentials
 
 def create_connection():
     dbname, user, password, host, port = get_db_credentials()
