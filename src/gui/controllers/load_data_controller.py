@@ -1,26 +1,39 @@
 # src/gui/controllers/load_data_controller.py
 import os
-from PyQt6.QtWidgets import QMessageBox
+from PyQt6.QtCore import Qt
+from PyQt6.QtCore import QAbstractListModel
+from PyQt6.QtWidgets import QMessageBox, QDialog
 from src.data_insertion import create_table_from_csv
 from src.data_conversion import convert_database_to_dataframe
 
-class LoadDataController:
-    def __init__(self, view, file_dialog):
+class LoadDataController (QAbstractListModel):
+
+    table_names = []
+
+    def __init__(self, view, file_dialog, table_name = None):
+        super().__init__()
         self.view = view
         self.file_dialog = file_dialog
+        self.table_names = table_name or []
 
         # Connect signals for the Load Data Window widgets
         self.view.load_data_button.clicked.connect(self.load_data)
         self.view.browse_button.clicked.connect(self.browse_csv_file)
         self.view.load_sample_button.clicked.connect(self.load_sample_data)
 
-    def load_data(self):
-        # Action when "Load Data" button is clicked
+    def load_data(self, table_name):
+
+        # Action when "Load Data" button git is clicked
         csv_filepath = self.view.csv_filepath_input.text()
         table_name = self.view.table_name_input.text()
         print(f"Loading data from CSV file: {csv_filepath}") 
         create_table_from_csv(csv_filepath,table_name)
         QMessageBox.information(self.view, "Create Table", f"Table {table_name} created successfully from {csv_filepath}")
+
+        self.table_names.append(table_name)
+        print(self.table_names)
+
+
 
     def browse_csv_file(self):
         # Action when "Browse" button is clicked
