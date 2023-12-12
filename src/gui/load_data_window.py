@@ -1,10 +1,13 @@
 #src/gui/load_data_window.py
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QFileDialog, QLabel, QLineEdit, QPushButton, QGridLayout
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QFileDialog, QLabel, QLineEdit, QPushButton, QGridLayout, QTableWidget, QTableWidgetItem
 
 from src.gui.widgets.widgets import load_data_window_widgets
 from src.gui.controllers.load_data_controller import LoadDataController
 
 class LoadDataWindow(QMainWindow):
+
+    table_names = []
+
     def __init__(self):
         super().__init__()
         self.initializeLoadWindow()
@@ -38,6 +41,12 @@ class LoadDataWindow(QMainWindow):
         self.update_dataframe_button.clicked.connect(self.update_dataframe)
         self.help_update_dataframe = QPushButton("help", self)  # TODO: Help menu should pop up
 
+
+
+        self.table_names_table = QTableWidget(self)
+        self.setCentralWidget(self.table_names_table)
+        
+        
         # Set up layout
 
         layout = QGridLayout()
@@ -54,6 +63,7 @@ class LoadDataWindow(QMainWindow):
         layout.addWidget(self.load_data_button, 7,0)
         layout.addWidget(self.update_dataframe_button, 8,0)  # Add the update button to the layout
         layout.addWidget(self.help_update_dataframe, 8,1)
+        layout.addWidget(self.table_names_table, 9,0)
 
         container = QWidget()
         container.setLayout(layout)
@@ -70,6 +80,7 @@ class LoadDataWindow(QMainWindow):
     def update_dataframe(self):
         # Call a method in the controller to update the DataFrame
         self.controller.update_dataframe()
+
 
 if __name__ == "__main__":
     app = QApplication([])

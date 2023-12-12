@@ -3,6 +3,8 @@ from src.gui.controllers.search_logic_controller import SearchLogicController
 
 
 
+
+
 class SearchWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -16,11 +18,12 @@ class SearchWindow(QMainWindow):
             self.setGeometry(100, 100, 400, 200)
 
             # Widgets
-            #search_label = QLabel("Search Query:", self)
-            #self.query_input = QLineEdit(self)
 
             table_table_label = QLabel("Names of uploaded tables:", self)
             self.table_table = QTableWidget(self) #TODO: should list the uploaded table names
+            self.delete_instance = QPushButton("Delete Table", self)#TODO: Should delete instance / Maybe better for each entry in table: -> https://stackoverflow.com/questions/57489001/adding-button-next-to-every-row-of-a-table
+            self.clear_table = QPushButton("Clear Tables", self)#TODO: should clear table and delete list of tables -> Notice: Load data new
+
 
             table_label = QLabel("Insert table name", self)
             self.table_input = QLineEdit(self)
@@ -47,16 +50,18 @@ class SearchWindow(QMainWindow):
 
             layout.addWidget(table_table_label, 1,0)
             layout.addWidget(self.table_table,2,0)
-            layout.addWidget(table_label,3,0)
-            layout.addWidget(self.table_input, 4,0)
-            layout.addWidget(self.search_button, 5,0)
-            layout.addWidget(self.help_search, 5,1)
-            layout.addWidget(self.search_options_label, 6,0)
-            layout.addWidget(self.search_options_button, 7,0)
-            layout.addWidget(self.help_search_options, 7,1)
-            layout.addWidget(self.results_table,8,0)
-            layout.addWidget(self.export_button, 9,0)
-            layout.addWidget(self.clipboard_button, 9,1)
+            layout.addWidget(self.delete_instance, 2,1)
+            layout.addWidget(self.clear_table, 3,0)
+            layout.addWidget(table_label,4,0)
+            layout.addWidget(self.table_input, 5,0)
+            layout.addWidget(self.search_button, 6,0)
+            layout.addWidget(self.help_search, 6,1)
+            layout.addWidget(self.search_options_label, 7,0)
+            layout.addWidget(self.search_options_button, 8,0)
+            layout.addWidget(self.help_search_options, 8,1)
+            layout.addWidget(self.results_table,9,0)
+            layout.addWidget(self.export_button, 10,0)
+            layout.addWidget(self.clipboard_button, 10,1)
 
 
             container = QWidget()
@@ -70,6 +75,8 @@ class SearchWindow(QMainWindow):
             # Create an instance of SearchLogicController
             self.controller = SearchLogicController(self)
             self.show()
+
+        #def displayTableNames(self):
         
 
 if __name__ == "__main__":
