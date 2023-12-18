@@ -6,3 +6,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# tell me something funny
+# tell me a coding joke 
+

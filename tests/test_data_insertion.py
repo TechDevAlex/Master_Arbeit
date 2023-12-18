@@ -22,9 +22,9 @@ class TestCreateTableFromCSV(unittest.TestCase):
 
         create_table_from_csv(self.csv_file_path, "unittest_table")
 
-        engine = create_connection()
-        with engine.connect() as connection:
-            connection.execute(text("DROP TABLE IF EXISTS unittesttable"))
+        #engine = create_connection()
+        #with engine.connect() as connection:
+        #    connection.execute(text("DROP TABLE IF EXISTS unittesttable"))
       
     def tearDown(self):
         # Remove the temporary CSV file after the test

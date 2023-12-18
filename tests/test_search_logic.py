@@ -19,7 +19,7 @@ class TestSearchLogic(unittest.TestCase):
         # Expected result without considering indices
         expected_result = pd.DataFrame({'Material': ['Aluminum'], 'E_Modulus': [70e9]})
 
-        # Search changes the index from the results, bugs comparison, reset index before the comparison
+        # Search changes the index from the results, leads to bug in comparison, resetting the index before the comparison
         result_reset = result.reset_index(drop=True)
         expected_result_reset = expected_result.reset_index(drop=True)
 

@@ -1,0 +1,28 @@
+The local GUI is being developed using the Python library PyQt6.
+##very similar to PySide https://www.pythonguis.com/faq/pyqt6-vs-pyside6/ possibly consider switching to Pyside, APIS 99% the same but PyQt is GPL or commercial license, PySide6 LGPL license##
+
+
+>src>database
+Directory for handling database communication (see files_explained.txt).
+
+>src>search
+Directory for handling search-logic (see search_development.txt)
+
+>src>gui
+This directory will contain all PyQt6 GUI-related files. The idea is to create a second GUI as a webapp with a completely independent Code-Base.
+Unittesting ist handled in >tests>tests_gui
+
+>src>gui>controllers
+Directory containing the controllers classes, i.e. the input mechanism of the user interface. controller classses process user inputs and call the apprpriate methods in the model.
+##The MVC Model seems to be a common term for GUI development, however it is not at all a consistent term. I have read completely contradictory statements
+
+>src>gui>resources
+Contains resources files for the gui like logos as pictures.
+
+>src>gui>screens
+##looking for a more intuitive name than screens, windows is possibly confusing because the OS though##
+Contains the basic setup for each individual window. 
+
+>src>widgets
+##custom or reusable widgets 
+

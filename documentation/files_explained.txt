@@ -104,3 +104,27 @@ Automatically created by setuptools during packaging the "src" folder.
 >tests
 Contains Unittests.
 
+>tests> test_create_session.py
+Tests the create_session function to ensure it returns a non-None session object.
+
+>tests>test_data_conversion.py
+Tests two functions in data_conversion:
+convert_table_to_dataframe: Tests if the function correctly converts a mock data table (list of tuples) into a non-None pandas DataFrame.
+convert_csv_to_dataframe: Verifies that the function can read a temporary CSV file and convert it into a non-None DataFrame. The test also includes creating and removing the temporary CSV file.
+
+>tests>test_data_insertion.py
+Tests the create_table_from_csv function. Creates a temporary CSV file, creates a table in the database from this CSV file and removes the CSV file. The unitest_table is necessary for test_data_retrieval and is therefore not dropped.
+
+>tests>test_data_retrieval.py
+Tests retrieve_data_from_database. Verifies that data retrieval from a given table returns non-None data. Includes tests for an existing table, a specific table created in test_data_insertion.py, and a non-existent table to ensure it raises an exception.
+
+>tests>test_db_config.py
+Tests the get_db_credentials function from db_config. Ensures the function returns exactly five values (dbname, user, password, host, port) and checks that each of these values is a string.
+##will have to be rewritten when db credentials are parameterized for security reasons##
+
+
+>tests>tests_gui
+Folder containing Unittests specific to the PyQt6 python GUI
+
+
+
