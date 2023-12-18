@@ -1,22 +1,40 @@
-Anmerkungen zum letzten Meeting, kannst du löschen nachden dus gelesen hast:
+Search Logic
 
-case-sensitive! # PostgreSQL stores unquoted identifiers in lowercase in information_schema.tables, 
-    # so double quotes to preserve the correct case sensitivity. 
-solved this is data_retrieval.py 
-
-
-
-Hi Niko, die folgenden Dateien sind für dich relevant zum parallel developen, fehlt alles noch in der Doku, bin gerade erst fertig geworden mit GUI bauen:
+The Database architecture is independent of the search logic. The search logic itself is a module made up of functions that interact with pandas dataframes. It is also in theory independent of the GUIs and developed separately. To some extent, it is still necessary to develop the GUI and the Search module together. For example, it is necessary to know which parameters the Search module needs, in order to properly declare these in the GUI. The main GUI-Window to consider is the "search" window. The layout of this window is defined in:
 
 \src\gui\search_window.py 
 the first window the user sees when pressing search on the main window
 
+What actually happens what a button is pressed in the search window is handled in:
+
 \src\gui\controllers\search_logic_controller.py
 definitions of what happens when you press a search button
 
-\src\search\search_logic.py
-the currently called search logic
+These controllers then call on the search logic module functions to perform searches and retrieve results.
+The search logic module is located in the search folder
+
+\src\search
+
+The exact setup of the search module itself is irrelevant for the GUI developer, as long as the module functions can be easily imported. As long as an __init__.py file is located in the search folder itself and each subfolder, every function should be installed as part of the project package and available for importing in the controller functions.
 
 
 
 
+EXAMPLE Integrating a Button in search_window.py
+
+Insert the Button:
+In search_window.py, add a new QPushButton to SearchWindow class:
+
+self.newButton = QPushButton("New Button", self)
+layout.addWidget(self.newButton, [row], [column])
+Connect the Button:
+
+Still in search_window.py, connect the button to a function in SearchLogicController:
+
+self.newButton.clicked.connect(self.controller.new_function)
+Implementing Functionality in Controller (SearchLogicController in search_logic_controller.py):
+
+Define the Function of the button in search_window_controller.py:
+In search_logic_controller.py, add new method to SearchLogicController:
+def new_function(self):
+    # Implement the button's functionality here

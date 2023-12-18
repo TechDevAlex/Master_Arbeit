@@ -1,4 +1,4 @@
-assuming the following are installed:
+Prerequisites
 postgres: 15.3
 python: 3.11.4
 
@@ -13,7 +13,7 @@ install the necessary libraries
 windows: $pip install -r requirements.txt
 mac: $pip install -r requirements_for_mac.txt
 
-##a conda env.yml file was the original idea here but pyqt6 is not conda-installable and using pip in conda can result in a broken environment (https://thecontentauthority.com/blog/conda-vs-pip) and it is in general less secure than pip (https://pythonspeed.com/articles/conda-security-scans/)##
+##a conda env.yml file also exists, it should be noted that pyqt6 is not conda-installable and using pip in conda can result in a broken environment (https://thecontentauthority.com/blog/conda-vs-pip) and might be less secure than pip (https://pythonspeed.com/articles/conda-security-scans/)##
 
 pip-install install the package to handle communication with the database
 
@@ -28,7 +28,7 @@ navigate back to the root of the project
 $ cd .. \Master_Arbeit
 
 run the Unittests
-$python -m unittest discover
+$python run_tests.py
 
 if the unittests succeeded:
 run the gui
@@ -36,7 +36,3 @@ $python run_gui.py
 
 if the unittests failed:
 "It's not a bug – it's an undocumented feature."
-
-
-packages used during development but not necessary to run the project:
-pylint -> code analysis tool for coding standards
