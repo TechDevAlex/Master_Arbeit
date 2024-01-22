@@ -5,19 +5,27 @@ from database.data_insertion import create_table_from_csv
 from database.data_conversion import convert_database_to_dataframe
 
 class LoadDataController:
-    def __init__(self, view, file_dialog):
+    def __init__(self, view, file_dialog, csv_filepath = None, table_name = None):
         self.view = view
         self.file_dialog = file_dialog
+        self.csv_filepath = csv_filepath
+        self.table_name = table_name
 
         # Connect signals for the Load Data Window widgets
         self.view.load_data_button.clicked.connect(self.load_data)
         self.view.browse_button.clicked.connect(self.browse_csv_file)
         self.view.load_sample_button.clicked.connect(self.load_sample_data)
 
+         # If a CSV file path is provided, load the data automatically
+        if self.csv_filepath:
+            self.view.csv_filepath_input.setText(self.csv_filepath)
+            self.load_data()
+
     def load_data(self):
         # Action when "Load Data" button is clicked
-        csv_filepath = self.view.csv_filepath_input.text()
-        table_name = self.view.table_name_input.text()
+        print(self.table_name)
+        csv_filepath = self.view.csv_filepath_input.text() or self.csv_filepath
+        table_name = self.view.table_name_input.text() or self.table_name
         print(f"Loading data from CSV file: {csv_filepath}") 
         create_table_from_csv(csv_filepath,table_name)
         QMessageBox.information(self.view, "Create Table", f"Table {table_name} created successfully from {csv_filepath}")
@@ -30,9 +38,9 @@ class LoadDataController:
 
     def load_sample_data(self):
         # path of sample data
-       csv_filepath = os.path.join(os.path.dirname(__file__),r'..\\..\\..\\init_scripts\sample_data.csv')
-       normalized_path = os.path.normpath(csv_filepath)
-       create_table_from_csv(normalized_path,'test_data')
+       current_dir = os.path.dirname(os.path.abspath(__file__))
+       csv_filepath = os.path.join(current_dir, '..', '..', '..', 'data', 'Sample_Simple_1.csv')
+       create_table_from_csv(csv_filepath,'test_data')
        QMessageBox.information(self.view, "Load Sample Data", "Sample data loaded successfully!")
 
     def update_dataframe(self):

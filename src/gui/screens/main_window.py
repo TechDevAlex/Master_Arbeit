@@ -11,58 +11,57 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.initializeMainWindow()
 
-
     def initializeMainWindow(self):
+        self.setWindowTitle('Main Window')
 
-            self.setWindowTitle('Main Window')
-            # Create widgets from widgets.py
-            status_label = label("Status: ")
-            database_name_label = label("Database: Not Connected")
-            
-            # Connect button
-            connect_button = small_button("Establish Connection") #TODO: Connection should include username plus password plus a potential licence-code; could be free atm
-            connect_button.clicked.connect(self.show_connection_dialog) # When the 'Connect' button is clicked, the 'show_connection_dialog' method is triggered.
+        # Create the central widget
+        central_widget = QWidget()
 
+        # Set up the layout for the central widget
+        layout = QVBoxLayout(central_widget)
 
-            # Create the central widget
-            central_widget = QWidget()
+        # Create and add widgets from widgets.py
+        status_label = label("Status: ")
+        layout.addWidget(status_label)
 
-            # Set up the layout for the central widget
-            layout = QVBoxLayout(central_widget)
-            layout.addWidget(status_label)
-            layout.addWidget(database_name_label)
-            layout.addWidget(connect_button)
+        database_name_label = label("Database: Not Connected")
+        layout.addWidget(database_name_label)
 
-            # Add an "Initiate Data" button
-            self.data_load_button = data_button("Load Data")
-            self.data_load_button.setEnabled(False)  # Initially disabled
-            layout.addWidget(self.data_load_button)
+        # Connect button
+        connect_button = small_button("Establish Connection")
+        connect_button.clicked.connect(self.show_connection_dialog)  # When the 'Connect' button is clicked, the 'show_connection_dialog' method is triggered.
+        layout.addWidget(connect_button)
 
-            # Add an "Initiate Data" button
-            self.data_default_button = data_button("Go on with Default Databases")
-            self.data_default_button.setEnabled(False)  # Initially disabled
-            layout.addWidget(self.data_default_button) #TODO: Would be nice to have default datasets loaded when clicking that button
+        # Add an "Initiate Data" button
+        self.data_load_button = data_button("Load Data")
+        self.data_load_button.setEnabled(False)  # Initially disabled
+        layout.addWidget(self.data_load_button)
 
-            # Add a "Search" button
-            search_button = small_button("Search")
-            layout.addWidget(search_button)
+        # Add an "Initiate Default Data" button
+        self.data_default_button = data_button("Go on with Default Databases")
+        self.data_default_button.setEnabled(False)  # Initially disabled
+        self.data_default_button.clicked.connect(self.load_default_datasets)       
+        layout.addWidget(self.data_default_button)  # DONE: Would be nice to have default datasets loaded when clicking that button
+        
+        # Add a "Search" button
+        search_button = small_button("Search")
+        search_button.clicked.connect(self.open_search_window)  # Connect the button click event to a function that opens the search window
+        layout.addWidget(search_button)
 
-            # Set the central widget for the main window
-            self.setCentralWidget(central_widget)
+        # Set the central widget for the main window
+        self.setCentralWidget(central_widget)
 
-            # Create the controller and pass the widgets to it
-            self.connection_controller = DBController(
-                status_label=status_label,
-                database_name_label=database_name_label,
-                connect_button=connect_button,
-                data_button=self.data_load_button
-            )
+        # Create the controller and pass the widgets to it
+        self.connection_controller = DBController(
+            status_label=status_label,
+            database_name_label=database_name_label,
+            connect_button=connect_button,
+            data_button=self.data_load_button,
+            data_default_button=self.data_default_button
+        )
 
-            # Connect the button click event to a function that opens the search window
-            search_button.clicked.connect(self.open_search_window)
-
-            self.setGeometry(100,100,250,150)
-            self.show()
+        self.setGeometry(100,100,250,150)
+        self.show()
 
     def open_search_window(self):
         # Create an instance of the search window
@@ -78,10 +77,11 @@ class MainWindow(QMainWindow):
             password = dialog.password_input.text()
             license_code = dialog.license_input.text()
             self.connection_controller.toggle_connection(username, password, license_code)
-  
+    
+    def load_default_datasets(self):
+        self.connection_controller.default_data_retrieval()
+
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
-    #window.setGeometry(100, 100, 400, 300)  # Set initial window size
-    #window.show()
     app.exec()

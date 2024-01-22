@@ -24,7 +24,7 @@ class SearchLogicController:
             QMessageBox.warning(self.view, "Error", f"Error retrieving data: {e}")
             return
         data = retrieve_data_from_database(table_name)
-        df = convert_gittable_to_dataframe(data)
+        df = convert_table_to_dataframe(data)
 
         result = search(df)
         headers = result.loc[0,:].astype(str).tolist()

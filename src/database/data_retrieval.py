@@ -1,6 +1,5 @@
 # src/data_retrieval.py
 from sqlalchemy import text
-from src.database.db_connection import create_connection
 from src.database.create_session import create_session
 
 def retrieve_data_from_database(table_name):
