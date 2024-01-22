@@ -18,7 +18,9 @@ class MainWindow(QMainWindow):
             # Create widgets from widgets.py
             status_label = label("Status: ")
             database_name_label = label("Database: Not Connected")
-            connect_button = small_button("Connect") #TODO: Connection should include username plus password plus a potential licence-code; could be free atm
+            
+            # Connect button
+            connect_button = small_button("Establish Connection") #TODO: Connection should include username plus password plus a potential licence-code; could be free atm
             connect_button.clicked.connect(self.show_connection_dialog) # When the 'Connect' button is clicked, the 'show_connection_dialog' method is triggered.
 
 
@@ -75,9 +77,8 @@ class MainWindow(QMainWindow):
             username = dialog.username_input.text()
             password = dialog.password_input.text()
             license_code = dialog.license_input.text()
-        
-
-
+            self.connection_controller.toggle_connection(username, password, license_code)
+  
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()

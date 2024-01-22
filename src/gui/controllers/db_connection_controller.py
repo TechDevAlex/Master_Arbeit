@@ -17,9 +17,9 @@ class DBController:
         self.connect_button.clicked.connect(self.toggle_connection)
         self.data_button.clicked.connect(self.initiate_data)
 
-    def toggle_connection(self):
+    def toggle_connection(self, username=None, password=None, license_code=None):
         # Attempt to create a connection
-        engine = create_connection()
+        engine = create_connection(username=username, password=password, license_code=license_code)
 
         if engine is not None:
             # Successfully connected

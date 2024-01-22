@@ -27,5 +27,23 @@ class TestDBConnection(unittest.TestCase):
             engine = create_engine(f'postgresql://{incorrect_user}:{incorrect_password}@{incorrect_host}:{incorrect_port}/{incorrect_dbname}')
             conn = engine.connect()
 
+
+    def test_create_connection_with_provided_credentials(self):
+        # Test that the function uses the provided credentials when they are given
+        correct_user = "postgres"
+        correct_password = "12345"
+        try:
+            engine = create_connection(username=correct_user, password=correct_password)
+            self.assertIsNotNone(engine)
+            # Dispose the engine after the test
+            engine.dispose()
+        except Exception as e:
+            self.fail(f"create_connection() raised {type(e).__name__} unexpectedly!")
+
+
+
+
 if __name__ == '__main__':
     unittest.main()
+
+
