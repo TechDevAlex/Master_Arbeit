@@ -52,7 +52,7 @@ class DBController:
         self.load_data_window.show()
 
 
-    def default_data_retrieval(self, table_name='default_table'):
+    def default_data_retrieval(self, table_name='default_table'): #TODO: delete -> neue Funktion: mit gespeicherter DB weitermachen Button und mit Searchtabelle verknüpfen
 
         print(f"Retrieving data from table: {table_name}")
 
