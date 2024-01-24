@@ -1,18 +1,25 @@
 # src/gui/main_window.py
-from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication
 
+from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication,  QLabel
 from gui.controllers.db_connection_controller import DBController
 from gui.widgets.widgets import label, small_button, data_button
 from gui.screens.search_window import SearchWindow
 from gui.dialogues.connection_dialog import ConnectionDialog
+from PyQt6 import QtGui
+from PyQt6 import QtCore
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.initializeMainWindow()
+        
 
     def initializeMainWindow(self):
-        self.setWindowTitle('Main Window')
+
+        #Taskbar
+        self.setWindowTitle('Sustainable Material Database BIOMEC')
+        self.icon = "/pictures/logo.png" #TODO: Check from which path we are coming evtl. implement a solid path strategy so its traceable
+        self.setWindowIcon(QtGui.QIcon(self.icon))
 
         # Create the central widget
         central_widget = QWidget()
@@ -26,6 +33,9 @@ class MainWindow(QMainWindow):
 
         database_name_label = label("Database: Not Connected")
         layout.addWidget(database_name_label)
+
+        #Main picture
+        #TODO: insert main Database pictures from pictures folder
 
         # Connect button
         connect_button = small_button("Establish Connection")
