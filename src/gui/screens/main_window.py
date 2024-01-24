@@ -1,12 +1,12 @@
 # src/gui/main_window.py
-from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication,  QLabel
-from PyQt6 import QtGui
-from PyQt6 import QtCore
 
+from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication,  QLabel
 from gui.controllers.db_connection_controller import DBController
 from gui.widgets.widgets import label, small_button, data_button
 from gui.screens.search_window import SearchWindow
 from gui.dialogues.connection_dialog import ConnectionDialog
+from PyQt6 import QtGui
+from PyQt6 import QtCore
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -46,12 +46,6 @@ class MainWindow(QMainWindow):
         self.data_load_button = data_button("Load Data")
         self.data_load_button.setEnabled(False)  # Initially disabled
         layout.addWidget(self.data_load_button)
-
-        # Add an "Initiate Default Data" button
-        self.data_default_button = data_button("Go on with Default Databases")
-        self.data_default_button.setEnabled(False)  # Initially disabled
-        self.data_default_button.clicked.connect(self.load_default_datasets)       
-        layout.addWidget(self.data_default_button)  # DONE: Would be nice to have default datasets loaded when clicking that button
         
         # Add a "Search" button
         search_button = small_button("Search")
@@ -67,7 +61,6 @@ class MainWindow(QMainWindow):
             database_name_label=database_name_label,
             connect_button=connect_button,
             data_button=self.data_load_button,
-            data_default_button=self.data_default_button
         )
 
         self.setGeometry(100,100,250,150)
@@ -88,8 +81,6 @@ class MainWindow(QMainWindow):
             license_code = dialog.license_input.text()
             self.connection_controller.toggle_connection(username, password, license_code)
     
-    def load_default_datasets(self):
-        self.connection_controller.default_data_retrieval()
 
 if __name__ == "__main__":
     app = QApplication([])

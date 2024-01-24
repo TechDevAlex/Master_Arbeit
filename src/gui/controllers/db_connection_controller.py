@@ -8,12 +8,11 @@ from gui.screens.load_data_window import LoadDataWindow
 import os
 
 class DBController:
-    def __init__(self, status_label, database_name_label, connect_button, data_button, data_default_button):
+    def __init__(self, status_label, database_name_label, connect_button, data_button):
         self.status_label = status_label
         self.database_name_label = database_name_label
         self.connect_button = connect_button
         self.data_button = data_button
-        self.data_default_button = data_default_button
         self.is_connected = False
         self.load_data_window = None 
 
@@ -35,8 +34,6 @@ class DBController:
 
             # Enable the "Initiate Data" button
             self.data_button.setEnabled(True)
-            # Enable the "Initiate Default Data" button
-            self.data_default_button.setEnabled(True)
         else:
             # Connection failed
             self.is_connected = False
@@ -50,21 +47,3 @@ class DBController:
         # enable the Initiate Data button when the Database is connected
         self.load_data_window = LoadDataWindow()
         self.load_data_window.show()
-
-
-    def default_data_retrieval(self, table_name='default_table'): #TODO: delete -> neue Funktion: mit gespeicherter DB weitermachen Button und mit Searchtabelle verknüpfen
-
-        print(f"Retrieving data from table: {table_name}")
-
-        # Get the directory of the current file (db_connection_controller.py)
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-
-        # Construct the path to the CSV file
-        csv_filepath = os.path.join(current_dir, '..', '..', '..', 'data', 'Sample_Simple_1.csv')
-        
-        # Create a LoadDataWindow
-        load_data_window = LoadDataWindow()
-
-        # Initialize the LoadDataController with the LoadDataWindow and the CSV file path
-        load_data_controller = LoadDataController(load_data_window, None, csv_filepath, table_name)
-
