@@ -14,7 +14,6 @@ class SearchLogicController:
         # Action when search button is clicked
         table_name = self.view.table_input.text()
 
-
         if not table_name:
             QMessageBox.warning(self.view, "Input Error", "Please enter a table name or a keyword.")
             return
