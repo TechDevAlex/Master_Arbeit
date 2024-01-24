@@ -1,4 +1,4 @@
-from database.data_retrieval import retrieve_data_from_database
+from database.data_retrieval import retrieve_data_from_database, retrieve_table_names_from_database
 from search.search_logic import search
 from database.data_conversion import convert_table_to_dataframe
 from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox, QDialog
@@ -37,3 +37,5 @@ class SearchLogicController:
             for j, item in enumerate(row):
                 self.view.results_table.setItem(i, j, QTableWidgetItem(str(item)))
 
+    def get_table_names(self):
+        return retrieve_table_names_from_database()

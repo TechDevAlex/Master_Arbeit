@@ -168,13 +168,6 @@ id,username,password,Nummer,Handelsname,Kurzbezeichnung,vollständiger Name,Kett
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5_04_05,Novamid 1013C5 PA6,PA 6,Polyamid 6,Amidgruppe,Thermoplast Teilkristallin,82,,,,,,,,3100,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5_05_01,HIPS-X Filament,HIPS,High Impact Polystyrene,,Thermoplast Teilkristallin,16,,,,6,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5_05_02,IEMAI HIPS,HIPS,High Impact Polystyrene,,Thermoplast Teilkristallin,40,,,,,,,,1350,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ID,Name,Age,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,Alice,25,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2,Bob,30,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,Charlie,35,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1;user1;password1
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2;user2;password2
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3;user3;password3
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ID_Number,Commercial_name,Abbreviation,Chemical_name,Chain_Type,Chemical_Group_(Amorph/Crystalline),Yield_Strenght_MPa_0_min,Yield_Strenght_MPa_0_max,Yield_Strenght_MPa_90_min,Yield_Strenght_MPa_90_max,Tensile_Strain_%_0_min,Tensile_Strain_%_0_max,Tensile_Strain_%_90_min,Tensile_Strain_%_90_max,Young_Modulus_MPa_0,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5_01_01,Ultrafuse ABS,ABS,Acrylnitril-Butadien-Styrol,Copolymer,Thermoplast Amorph,36.3,,21.3,,7.4,,1.8,,1958,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5_01_02,ABS Pro,ABS,Acrylnitril-Butadien-Styrol,Copolymer,Thermoplast Amorph,45,,,,,,,,2300,
@@ -201,6 +194,13 @@ id,username,password,Nummer,Handelsname,Kurzbezeichnung,vollständiger Name,Kett
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5_04_05,Novamid 1013C5 PA6,PA 6,Polyamid 6,Amidgruppe,Thermoplast Teilkristallin,82,,,,,,,,3100,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5_05_01,HIPS-X Filament,HIPS,High Impact Polystyrene,,Thermoplast Teilkristallin,16,,,,6,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5_05_02,IEMAI HIPS,HIPS,High Impact Polystyrene,,Thermoplast Teilkristallin,40,,,,,,,,1350,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ID,Name,Age,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,Alice,25,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2,Bob,30,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,Charlie,35,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1;user1;password1
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2;user2;password2
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3;user3;password3
 ,,,5_01_01,Ultrafuse ABS,ABS,Acrylnitril-Butadien-Styrol,Copolymer,Thermoplast Amorph,36.3,,21.3,,7.4,,1.8,,1958.0,,1608.0,,,,,,,,,,,7.4,,1.8,,0.35,0.4,39.2,,1072,80.0,"0,7.7,-10.5",Nein,0.0,mittel,0.0,"39,84","49.39997292382307, 8.67674120699071",BASF (Forward AM),,Ultrafuse_ABS_TDS_DE_v5.2,https://move.forward-am.com/hubfs/AES%20Documentation/Standard%20Filaments/ABS/TDS/Ultrafuse_ABS_TDS_DE_v5.2.pdf,https://www.iwk.hsr.ch/fileadmin/user_upload/iwk.hsr.ch/Publikationen/Bauteilauslegung/1106_Querkontraktionszahl.pdf,,,,,,,,,,,,,,,,
 ,,,5_01_02,ABS Pro,ABS,Acrylnitril-Butadien-Styrol,Copolymer,Thermoplast Amorph,45.0,,,,,,,,2300.0,,,,,,,,,,,,,,,,,0.35,0.4,39.93,"31,98 bei 2500g",1072,80.0,"0,7.7,-10.5",Nein,0.0,mittel,0.0,"39,84","41.28467705613374, 1.9952605504431888",BCN3D,,TDS_BCN3D_Filaments_ABS,https://3dprint.pe/wp-content/uploads/2018/09/TDS_BCN3D_Filaments_ABS.pdf,,,,,,,,,,,,,,,,,
 ,,,5_01_03,BIGREP ABS,ABS,Acrylnitril-Butadien-Styrol,Copolymer,Thermoplast Amorph,30.0,,,,,,,,1400.0,,,,,,,,,,,,,,,,,0.35,0.4,37.25,,1072,80.0,"0,7.7,-10.5",Nein,0.0,mittel,0.0,"39,84","52.49069523163241, 13.402462226411519",BIGREP,,TDS-BigRepABS_rev,https://bigrep.com/wp-content/uploads/2020/06/TDS-BigRepABS_rev.pdf,,,,,,,,,,,,,,,,,
