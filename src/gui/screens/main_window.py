@@ -1,12 +1,15 @@
 # src/gui/main_window.py
 
+import sys, os
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication,  QLabel
 from gui.controllers.db_connection_controller import DBController
+from gui.controllers.load_media_controller import MediaController
 from gui.widgets.widgets import label, small_button, data_button
 from gui.screens.search_window import SearchWindow
 from gui.dialogues.connection_dialog import ConnectionDialog
 from PyQt6 import QtGui
 from PyQt6 import QtCore
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -18,7 +21,7 @@ class MainWindow(QMainWindow):
 
         #Taskbar
         self.setWindowTitle('Sustainable Material Database BIOMEC')
-        self.icon = "/pictures/logo.png" #TODO: Check from which path we are coming evtl. implement a solid path strategy so its traceable
+        self.icon = "resources/pictures/logo.png" #TODO: Check from which path we are coming evtl. implement a solid path strategy so its traceable
         self.setWindowIcon(QtGui.QIcon(self.icon))
 
         # Create the central widget
@@ -36,9 +39,19 @@ class MainWindow(QMainWindow):
 
         #Main picture
         #TODO: insert main Database pictures from pictures folder
+        main_picture_label = QLabel(self)
+        main_picture_controller = MediaController()
+        # construct the path to the main picture
+        base_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+        image_path_main_picture = os.path.join(base_dir, "src", "gui", "resources", "pictures", "pic_front_page.png")
+        # call the media controller to insert the image into the label
+        main_picture_controller.insert_image(main_picture_label, image_path_main_picture)
+        # add the label to the layout
+        layout.addWidget(main_picture_label)
 
         # Connect button
         connect_button = small_button("Establish Connection")
+        connect_button.setObjectName("Connect_Button")
         connect_button.clicked.connect(self.show_connection_dialog)  # When the 'Connect' button is clicked, the 'show_connection_dialog' method is triggered.
         layout.addWidget(connect_button)
 
@@ -49,6 +62,7 @@ class MainWindow(QMainWindow):
         
         # Add a "Search" button
         search_button = small_button("Search")
+        search_button.setObjectName("Search_Button")
         search_button.clicked.connect(self.open_search_window)  # Connect the button click event to a function that opens the search window
         layout.addWidget(search_button)
 
@@ -63,7 +77,7 @@ class MainWindow(QMainWindow):
             data_button=self.data_load_button,
         )
 
-        self.setGeometry(100,100,250,150)
+        self.setGeometry(100,100,800,600)
         self.show()
 
     def open_search_window(self):

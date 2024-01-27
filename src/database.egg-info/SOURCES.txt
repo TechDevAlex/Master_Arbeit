@@ -15,7 +15,7 @@ gui/__init__.py
 gui/controllers/__init__.py
 gui/controllers/db_connection_controller.py
 gui/controllers/load_data_controller.py
-gui/controllers/search_logic_controller.py
+gui/controllers/load_media_controller.py
 gui/controllers/search_window_controller.py
 gui/dialogues/__init__.py
 gui/dialogues/connection_dialog.py

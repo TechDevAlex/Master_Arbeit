@@ -60,7 +60,7 @@ class SearchWindow(QMainWindow):
 
         layout.addWidget(table_table_label, 1,0)
         layout.addWidget(self.table_table,2,0)
-        layout.addWidget(self.table_names_combo_box, 3, 0)  # Move the combo box here
+        layout.addWidget(self.table_names_combo_box, 3, 0)  # combo box is here
         layout.addWidget(table_label,4,0)
         layout.addWidget(self.table_input, 5,0)
         layout.addWidget(self.search_button, 6,0)
