@@ -26,3 +26,10 @@ Contains the basic setup for each individual window.
 >src>widgets
 ##custom or reusable widgets 
 
+>src>gui>screens>transport_map_window
+##first version of transport map
+PyQt5 is used for the GUI here because folium is not compatible with PyQt6 yet
+might cause future problems in code maintenance but can be changed once folium is compatible with PyQt6
+PyQt6 does not have  WebEngineWidgets yet
+and for now, it is worth it for the map interactivity, matplotlib as an alternative display 
+is also not fully compatible with PyQt6 yet##

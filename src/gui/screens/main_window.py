@@ -1,4 +1,4 @@
-# src/gui/main_window.py
+# src/gui/screens/main_window.py
 
 import sys, os
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication,  QLabel

@@ -24,6 +24,7 @@ gui/screens/__init__.py
 gui/screens/load_data_window.py
 gui/screens/main_window.py
 gui/screens/search_window.py
+gui/screens/transport_map_window.py
 gui/widgets/__init__.py
 gui/widgets/search_widgets.py
 gui/widgets/utils.py
