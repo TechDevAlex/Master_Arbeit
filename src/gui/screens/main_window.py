@@ -12,8 +12,9 @@ from PyQt6 import QtCore
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, app=None):
         super().__init__()
+        self.app = app if app is not None else QApplication(sys.argv)
         self.initializeMainWindow()
         
 
@@ -97,6 +98,8 @@ class MainWindow(QMainWindow):
     
 
 if __name__ == "__main__":
-    app = QApplication([])
-    window = MainWindow()
+    app = QApplication.instance()
+    if app is None:
+        app = QApplication(sys.argv)
+    window = MainWindow(app)
     app.exec()

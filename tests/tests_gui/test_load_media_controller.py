@@ -1,4 +1,5 @@
 # test_load_media_controller.py
+# todo fix bug, test is generating error: QApplication::regClass: Registering window class 'Qt661ScreenChangeObserverWindow' failed. (Klasse ist bereits vorhanden)
 
 import unittest
 import sys, os
@@ -8,7 +9,10 @@ from gui.controllers.load_media_controller import MediaController
 
 class TestMediaController(unittest.TestCase):
     def setUp(self):
-        self.app = QApplication(sys.argv)
+        self.app = QApplication.instance()
+        if self.app is None:
+           self.app = QApplication(sys.argv)
+           print ("Created QApplication")
         self.controller = MediaController()
 
     def test_insert_image(self):
@@ -25,6 +29,14 @@ class TestMediaController(unittest.TestCase):
 
         # Check if the pixmap is not null (i.e., the image was loaded correctly)
         self.assertIsNotNone(label.pixmap())
+
+
+    def tearDown(self):
+        # Quit the QApplication
+        self.app.quit()
+        # Delete the QApplication instance
+        self.app = None
+        print("tearDown executed")
 
 if __name__ == "__main__":
     unittest.main()
