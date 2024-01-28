@@ -1,0 +1,196 @@
+<mxfile host="app.diagrams.net" modified="2023-11-19T16:07:15.578Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="vRtANssnJwKF795RJOWp" version="22.1.3" type="device">
+  <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
+    <mxGraphModel dx="1195" dy="1725" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="H0p5qzfC8jARok_s5PNu-2" value="Data Retrieval Module" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="-15" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-5" value="Conversion Module" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="-15" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-8" value="Materials Database&lt;br&gt;-- PostgreSQL --" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="-30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-9" value="DataFrame" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="365" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-16" value="Advanced Search logic Module" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="365" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-20" value="React App (UI)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-22" value="PyQt6 GUI" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-24" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-8" target="H0p5qzfC8jARok_s5PNu-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="181" as="sourcePoint" />
+            <mxPoint x="251" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-25" value="Data&lt;br&gt;-- Psycopg2 --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-26" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-2" target="H0p5qzfC8jARok_s5PNu-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="60" as="sourcePoint" />
+            <mxPoint x="330" y="60" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-27" value="Data&lt;br&gt;-- requests --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-26">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-28" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-5" target="H0p5qzfC8jARok_s5PNu-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="220" as="sourcePoint" />
+            <mxPoint x="340" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-29" value="Data&lt;br&gt;-- Pandas --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-32" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-16" target="H0p5qzfC8jARok_s5PNu-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="677" y="230" as="sourcePoint" />
+            <mxPoint x="777" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-33" value="Search Requests&lt;br&gt;-- Pandas --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-34" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-40" target="H0p5qzfC8jARok_s5PNu-41">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="110" y="-120" as="sourcePoint" />
+            <mxPoint x="320" y="-120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-35" value="Passed Information&lt;br&gt;-- API --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-40" value="Information Object" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="-140" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-41" value="Module" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="-140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-43" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-22" target="H0p5qzfC8jARok_s5PNu-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="777" y="290" as="sourcePoint" />
+            <mxPoint x="877" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-44" value="Search Parameters&lt;br&gt;-- requests --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-43">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-52" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="290" as="sourcePoint" />
+            <mxPoint x="690" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-53" value="Search Results&lt;br&gt;-- requests --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-52">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="12" y="-23" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-55" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="H0p5qzfC8jARok_s5PNu-59">
+          <mxGeometry x="-0.0031" relative="1" as="geometry">
+            <mxPoint x="210" y="480" as="sourcePoint" />
+            <mxPoint x="-40" y="550" as="targetPoint" />
+            <Array as="points" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-56" value="User credentials&lt;br&gt;-- Flask --&lt;br&gt;-- psycopg2 --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-55">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="25" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-59" value="User Database&lt;br&gt;-- PostgreSQL --" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="600" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-60" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-20" target="H0p5qzfC8jARok_s5PNu-16">
+          <mxGeometry x="-0.0031" relative="1" as="geometry">
+            <mxPoint x="510" y="520" as="sourcePoint" />
+            <mxPoint x="510" y="340" as="targetPoint" />
+            <Array as="points" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-61" value="Search Parameters&lt;br&gt;-- Flask --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-60">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-13" y="5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-63" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry x="-0.0031" relative="1" as="geometry">
+            <mxPoint x="150" y="600" as="sourcePoint" />
+            <mxPoint x="150" y="480" as="targetPoint" />
+            <Array as="points" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-64" value="User Authentication Results&lt;br&gt;-- Flask --&lt;br&gt;-- psycopg2 --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-63">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-20" y="-20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-65" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-9" target="H0p5qzfC8jARok_s5PNu-20">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="630" y="500" as="sourcePoint" />
+            <mxPoint x="630" y="820" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-66" value="Search Results&lt;br&gt;-- requests --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-65">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="12" y="-23" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-69" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-20" target="H0p5qzfC8jARok_s5PNu-73">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="40" y="340" as="sourcePoint" />
+            <mxPoint x="70" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-70" value="New Data Entry&lt;br&gt;-- tbd. --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-69">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-73" value="Temporary Materials Database&lt;br&gt;-- PostgreSQL --" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-74" value="Data verification&lt;br&gt;Modules&lt;br&gt;-- tbd. --" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-75" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-73" target="H0p5qzfC8jARok_s5PNu-74">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="390" as="sourcePoint" />
+            <mxPoint x="610" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-76" value="New Data Entry&lt;br&gt;-- tbd.. --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-75">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-78" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0p5qzfC8jARok_s5PNu-74" target="H0p5qzfC8jARok_s5PNu-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="310" as="sourcePoint" />
+            <mxPoint x="80" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-79" value="Verified Data Entry&lt;br&gt;-- tbd.. --" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="H0p5qzfC8jARok_s5PNu-78">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-82" value="Saved Search Results" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="720" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H0p5qzfC8jARok_s5PNu-83" value="Custom Data Sets" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="720" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

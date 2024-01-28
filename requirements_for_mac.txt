@@ -2,6 +2,6 @@
 # $pip install -r requirements.txt 
 
 psycopg2
-pyqt6
+pyqt6--binary
 pandas
 sqlalchemy

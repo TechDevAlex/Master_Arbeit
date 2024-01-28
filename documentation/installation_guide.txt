@@ -1,0 +1,38 @@
+Prerequisites
+postgres: 15.3
+python: 3.11.4
+
+if you have conda installed, activate your environment and install python 3.11.4 inside the environment
+
+navigate to the directory of the requirements.txt file
+$ cd .. \Master_Arbeit
+
+install the necessary libraries 
+
+##!!for mac use the requirements_for_mac.txt file, this has not been tested yet!!##
+windows: $pip install -r requirements.txt
+mac: $pip install -r requirements_for_mac.txt
+
+##a conda env.yml file also exists, it should be noted that pyqt6 is not conda-installable and using pip in conda can result in a broken environment (https://thecontentauthority.com/blog/conda-vs-pip) and might be less secure than pip (https://pythonspeed.com/articles/conda-security-scans/)##
+
+pip-install install the package to handle communication with the database
+
+for only running the project:
+$cd src
+$pip install .
+for development: install in editable mode, this allows changes to the source code be immediately reflected without having to reinstall
+$pip install -e .
+
+
+navigate back to the root of the project
+$ cd .. \Master_Arbeit
+
+run the Unittests
+$python run_tests.py
+
+if the unittests succeeded:
+run the gui
+$python run_gui.py
+
+if the unittests failed:
+"It's not a bug – it's an undocumented feature."

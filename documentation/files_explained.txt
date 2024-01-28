@@ -1,0 +1,130 @@
+This is an alphabetical list of the essential files and folders of the project and can serve a baseline for a proper documentation in the future. It includes the filenames and a short description of their functionality.
+
+">" represents the root directory of the project.
+">examplefolder>examplefile" represents a root subfolder.
+Some files have a DOI or a link below them. These are sources of code-snippets or setup/programming ideas.
+https://www.writethedocs.org/guide/writing/beginners-guide-to-docs/
+
+>example_filename
+What this file contains is described here.
+first_example_function_name: function description
+#params
+example function parameters(datatype or class)
+#return
+example function return(datatype or class)
+##comments for future development##
+
+>requirements.txt
+File containing all pip-installed packages of the project during development.
+
+>requirements_for_mac.txt
+##requirements.txt edited to be pip-installable on mac (pyqt6-binary)##
+
+>setup.py
+Minimal setup file. It is necessary to be able to create a pip-installable package to allow python scripts to import functions in the source (src) folder.
+10.5281/zenodo.5796873
+
+>scripts
+##Folder containing scripts for running the GUI and testing the pipeline functionality. Should only include executables for the user when releasing##
+
+>scripts>csv_to_postgres.py
+Script containing the functionality of the yet to be implemented "insert data" button on the GUI.
+
+>scripts>welcome_page.py
+##Originally meant as only a template for the welcome page, now the executable Gui file##
+
+>src
+A folder containing reusable python modules and functions. Setup to be pip-installable.
+
+>src>__init__.py
+Emtpy init file. It is necessary to have python detect a pip-installable package.
+10.5281/zenodo.5796873
+
+>src>create_session.py
+Connects to the database via an engine created by create_connection and returns an object of the class Session.
+create_session:
+#return
+Session(Session)
+
+>src>data_conversion.py
+Contains functions for creating dataframes
+convert_table_to_datafrane: Creates a dataframe from a list of tuples. 
+#params
+table(list of tuples/table)
+#return
+df(dataframe)
+convert_csv_to_dataframe: Creates a dataframe from a csv file.
+#params
+csv_filepath(string)
+#return
+df(dataframe)
+
+>src>data_insertion.py
+Module for insertion new data into the Database.
+##currently only via csv files, feature to manually add data via the gui to be implemented##
+create_table_from_csv:uses create_connection and convert_csv_to_dataframe to create a dataframe and enters that into the database
+#params
+csv_file_path(string), table_name(string)
+##if_exists='replace', currently replacing existing tables of the same name, suggestion of user prompt here##
+
+>src>data_retrieval.py
+Data retrieval module.
+The connection object is created by the create_connection function from the src.db_connection module.
+A session object is created using the create_session method. This allows Python code to execute PostgreSQL commands in a database session.
+Session.execute(text(f"SELECT * FROM {table_name}"))  sends a SQL command to the database, requesting all records from the table.
+The data = cursor.fetchall() line retrieves all the rows returned by the SQL query and stores them in the data variable.
+#params
+table_name(String)
+#return
+data(list of tuples)
+
+>src>db_config.py
+Module that reads the database credentials from 'db_credentials.txt'. The string-splitting is necessary to allow the 'db_credentials.txt' to be formatted 'databaser=exampledatabase' instead of containing just the dbname, port, username etc. This makes it easier for a future user/dev to edit the file.
+
+#return 
+credentials dbname, user, password, host, port (string)
+##needs to be reevaluated for security, a password in an open textfile is very suspicious##
+
+>src>db_connection.py
+Connection module to postgres. Added error handling for wrong credentials as this is the expectedly most often ocurring reason for failure.
+#return
+engine(sqlalchemy.engine.base.Engine)
+
+>src>db_credentials.txt
+Textfile containing the credentials for connecting to the postgres database.
+dbname = ...
+user = ...
+password = ...
+host = ..
+port = ...
+
+>src.egg-info
+Automatically created by setuptools during packaging the "src" folder.
+
+>tests
+Contains Unittests.
+
+>tests> test_create_session.py
+Tests the create_session function to ensure it returns a non-None session object.
+
+>tests>test_data_conversion.py
+Tests two functions in data_conversion:
+convert_table_to_dataframe: Tests if the function correctly converts a mock data table (list of tuples) into a non-None pandas DataFrame.
+convert_csv_to_dataframe: Verifies that the function can read a temporary CSV file and convert it into a non-None DataFrame. The test also includes creating and removing the temporary CSV file.
+
+>tests>test_data_insertion.py
+Tests the create_table_from_csv function. Creates a temporary CSV file, creates a table in the database from this CSV file and removes the CSV file. The unitest_table is necessary for test_data_retrieval and is therefore not dropped.
+
+>tests>test_data_retrieval.py
+Tests retrieve_data_from_database. Verifies that data retrieval from a given table returns non-None data. Includes tests for an existing table, a specific table created in test_data_insertion.py, and a non-existent table to ensure it raises an exception.
+
+>tests>test_db_config.py
+Tests the get_db_credentials function from db_config. Ensures the function returns exactly five values (dbname, user, password, host, port) and checks that each of these values is a string.
+##will have to be rewritten when db credentials are parameterized for security reasons##
+
+
+>tests>tests_gui
+Folder containing Unittests specific to the PyQt6 python GUI
+
+
+
