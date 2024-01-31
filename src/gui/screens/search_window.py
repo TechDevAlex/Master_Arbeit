@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QLineEdit, QPushButton, QVBoxLayout, QGridLayout, QWidget, QFileDialog, QTableWidget, QComboBox, QTableWidgetItem
-from src.gui.controllers.search_window_controller import SearchLogicController
+from src.gui.controllers.search_window_controller import SearchWindowController
 
 class SearchWindow(QMainWindow):
     def __init__(self):
@@ -30,12 +30,8 @@ class SearchWindow(QMainWindow):
         self.export_button = QPushButton('Export', self)
         self.clipboard_button = QPushButton('Clipboard',self)
 
-
-
-
-
         # Create an instance of SearchLogicController
-        self.controller = SearchLogicController(self)
+        self.controller = SearchWindowController(self)
 
         # Get the list of uploaded table names
         table_names = self.controller.get_table_names()
@@ -54,6 +50,8 @@ class SearchWindow(QMainWindow):
         # Add the table names to the combo box
         self.table_names_combo_box.addItems(table_names)
 
+        # Connect combobox signal to controller to update table in search window upon selection in combobox
+        self.table_names_combo_box.currentTextChanged.connect(self.controller.update_table_name)
 
         # Layout
         layout = QGridLayout()

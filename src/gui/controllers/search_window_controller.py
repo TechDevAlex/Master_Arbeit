@@ -3,12 +3,13 @@ from search.search_logic import search
 from database.data_conversion import convert_table_to_dataframe
 from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox, QDialog
 
-class SearchLogicController:
+class SearchWindowController:
     def __init__(self, view):
         self.view = view
         
         # Connect signals for the Search Window inputs
         self.view.search_button.clicked.connect(self.perform_search)
+
 
     def perform_search(self):
         # Action when search button is clicked
@@ -38,3 +39,12 @@ class SearchLogicController:
 
     def get_table_names(self):
         return retrieve_table_names_from_database()
+    
+    def update_table_name(self, table_name):
+        # Action when table name is selected in the combo box
+        self.view.table_input.setText(table_name)
+        
+        table_name = self.view.table_names_combo_box.currentText()
+
+        # Set the text of the QLineEdit to the selected table name 
+        self.view.table_input.setText(table_name)
