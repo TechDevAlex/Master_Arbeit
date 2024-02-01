@@ -1,10 +1,17 @@
+#Database Search Script
+#Niko Nagengast
+#240201 - v1
+
+
+
+#import libraries
 import os
 import pandas as pd
 
 
 class DataFrame:
     def __init__(self, file_path, df=None):
-        self.file_path = file_path
+        self.file_path = file_path #TODO: Adapt to GUI structure
         self.dataframe = df
 
 
@@ -22,8 +29,8 @@ class DataFrame:
             print("Error loading Excel file:", e)
             return None
 
-    @classmethod
-    def get_attr_tuples(cls, dataframe):
+    @staticmethod
+    def get_attr_tuples(dataframe):
         """
         Get the attribute tuples (column name tuples) of the DataFrame as a list.
 
@@ -37,7 +44,7 @@ class DataFrame:
 
         for el in list(dataframe.columns):
             if(el.count(" ") >= 1):
-                print('ErrorWhitespace: Check {} for whitespaces!'.format(el))#TODO: Insert as Erro-message in Gui
+                print('ErrorWhitespace: Check {} for whitespaces!'.format(el))#TODO: Insert as Error-message in Gui
             else:
                 attr = el[1:-1].split(',')
                 tuple_attr = tuple(elem.strip() for elem in attr)
@@ -46,8 +53,8 @@ class DataFrame:
 
         return attr_tuples
 
-    @classmethod
-    def get_attr_information(cls, attr_tuples):
+    @staticmethod
+    def get_attr_information(attr_tuples):
         """
         split the attribute tuples in their groups
 
@@ -96,9 +103,6 @@ class DataFrame:
 # Example usage:
 file_path = os.path.join(os.environ.get('HOME'),'Desktop')
 
-
-
-
 # Create an instance of ExcelLoader with the file path
 df = DataFrame(file_path + "/AM_filaments_FFF_small.xlsx")
 
@@ -109,11 +113,8 @@ df = df.load_excel_to_dataframe()
 attr_tuples = DataFrame.get_attr_tuples(df)
 
 DataFrame.get_attr_information(attr_tuples)
-#print(column_names)
 
-# Display the DataFrame
-#if df is not None:
-    #print(df.head())
+
 
 
 
