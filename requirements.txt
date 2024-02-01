@@ -5,3 +5,5 @@ psycopg2
 pyqt6
 pandas
 sqlalchemy
+pytest
+pytest-qt

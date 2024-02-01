@@ -1,6 +1,6 @@
 # src/db_connection.py
 from sqlalchemy import create_engine
-from src.database.db_config import get_db_credentials
+from database.db_config import get_db_credentials
 
 def create_connection(username=None, password=None, license_code=None):
     # For now, license_code is not used

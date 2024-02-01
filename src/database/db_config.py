@@ -1,4 +1,4 @@
-#src/db_config.py
+#src\database\db_config.py
 import os
 
 def get_db_credentials():

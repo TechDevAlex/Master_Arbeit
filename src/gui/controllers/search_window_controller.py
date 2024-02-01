@@ -3,7 +3,7 @@ from search.search_logic import search
 from database.data_conversion import convert_table_to_dataframe
 from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox, QDialog
 
-class SearchLogicController:
+class SearchWindowController:
     def __init__(self, view):
         self.view = view
         

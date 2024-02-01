@@ -1,7 +1,7 @@
 # src/data_conversion.py
 import os
 import pandas as pd
-from src.database.data_retrieval import retrieve_table_names_from_database, retrieve_data_from_database
+from database.data_retrieval import retrieve_table_names_from_database, retrieve_data_from_database
 
 def convert_table_to_dataframe(table):
     df = pd.DataFrame(table)

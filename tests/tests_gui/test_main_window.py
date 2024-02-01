@@ -1,37 +1,32 @@
-#tests/tests_gui/test_main_window.py
+# \src\gui\tests\tests_gui\test_main_window.py
 
 import unittest
-import sys, time
-from PyQt6.QtWidgets import QApplication, QPushButton
-from src.gui.screens.main_window import MainWindow
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtTest import QTest
+from PyQt6.QtCore import Qt
+from gui.screens.main_window import MainWindow
 
-class TestMainWindow(unittest.TestCase):
+app = QApplication([])
+
+class MainWindowTest(unittest.TestCase):
     def setUp(self):
-        self.app = QApplication.instance()
-        if self.app is None:
-           self.app = QApplication(sys.argv)
-        self.main_window = MainWindow()
-        time.sleep(1)
+        self.window = MainWindow()
+        self.window.show()
+        QTest.qWaitForWindowExposed(self.window)
 
-    def test_connect_button_text(self):
-        connect_button = self.main_window.findChild(QPushButton, "Connect_Button")
-        self.assertIsNotNone(connect_button)
-        self.assertEqual(connect_button.text(), "Establish Connection")
+    def test_connect_button(self):
+        # Simulate a button click on the main window
+        QTest.mouseClick(self.window.connect_button, Qt.MouseButton.LeftButton)
 
-    def test_search_button_text(self):
-        search_button = self.main_window.findChild(QPushButton, "Search_Button")
-        self.assertIsNotNone(search_button)
-        self.assertEqual(search_button.text(), "Search")
-    
-    def tearDown(self):
-        # Close the MainWindow
-        self.main_window.close()
-        # Quit the QApplication
-        self.app.quit()
-        # Delete the QApplication instance
-        self.app = None
+        # Wait for the LoadDataWindow to open
+        while not self.window.load_data_window.isVisible():
+            QTest.qWait(1)
 
+        # Simulate a button click on the LoadDataWindow
+        QTest.mouseClick(self.window.load_data_window.load_data_button, Qt.MouseButton.LeftButton)
 
-    
+        # Assert that the database_name_label text is "Connected"
+        self.assertEqual(self.window.database_name_label.text(), "Connected")
+
 if __name__ == '__main__':
     unittest.main()

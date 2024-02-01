@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QLineEdit, QPushButton, QVBoxLayout, QGridLayout, QWidget, QFileDialog, QTableWidget, QComboBox, QTableWidgetItem
-from src.gui.controllers.search_window_controller import SearchLogicController
+from gui.controllers.search_window_controller import SearchWindowController
 
 class SearchWindow(QMainWindow):
     def __init__(self):
@@ -35,7 +35,7 @@ class SearchWindow(QMainWindow):
 
 
         # Create an instance of SearchLogicController
-        self.controller = SearchLogicController(self)
+        self.controller = SearchWindowController(self)
 
         # Get the list of uploaded table names
         table_names = self.controller.get_table_names()

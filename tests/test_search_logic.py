@@ -1,7 +1,7 @@
 # tests/test_search_logic.py
 import unittest
 import pandas as pd
-from src.search.search_logic import search
+from search.search_logic import search
 
 class TestSearchLogic(unittest.TestCase):
     @classmethod

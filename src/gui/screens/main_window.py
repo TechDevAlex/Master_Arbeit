@@ -4,11 +4,11 @@ import sys, os
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication,  QLabel
 from gui.controllers.db_connection_controller import DBController
 from gui.controllers.load_media_controller import MediaController
+from gui.screens.load_data_window import LoadDataWindow
 from gui.widgets.widgets import label, small_button, data_button
 from gui.screens.search_window import SearchWindow
 from gui.dialogues.connection_dialog import ConnectionDialog
 from PyQt6 import QtGui
-from PyQt6 import QtCore
 
 
 class MainWindow(QMainWindow):
@@ -51,10 +51,10 @@ class MainWindow(QMainWindow):
         layout.addWidget(main_picture_label)
 
         # Connect button
-        connect_button = small_button("Establish Connection")
-        connect_button.setObjectName("Connect_Button")
-        connect_button.clicked.connect(self.show_connection_dialog)  # When the 'Connect' button is clicked, the 'show_connection_dialog' method is triggered.
-        layout.addWidget(connect_button)
+        self.connect_button = small_button("Establish Connection")
+        self.connect_button.setObjectName("Connect_Button")
+        self.connect_button.clicked.connect(self.show_connection_dialog)  # When the 'Connect' button is clicked, the 'show_connection_dialog' method is triggered.
+        layout.addWidget(self.connect_button)
 
         # Add an "Initiate Data" button
         self.data_load_button = data_button("Load Data")
@@ -74,7 +74,7 @@ class MainWindow(QMainWindow):
         self.connection_controller = DBController(
             status_label=status_label,
             database_name_label=database_name_label,
-            connect_button=connect_button,
+            connect_button=self.connect_button,
             data_button=self.data_load_button,
         )
 
@@ -89,6 +89,7 @@ class MainWindow(QMainWindow):
         self.search_window.show()
 
     def show_connection_dialog(self):
+        self.load_data_window = LoadDataWindow()  # Create the LoadDataWindow
         dialog = ConnectionDialog()
         if dialog.exec():
             username = dialog.username_input.text()
