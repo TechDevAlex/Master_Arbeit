@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QLineEdit, QPushButton, QVBoxLayout, QGridLayout, QWidget, QFileDialog, QTableWidget, QComboBox, QTableWidgetItem
-from src.gui.controllers.search_window_controller import SearchWindowController
+from gui.controllers.search_window_controller import SearchWindowController
 
 class SearchWindow(QMainWindow):
     def __init__(self):

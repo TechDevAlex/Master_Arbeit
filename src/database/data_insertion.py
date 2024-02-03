@@ -1,7 +1,7 @@
 # src/data_insertion.py
 import pandas as pd
-from src.database.data_conversion import convert_csv_to_dataframe
-from src.database.db_connection import create_connection
+from database.data_conversion import convert_csv_to_dataframe
+from database.db_connection import create_connection
 
 def create_table_from_csv(csv_file_path, table_name):
     # Create a connection to the database

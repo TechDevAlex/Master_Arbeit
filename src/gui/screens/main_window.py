@@ -8,7 +8,6 @@ from gui.widgets.widgets import label, small_button, data_button
 from gui.screens.search_window import SearchWindow
 from gui.dialogues.connection_dialog import ConnectionDialog
 from PyQt6 import QtGui
-from PyQt6 import QtCore
 
 
 class MainWindow(QMainWindow):
@@ -32,8 +31,8 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout(central_widget)
 
         # Create and add widgets from widgets.py
-        status_label = label("Status: ")
-        layout.addWidget(status_label)
+        self.status_label = label("Status: ")
+        layout.addWidget(self.status_label)
 
         database_name_label = label("Database: Not Connected")
         layout.addWidget(database_name_label)
@@ -51,10 +50,10 @@ class MainWindow(QMainWindow):
         layout.addWidget(main_picture_label)
 
         # Connect button
-        connect_button = small_button("Establish Connection")
-        connect_button.setObjectName("Connect_Button")
-        connect_button.clicked.connect(self.show_connection_dialog)  # When the 'Connect' button is clicked, the 'show_connection_dialog' method is triggered.
-        layout.addWidget(connect_button)
+        self.connect_button = small_button("Establish Connection")
+        self.connect_button.setObjectName("Establish_Connection_Button")
+        self.connect_button.clicked.connect(self.show_connection_dialog)  # When the 'Connect' button is clicked, the 'show_connection_dialog' method is triggered.
+        layout.addWidget(self.connect_button)
 
         # Add an "Initiate Data" button
         self.data_load_button = data_button("Load Data")
@@ -72,9 +71,9 @@ class MainWindow(QMainWindow):
 
         # Create the controller and pass the widgets to it
         self.connection_controller = DBController(
-            status_label=status_label,
+            status_label=self.status_label,
             database_name_label=database_name_label,
-            connect_button=connect_button,
+            connect_button=self.connect_button,
             data_button=self.data_load_button,
         )
 
@@ -88,12 +87,12 @@ class MainWindow(QMainWindow):
         # Show the search window
         self.search_window.show()
 
-    def show_connection_dialog(self):
-        dialog = ConnectionDialog()
-        if dialog.exec():
-            username = dialog.username_input.text()
-            password = dialog.password_input.text()
-            license_code = dialog.license_input.text()
+    def show_connection_dialog(self):        
+        self.connection_dialog = ConnectionDialog()
+        if self.connection_dialog.exec():
+            username = self.connection_dialog.username_input.text()
+            password = self.connection_dialog.password_input.text()
+            license_code = self.connection_dialog.license_input.text()
             self.connection_controller.toggle_connection(username, password, license_code)
     
 

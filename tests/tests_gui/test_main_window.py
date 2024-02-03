@@ -1,37 +1,25 @@
-#tests/tests_gui/test_main_window.py
+# \src\gui\tests\tests_gui\test_main_window.py
 
 import unittest
-import sys, time
-from PyQt6.QtWidgets import QApplication, QPushButton
-from src.gui.screens.main_window import MainWindow
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtTest import QTest
+from PyQt6.QtCore import Qt
+from gui.screens.main_window import MainWindow
 
-class TestMainWindow(unittest.TestCase):
+app = QApplication([])
+
+class MainWindowTest(unittest.TestCase):
     def setUp(self):
-        self.app = QApplication.instance()
-        if self.app is None:
-           self.app = QApplication(sys.argv)
-        self.main_window = MainWindow()
-        time.sleep(1)
+        self.window = MainWindow()
+        self.window.show()
+        QTest.qWaitForWindowExposed(self.window)
 
-    def test_connect_button_text(self):
-        connect_button = self.main_window.findChild(QPushButton, "Connect_Button")
-        self.assertIsNotNone(connect_button)
-        self.assertEqual(connect_button.text(), "Establish Connection")
+    def test_connect_button(self):
+        # Simulate a button click in the ConnectionDialog without opening it by immediately calling the thus called function
+        # The dialog is modular, which prevents further action until the window is closed or there is a user interaction, stopping the automated tests here if just a click is simulated
+        self.window.connection_controller.toggle_connection()
 
-    def test_search_button_text(self):
-        search_button = self.main_window.findChild(QPushButton, "Search_Button")
-        self.assertIsNotNone(search_button)
-        self.assertEqual(search_button.text(), "Search")
-    
-    def tearDown(self):
-        # Close the MainWindow
-        self.main_window.close()
-        # Quit the QApplication
-        self.app.quit()
-        # Delete the QApplication instance
-        self.app = None
-
-
-    
+        # Assert that the status label in the main window is set to "Status: Connected"
+        self.assertEqual(self.window.status_label.text(), "Status: Connected")
 if __name__ == '__main__':
     unittest.main()

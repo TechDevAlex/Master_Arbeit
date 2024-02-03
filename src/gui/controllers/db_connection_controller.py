@@ -2,10 +2,7 @@
 from PyQt6.QtWidgets import QMessageBox
 from database.db_connection import create_connection
 from database.db_config import get_db_credentials
-from database.data_retrieval import retrieve_data_from_database
-from gui.controllers.load_data_controller import LoadDataController  
 from gui.screens.load_data_window import LoadDataWindow  
-import os
 
 class DBController:
     def __init__(self, status_label, database_name_label, connect_button, data_button):

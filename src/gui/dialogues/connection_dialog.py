@@ -20,8 +20,8 @@ class ConnectionDialog(QDialog):
         self.license_input.setPlaceholderText("License Code (optional)")
         layout.addWidget(self.license_input)
 
-        connect_button = QPushButton("Connect")
-        connect_button.clicked.connect(self.accept)
-        layout.addWidget(connect_button)
+        self.connect_button = QPushButton("Connect")
+        self.connect_button.clicked.connect(self.accept)
+        layout.addWidget(self.connect_button)
 
         self.setLayout(layout)
