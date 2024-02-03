@@ -5,5 +5,9 @@ psycopg2
 pyqt6
 pandas
 sqlalchemy
+PyQt5 
+PyQtWebEngine
+folium
+geopy
 pytest
-pytest-qt
+

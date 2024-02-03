@@ -15,18 +15,11 @@ class MainWindowTest(unittest.TestCase):
         QTest.qWaitForWindowExposed(self.window)
 
     def test_connect_button(self):
-        # Simulate a button click on the main window
-        QTest.mouseClick(self.window.connect_button, Qt.MouseButton.LeftButton)
+        # Simulate a button click in the ConnectionDialog without opening it by immediately calling the thus called function
+        # The dialog is modular, which prevents further action until the window is closed or there is a user interaction, stopping the automated tests here if just a click is simulated
+        self.window.connection_controller.toggle_connection()
 
-        # Wait for the LoadDataWindow to open
-        while not self.window.load_data_window.isVisible():
-            QTest.qWait(1)
-
-        # Simulate a button click on the LoadDataWindow
-        QTest.mouseClick(self.window.load_data_window.load_data_button, Qt.MouseButton.LeftButton)
-
-        # Assert that the database_name_label text is "Connected"
-        self.assertEqual(self.window.database_name_label.text(), "Connected")
-
+        # Assert that the status label in the main window is set to "Status: Connected"
+        self.assertEqual(self.window.status_label.text(), "Status: Connected")
 if __name__ == '__main__':
     unittest.main()
