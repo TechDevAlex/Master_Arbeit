@@ -13,7 +13,12 @@ class MainWindow(QMainWindow):
 
     def initializeMainWindow(self):
 
-            self.setWindowTitle('Main Window')
+            
+            #LOGO: University Bayreuth Logo, Sport Biomechanics Logo 
+            #TODO: Bottons in a raw with: About, Contact, Goal, Structure
+            #LOGO BIG: Database Logo/Picture
+
+            self.setWindowTitle('Sustainable Material Database Bayreuth')
             # Create widgets from widgets.py
             status_label = label("Status: ")
             database_name_label = label("Database: Not Connected")
@@ -56,7 +61,7 @@ class MainWindow(QMainWindow):
             # Connect the button click event to a function that opens the search window
             search_button.clicked.connect(self.open_search_window)
 
-            self.setGeometry(100,100,250,150)
+            self.setGeometry(400,400,1000,500)
             self.show()
 
     def open_search_window(self):

@@ -21,17 +21,16 @@ from PyQt6.QtWidgets import QLabel, QLineEdit, QPushButton
 from PyQt6.QtWidgets import QLabel, QLineEdit, QPushButton
 
 def load_data_window_widgets():
-    label = QLabel("Load Data Window")
     load_sample_button = QPushButton("Load Sample Data")
     csv_filepath_label = QLabel("CSV File Path:")
     csv_filepath_input = QLineEdit()
     browse_button = QPushButton("Browse")
     load_data_button = QPushButton("Load Data")
 
-    return label, load_sample_button, csv_filepath_label, csv_filepath_input, browse_button, load_data_button
+    return  load_sample_button, csv_filepath_label, csv_filepath_input, browse_button, load_data_button
 
 def connect_load_data_signals(load_sample_button, browse_button, load_data_button, load_sample_data_func, browse_csv_file_func, load_data_func):
     # Connect signals for the Load Data Window widgets
     load_sample_button.clicked.connect(load_sample_data_func)
     browse_button.clicked.connect(browse_csv_file_func)
-    load_data_button.clicked.connect(load_data_func)
+    load_data_button.clicked.connect(load_data_func, passing_information)####
