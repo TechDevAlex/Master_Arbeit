@@ -12,23 +12,25 @@ class SearchWindow(QMainWindow):
 
         # Widgets
         table_table_label = QLabel("Names of uploaded tables:", self)
-        self.table_table = QTableWidget(self)
+        self.table_table = QTableWidget(self) #TODO: should list the uploaded table names
+        self.delete_instance = QPushButton("Delete Table", self) #TODO: Should delete instance
+        self.clear_table = QPushButton("Clear Tables", self) #TODO: should clear table and delete list of tables
 
         table_label = QLabel("Insert table name", self)
         self.table_input = QLineEdit(self)
 
         self.search_button = QPushButton("Display Table", self)
-        self.help_search = QPushButton("help", self)
+        self.help_search = QPushButton("help", self) #TODO: Help menu should pop up
 
         self.search_options_label = QLabel("Select search options", self)
-        self.search_options_button = QComboBox(self)
+        self.search_options_button = QComboBox(self) #TODO: Click on option should pop up another window for further search refinement
         self.search_options_button.addItems(['Simple Search', 'Parameter Search', 'Combined Search', 'Complete Search'])
-        self.help_search_options = QPushButton("help", self)
+        self.help_search_options = QPushButton("help", self) #TODO: Help menu should pop up
 
-        self.results_table = QTableWidget(self)
+        self.results_table = QTableWidget(self) #TODO: Is it possible to click into the components of a table?
 
-        self.export_button = QPushButton('Export', self)
-        self.clipboard_button = QPushButton('Clipboard',self)
+        self.export_button = QPushButton('Export', self) #TODO: Export menu should pop up
+        self.clipboard_button = QPushButton('Clipboard',self) #TODO: Results should be stored at a clipboard
 
         # Create an instance of SearchLogicController
         self.controller = SearchWindowController(self)
@@ -58,7 +60,8 @@ class SearchWindow(QMainWindow):
 
         layout.addWidget(table_table_label, 1,0)
         layout.addWidget(self.table_table,2,0)
-        layout.addWidget(self.table_names_combo_box, 3, 0)  # combo box is here
+        layout.addWidget(self.delete_instance, 2,1)
+        layout.addWidget(self.clear_table, 3,0)
         layout.addWidget(table_label,4,0)
         layout.addWidget(self.table_input, 5,0)
         layout.addWidget(self.search_button, 6,0)
