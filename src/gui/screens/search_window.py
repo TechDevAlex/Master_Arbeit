@@ -1,5 +1,5 @@
 #src\gui\screens\search_window.py
-from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QLineEdit, QPushButton, QVBoxLayout, QGridLayout, QWidget, QFileDialog, QTableWidget, QComboBox, QTableWidgetItem
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QGridLayout, QWidget, QFileDialog, QTableWidget, QComboBox, QTableWidgetItem
 from gui.controllers.search_window_controller import SearchWindowController
 
 class SearchWindow(QMainWindow):
@@ -20,7 +20,9 @@ class SearchWindow(QMainWindow):
         self.table_input = QLineEdit(self)
 
         self.search_button = QPushButton("Display Table", self)
-        self.help_search = QPushButton("help", self) #TODO: Help menu should pop up
+        self.help_search = QPushButton("help", self) #DONE: (Search-)Help menu should pop up
+
+
 
         self.search_options_label = QLabel("Select search options", self)
         self.search_options_button = QComboBox(self) #TODO: Click on option should pop up another window for further search refinement
@@ -35,6 +37,10 @@ class SearchWindow(QMainWindow):
         # Create an instance of SearchLogicController
         self.controller = SearchWindowController(self)
 
+        # Connect help button to function in controller to open help window
+        self.help_search.clicked.connect(self.controller.open_help_search_window)
+
+
         # Get the list of uploaded table names
         table_names = self.controller.get_table_names()
 
@@ -46,10 +52,8 @@ class SearchWindow(QMainWindow):
 
         # For each table name, create a new item in the table
         for i, table_name in enumerate(table_names):
-            print (table_name)
             item = QTableWidgetItem(table_name)
             self.table_table.setItem(i, 0, item)
-            print(item)
 
         self.table_table.viewport().update()
 

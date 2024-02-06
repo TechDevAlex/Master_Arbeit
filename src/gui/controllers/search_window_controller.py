@@ -2,6 +2,7 @@ from database.data_retrieval import retrieve_data_from_database, retrieve_table_
 from search.search_logic import search
 from database.data_conversion import convert_table_to_dataframe
 from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox, QDialog
+from gui.screens.help_search_window import SearchHelpWindow
 
 class SearchWindowController:
     def __init__(self, view):
@@ -48,3 +49,8 @@ class SearchWindowController:
 
         # Set the text of the QLineEdit to the selected table name 
         self.view.table_input.setText(table_name)
+
+    def open_help_search_window(self):
+        # Action when help button is clicked
+        self.help_search_window = SearchHelpWindow()
+        self.help_search_window.show()
