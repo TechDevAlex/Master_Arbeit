@@ -77,7 +77,7 @@ class MainWindow(QMainWindow):
             data_button=self.data_load_button,
         )
 
-        self.setGeometry(100,100,800,600)
+        self.adjustSize()
         self.show()
 
     def open_search_window(self):

@@ -1,3 +1,4 @@
+#src\gui\screens\search_window.py
 from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QLineEdit, QPushButton, QVBoxLayout, QGridLayout, QWidget, QFileDialog, QTableWidget, QComboBox, QTableWidgetItem
 from gui.controllers.search_window_controller import SearchWindowController
 
@@ -8,10 +9,9 @@ class SearchWindow(QMainWindow):
 
     def initializeSearchWindow(self):
         self.setWindowTitle("Search Window")
-        self.setGeometry(100, 100, 400, 200)
 
         # Widgets
-        table_table_label = QLabel("Names of uploaded tables:", self)
+        self.table_table_label = QLabel("Names of uploaded tables:", self)
         self.table_table = QTableWidget(self) #TODO: should list the uploaded table names
         self.delete_instance = QPushButton("Delete Table", self) #TODO: Should delete instance
         self.clear_table = QPushButton("Clear Tables", self) #TODO: should clear table and delete list of tables
@@ -58,11 +58,12 @@ class SearchWindow(QMainWindow):
         # Layout
         layout = QGridLayout()
 
-        layout.addWidget(table_table_label, 1,0)
+        layout.addWidget(self.table_table_label, 1,0)
         layout.addWidget(self.table_table,2,0)
         layout.addWidget(self.delete_instance, 2,1)
         layout.addWidget(self.clear_table, 3,0)
         layout.addWidget(table_label,4,0)
+        layout.addWidget(self.table_names_combo_box, 4,1) #TODO (added by ALEX): will only hold the most recently selected table names 
         layout.addWidget(self.table_input, 5,0)
         layout.addWidget(self.search_button, 6,0)
         layout.addWidget(self.help_search, 6,1)
@@ -80,6 +81,9 @@ class SearchWindow(QMainWindow):
         # Keep a reference to the QFileDialog to prevent it from being garbage-collected
         file_dialog = QFileDialog()
         self.file_dialog = file_dialog
+
+        # Use adjust size to autmatically resize the window so all widgets are visible 
+        self.adjustSize()
 
         # Show the window
         self.show()
