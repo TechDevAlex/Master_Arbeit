@@ -10,13 +10,15 @@ class LoadDataWindow(QWidget):
 
         # Create widgets for the Load Data Window
         (
-            self.label,
             self.load_sample_button,
             self.csv_filepath_label,
             self.csv_filepath_input,
             self.browse_button,
             self.load_data_button
         ) = load_data_window_widgets()
+
+        # Add Custon widgets not imported from widgets.py TODO (inserted by Alex): ask what the label here was meant for
+        self.placeholder_label = QLabel("Placeholder Label")
 
         # Create a new QLabel and QLineEdit for the table name
         self.table_name_label = QLabel("Table Name:", self)
@@ -28,7 +30,7 @@ class LoadDataWindow(QWidget):
 
         # Set up layout
         layout = QVBoxLayout(self)
-        layout.addWidget(self.label)
+        layout.addWidget(self.placeholder_label)
         layout.addWidget(self.load_sample_button)
         layout.addWidget(self.csv_filepath_label)
         layout.addWidget(self.csv_filepath_input)
