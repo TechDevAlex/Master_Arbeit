@@ -12,8 +12,8 @@ class SearchWindow(QMainWindow):
 
         # Widgets
         self.table_table_label = QLabel("Names of uploaded tables:", self)
-        self.table_table = QTableWidget(self) #TODO: should list the uploaded table names
-        self.delete_instance = QPushButton("Delete Table", self) #TODO: Should delete instance
+        self.table_table = QTableWidget(self) #DONE: should list the uploaded table names
+        self.delete_instance = QPushButton("Delete Table", self) #TODO: Should delete instance (Delete from Dataframe?)
         self.clear_table = QPushButton("Clear Tables", self) #TODO: should clear table and delete list of tables
 
         table_label = QLabel("Insert table name", self)
@@ -41,10 +41,17 @@ class SearchWindow(QMainWindow):
         # Set the number of rows in the table to the number of table names
         self.table_table.setRowCount(len(table_names))
 
+        # Set the number of columns in the table (needs to be configured for QTableWidget, data outside of configured columns will not be displayed)
+        self.table_table.setColumnCount(1)
+
         # For each table name, create a new item in the table
         for i, table_name in enumerate(table_names):
+            print (table_name)
             item = QTableWidgetItem(table_name)
             self.table_table.setItem(i, 0, item)
+            print(item)
+
+        self.table_table.viewport().update()
 
         # Create a combo box for the table names
         self.table_names_combo_box = QComboBox(self)
