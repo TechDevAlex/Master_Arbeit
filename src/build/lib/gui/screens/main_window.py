@@ -2,7 +2,7 @@
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication
 
 from gui.controllers.db_connection_controller import DBController
-from gui.widgets.widgets import label, small_button, data_button
+from gui.widgets.main_widgets import label, small_button, data_button
 from gui.screens.search_window import SearchWindow
 
 class MainWindow(QMainWindow):

@@ -1,7 +1,7 @@
 #src/gui/load_data_window.py
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QFileDialog, QLabel, QLineEdit, QPushButton, QGridLayout, QTableWidget, QTableWidgetItem
 
-from src.gui.widgets.widgets import load_data_window_widgets
+from gui.widgets.main_widgets import load_data_window_widgets
 from src.gui.controllers.load_data_controller import LoadDataController
 
 class LoadDataWindow(QMainWindow):

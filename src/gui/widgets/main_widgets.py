@@ -7,7 +7,7 @@ def label(text):
 
 def small_button(text):
     button = QPushButton(text)
-    button.setFixedSize(100, 30)
+    button.setFixedSize(150, 30)
     return button
 
 def data_button(text):

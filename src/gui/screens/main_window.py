@@ -4,7 +4,7 @@ import sys, os
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication,  QLabel
 from gui.controllers.db_connection_controller import DBController
 from gui.controllers.load_media_controller import MediaController
-from gui.widgets.widgets import label, small_button, data_button
+from gui.widgets.main_widgets import label, small_button
 from gui.screens.search_window import SearchWindow
 from gui.dialogues.connection_dialog import ConnectionDialog
 from PyQt6 import QtGui
@@ -56,7 +56,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.connect_button)
 
         # Add an "Initiate Data" button
-        self.data_load_button = data_button("Load Data")
+        self.data_load_button = small_button("Load Data")
         self.data_load_button.setEnabled(False)  # Initially disabled
         layout.addWidget(self.data_load_button)
         
