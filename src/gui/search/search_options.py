@@ -10,7 +10,7 @@ import pandas as pd
 
 
 class DataFrame:
-    def __init__(self, file_path, df=None):
+    def __init__(self, file_path: str, df: pd.DataFrame = None):
         self.file_path = file_path #TODO: Adapt to GUI structure
         self.dataframe = df
 
@@ -95,9 +95,46 @@ class DataFrame:
 
 
 
+class Search:
+    def __init__(self, df: DataFrame = None, sel_attr: list = None, attr: list = None, weights: list = None):
+        self.df = df
+        self.attr = attr
+        self.weights = weights
+        self.sel_attr = sel_attr
+
+    #TODO: Check how to store the selected attributes in a list from the user | perhaps for the beginning a max. of 10 parameters
+    # TODO: Get a zipped list from the user with ('parameter',importance (1-10)
+    def weight(self):
+        weight_l = []
+        attr_length = len(self.sel_attr)
+        # Sum the second elements of each tuple
+        total_sum = sum(second_tuple[1] for second_tuple in sel_attr)
+        for el in self.sel_attr:
+            weight = el[1]/total_sum
+            weight_l.append(weight)
+        print(weight_l)
+        return attr_length
 
 
+        #simple single search
 
+
+        #simple weighted search (multiple)
+        #cumulative search
+        #geographic search
+        #material comparison
+
+'''
+class DataModification(DataFrame): #TODO: should it be in the dataframe class
+    def __init__(self, file_path, df):
+        super()__init__(self,file_path,df)
+
+        #concatenation
+        #row entry
+        #column entry
+        #multiple entries
+        #error handling
+'''
 
 
 # Example usage:
@@ -112,9 +149,16 @@ df = df.load_excel_to_dataframe()
 # Use the class method to get column names as a list
 attr_tuples = DataFrame.get_attr_tuples(df)
 
-DataFrame.get_attr_information(attr_tuples)
+attr_names, attr_class, attr_unit, attr_info, attr_class_unique = DataFrame.get_attr_information(attr_tuples)
 
+sel_attr = [('youngs_modulus',10), ('yield_point',3), ('elongation_at_break',7)]
 
+search_1 = Search(df,sel_attr)
+
+#get weight amount
+
+amount = search_1.weight()
+print(amount)
 
 
 
