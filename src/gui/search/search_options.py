@@ -169,6 +169,27 @@ class Search:
 
             return filtered_value_tn
 
+    # TODO: Dropdown Attribute Search -> Dropdown with attributes to click on
+    def attribute_search(self):
+        userinput = input('Select attribute: ') #TODO: Just shows functionality -> replace by button click or search; Maybe hint regarding lower upper case
+
+        availability = [True for i, tup in enumerate(self.attr) if tup[0] == userinput]
+        print(availability)
+        if availability[0] == True:
+
+            position = [i for i, tup in enumerate(self.attr) if tup[0] == userinput]
+            print(position)
+            filtered_attribute = self.df.iloc[:,position[0]]
+            print(filtered_attribute)
+
+        else:
+            raise TypeError('Something went wrong. Check spelling of {}. '
+                            'Otherwise this attribute might not be listed.'.format(userinput))
+
+    # TODO: Addtional Configuration Button where little window pups up with min/max filter
+    #def _attribute_search(self, attr_search_df):
+
+
 
         #simple single search
 
@@ -217,7 +238,10 @@ search_1 = Search(df,sel_attr, attr_tuples, attr_names)
 weight, attr = search_1.weight()
 
 #quicksearch
-quick = search_1.quicksearch()
+#quick = search_1.quicksearch()
+
+#attributesearch
+attr_search = search_1.attribute_search()
 
 
 
