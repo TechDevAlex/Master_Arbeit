@@ -73,11 +73,6 @@ class DataFrame:
         try:
             attr_names, attr_class, attr_unit, attr_info = [t[0] for t in attr_tuples], [t[1] for t in attr_tuples],\
                                                            [t[2] for t in attr_tuples], [t[3] for t in attr_tuples]
-            for t in attr_tuples:
-                attr_names.append(t[0])
-                attr_class.append(t[1])
-                attr_unit.append(t[2])
-                attr_info.append(t[3])
 
             #get whitespaces
             attr_names, attr_class, attr_unit, attr_info = [n.replace("_", " ") for n in attr_names], \
@@ -85,8 +80,9 @@ class DataFrame:
                                                            [u.replace("_", " ") for u in attr_unit], \
                                                            [i.replace("_", " ") for i in attr_info]
 
-            #get unique high level attribue classes
+            #get unique values
             attr_class_unique = set(attr_class)
+
 
             return attr_names, attr_class, attr_unit, attr_info, attr_class_unique #TODO: How can we put a nice description as information into the Gui (parameter, unit, information)
 
@@ -96,24 +92,82 @@ class DataFrame:
 
 
 class Search:
-    def __init__(self, df: DataFrame = None, sel_attr: list = None, attr: list = None, weights: list = None):
+    def __init__(self, df: DataFrame = None, sel_attr: list = None, attr: list = None, attr_names: list = None, weights: list = None):
         self.df = df
         self.attr = attr
-        self.weights = weights
+        self.attr_names = attr_names
         self.sel_attr = sel_attr
+        self.weights = weights
 
     #TODO: Check how to store the selected attributes in a list from the user | perhaps for the beginning a max. of 10 parameters
-    # TODO: Get a zipped list from the user with ('parameter',importance (1-10)
+    #TODO: Error message, when selected parameter doubled
+    # TODO: Get a zipped list from the user with ('parameter',importance (1-10))
     def weight(self):
+        """
+        calculates the weights for each selected parameter by an integer of importance
+
+        Returns:
+        - weight_l (list): list of tuples with weights for each selected parameter
+
+        """
         weight_l = []
         attr_length = len(self.sel_attr)
         # Sum the second elements of each tuple
         total_sum = sum(second_tuple[1] for second_tuple in sel_attr)
         for el in self.sel_attr:
             weight = el[1]/total_sum
-            weight_l.append(weight)
-        print(weight_l)
-        return attr_length
+            weight_attr = (el[0],weight)
+            weight_l.append(weight_attr)
+
+        return weight_l, self.attr
+
+    def quicksearch(self):
+        """
+        finds all the rows where either abbreviation or trade name correspond to a certain user input
+
+        Returns:
+        - filtered_value_abbr (dataframe): all results in form of a df based on user input regarding a
+        certain abbreviation
+        - filtered_value_tn (dataframe): all results  in form of a df based on user input regarding a
+        certain trade name
+
+        """
+
+        #TODO: Dropdown Quicksearch -> Second Dropdown (abbreviation, trade_name) and Search to put in name -> Not found if not compatible
+        userinput = input('Select trade_name or abbreviation: ')
+
+        if userinput == 'abbreviation': #TODO: Just shows functionality -> replace by button click or search
+            abbreviation = input('Type in abbreviation: ')
+            position = [i for i,tup in enumerate(self.attr) if tup[0] == 'abbreviation']
+
+            filtered_value_abbr = self.df[self.df.iloc[:,position[0]].str.contains(abbreviation, case=False)]
+
+
+            if not filtered_value_abbr.empty:
+                filtered_value_abbr.columns = self.attr_names
+
+            else:
+                raise TypeError('Check abbreviation spelling of {}. '
+                                'Otherwise the abbreviation might not listed.'.format(abbreviation))
+
+            return filtered_value_abbr
+
+
+        elif userinput == 'trade_name': #TODO: Just shows functionality -> replace by button click or search
+            trade_name = input('Type in trade_name: ')
+            position = [i for i, tup in enumerate(self.attr) if tup[0] == 'trade_name']
+
+            filtered_value_tn = self.df[self.df.iloc[:,position[0]].str.contains(trade_name, case=False)]
+
+            if not filtered_value_tn.empty:
+                filtered_value_tn.columns = self.attr_names
+
+            else:
+                raise TypeError(
+                    'Check abbreviation spelling of {}. '
+                    'Otherwise the trade name might not listed.'.format(trade_name))
+
+            return filtered_value_tn
 
 
         #simple single search
@@ -146,19 +200,24 @@ df = DataFrame(file_path + "/AM_filaments_FFF_small.xlsx")
 # Load the Excel file into a DataFrame
 df = df.load_excel_to_dataframe()
 
+
 # Use the class method to get column names as a list
 attr_tuples = DataFrame.get_attr_tuples(df)
 
+
+
 attr_names, attr_class, attr_unit, attr_info, attr_class_unique = DataFrame.get_attr_information(attr_tuples)
 
-sel_attr = [('youngs_modulus',10), ('yield_point',3), ('elongation_at_break',7)]
+sel_attr = [('youngs_modulus',10), ('yield_point',3), ('elongation_at_break',7), ('elongation_z',7), ('yield_point_t',3) ]
 
-search_1 = Search(df,sel_attr)
+search_1 = Search(df,sel_attr, attr_tuples, attr_names)
 
 #get weight amount
 
-amount = search_1.weight()
-print(amount)
+weight, attr = search_1.weight()
+
+#quicksearch
+quick = search_1.quicksearch()
 
 
 
