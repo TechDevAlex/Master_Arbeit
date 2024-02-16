@@ -1,4 +1,9 @@
+# src\gui\controllers\Database_Search.py
 #requirements pip install pandas
+# in my opinion the search functions and also import functions like the read_excel
+# belongs in the src\serch folder, the controllers are only meant to handle which functions are called when buttons
+# are clicked or smth like that, no actual functionality
+# also, it might be beneficial to have testcode for executing functions in a main function, otherwise it gets "accidentally" run when the file is imported somewhere
 
 import pandas as pd
 
@@ -28,9 +33,12 @@ class DataBase:
             print(f"Error reading Excel file: {e}")
             return None
 
-# Example usage:
-excel_handler = ExcelHandler("your_excel_file.xlsx")
-dataframe = excel_handler.read_excel("Sheet1")  # Specify sheet name if needed
 
-if dataframe is not None:
-    print(dataframe.head())
+# added main to stop this running when imported
+# example usage:
+if __name__ == "__main__":
+    excel_handler = DataBase("your_excel_file.xlsx")
+    dataframe = excel_handler.read_excel("Sheet1")  # Specify sheet name if needed
+
+    if dataframe is not None:
+        print(dataframe.head())
