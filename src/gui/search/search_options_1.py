@@ -31,7 +31,7 @@ class DataFrame:
             return None
 
     @staticmethod
-    def get_attr_tuples(df: pd.DataFrame):
+    def get_attr_indices(df: pd.DataFrame):
         """
         Get the attribute tuples of level 0 indices and the corresponding level 1 indices of the DataFrame as a list.
 
@@ -45,6 +45,9 @@ class DataFrame:
         """
 
         level_0_index = df.columns.get_level_values(0).tolist()
+        for el in level_0_index:
+            if(el.count(" ") >= 1):
+                raise TypeError ('ErrorWhitespace: Check {} for whitespaces!'.format(el))#TODO: Insert as Error-message in Gui
 
         level_0_index = list(dict.fromkeys(level_0_index))
 
@@ -71,6 +74,11 @@ class DataFrame:
         level_1_index = [list(set(el)) for el in level_1_index]
 
 
+        for el in level_1_index:
+            for el1 in el:
+                if(el1.count(" ") >= 1):
+                    raise TypeError ('ErrorWhitespace: Check {} for whitespaces!'.format(el))#TODO: Insert as Error-message in Gui
+
         multi_index_dic = {level_0_index[i]: level_1_index[i] for i in range(len(level_0_index))}
 
         return level_0_index, level_1_index, multi_index_dic
@@ -85,7 +93,7 @@ df = DataFrame(file_path + "/filaments.xlsx")
 # Load the Excel file into a DataFrame
 df = df.load_excel_to_dataframe()
 # Use the class method to get column names as a list
-attr_tuples = DataFrame.get_attr_tuples(df)
+attr_tuples = DataFrame.get_attr_indices(df)
 
 
 #print(df.columns.get_level_values(0))
