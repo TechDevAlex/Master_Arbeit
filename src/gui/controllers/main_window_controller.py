@@ -1,15 +1,15 @@
-# src/gui/controllers/db_connection_controller.py
+# src/gui/controllers/main_window_controller.py
 from PyQt6.QtWidgets import QMessageBox
 from database.db_connection import create_connection
 from database.db_config import get_db_credentials
 from gui.screens.load_data_window import LoadDataWindow  
 
 class DBController:
-    def __init__(self, status_label, database_name_label, connect_button, data_button):
+    def __init__(self, status_label, database_name_label, connect_button, load_data_button):
         self.status_label = status_label
         self.database_name_label = database_name_label
         self.connect_button = connect_button
-        self.data_button = data_button
+        self.data_button = load_data_button
         self.is_connected = False
         self.load_data_window = None 
 

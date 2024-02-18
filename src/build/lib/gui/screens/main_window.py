@@ -1,7 +1,7 @@
 # src/gui/main_window.py
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication
 
-from gui.controllers.db_connection_controller import DBController
+from gui.controllers.main_window_controller import DBController
 from gui.widgets.main_widgets import label, small_button, data_button
 from gui.screens.search_window import SearchWindow
 
@@ -50,7 +50,7 @@ class MainWindow(QMainWindow):
                 status_label=status_label,
                 database_name_label=database_name_label,
                 connect_button=connect_button,
-                data_button=self.data_load_button
+                load_data_button=self.data_load_button
             )
 
             # Connect the button click event to a function that opens the search window

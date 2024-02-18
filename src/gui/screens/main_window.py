@@ -2,7 +2,7 @@
 
 import sys, os
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication,  QLabel
-from gui.controllers.db_connection_controller import DBController
+from gui.controllers.main_window_controller import DBController
 from gui.controllers.load_media_controller import MediaController
 from gui.widgets.main_widgets import label, small_button
 from gui.screens.search_window import SearchWindow
@@ -55,10 +55,11 @@ class MainWindow(QMainWindow):
         self.connect_button.clicked.connect(self.show_connection_dialog)  # When the 'Connect' button is clicked, the 'show_connection_dialog' method is triggered.
         layout.addWidget(self.connect_button)
 
-        # Add an "Initiate Data" button
-        self.data_load_button = small_button("Load Data")
-        self.data_load_button.setEnabled(False)  # Initially disabled
-        layout.addWidget(self.data_load_button)
+        # Add a Load_data button
+        self.load_data_button = small_button("Load Data")
+        self.load_data_button.setEnabled(False)  # Initially disabled
+        self.load_data_button.setObjectName("Load_Data_Button")
+        layout.addWidget(self.load_data_button)
         
         # Add a "Search" button
         search_button = small_button("Search")
@@ -70,11 +71,11 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(central_widget)
 
         # Create the controller and pass the widgets to it
-        self.connection_controller = DBController(
+        self.main_window_controller = DBController(
             status_label=self.status_label,
             database_name_label=database_name_label,
             connect_button=self.connect_button,
-            data_button=self.data_load_button,
+            load_data_button=self.load_data_button,
         )
 
         self.adjustSize()
@@ -93,7 +94,7 @@ class MainWindow(QMainWindow):
             username = self.connection_dialog.username_input.text()
             password = self.connection_dialog.password_input.text()
             license_code = self.connection_dialog.license_input.text()
-            self.connection_controller.toggle_connection(username, password, license_code)
+            self.main_window_controller.toggle_connection(username, password, license_code)
     
 
 if __name__ == "__main__":
