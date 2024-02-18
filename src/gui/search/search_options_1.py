@@ -45,11 +45,15 @@ class DataFrame:
         """
 
         level_0_index = df.columns.get_level_values(0).tolist()
-        for el in level_0_index:
-            if(el.count(" ") >= 1):
+        level_0_index_l = []
+        for el in range(len(level_0_index)):
+            if(level_0_index[el].count(" ") >= 1):
                 raise TypeError ('ErrorWhitespace: Check {} for whitespaces!'.format(el))#TODO: Insert as Error-message in Gui
-
-        level_0_index = list(dict.fromkeys(level_0_index))
+            else:
+                attr = level_0_index[el][1:-1].split(',')
+                tuple_attr = tuple(elem.strip() for elem in attr)
+                level_0_index_l.append(tuple_attr)
+        level_0_index = list(dict.fromkeys(level_0_index_l))
 
         multi_index = df[df.columns.get_level_values(0)].columns.tolist()
 
@@ -83,6 +87,45 @@ class DataFrame:
 
         return level_0_index, level_1_index, multi_index_dic
 
+    @staticmethod
+    def get_attr_level_0_inf(level_0_index):
+        """
+        split the attribute tuples in their groups
+
+        Parameters:
+        - attr_tuples (tuples): complete attribute description in a 4-tuple
+        (full_name,descriptive,-,main_polymer_group_of_the_material)
+
+        Returns:
+        - attribute_names (list): list of attribute parameters - actual column name
+        - attribute_class (list): list of atrriute class names - high-level category
+        - attr_unit (list): list of parameter units
+        - attr_info (list): list of short explanation parameter
+        - attr_class_unique (list): list of unique attribute class names
+        """
+        attr_names, attr_class, attr_unit, attr_info = [], [], [], []
+     
+        try:
+            #level_0_index = eval(level_0_index)
+            attr_names, attr_class, attr_unit, attr_dtype = [t[0] for t in level_0_index], \
+                                                            [t[1] for t in level_0_index], \
+                                                            [t[2] for t in level_0_index], \
+                                                            [t[3] for t in level_0_index]
+
+            # get whitespaces
+            attr_names, attr_class, attr_unit, attr_dtype = [n.replace("_", " ") for n in attr_names],\
+                                                            [c.replace("_", " ") for c in attr_class], \
+                                                            [u.replace("_", " ") for u in attr_unit], \
+                                                            [d.replace("_", " ") for d in attr_dtype]
+
+            # get unique values
+            attr_class_unique = set(attr_class)
+
+            return attr_names, attr_class, attr_unit, attr_dtype, attr_class_unique,  # TODO: How can we put a nice description as information into the Gui (parameter, unit, information)
+
+        except:
+            print('InvalidAttributes: Check naming convention for attributes')
+
 
 # Example usage:
 file_path = os.path.join(os.environ.get('HOME'),'Desktop')
@@ -93,8 +136,9 @@ df = DataFrame(file_path + "/filaments.xlsx")
 # Load the Excel file into a DataFrame
 df = df.load_excel_to_dataframe()
 # Use the class method to get column names as a list
-attr_tuples = DataFrame.get_attr_indices(df)
+level_0_index,_,_ = DataFrame.get_attr_indices(df)
 
+attr_names, attr_class, attr_unit, attr_dtype, attr_class_unique = DataFrame.get_attr_level_0_inf(level_0_index)
 
 #print(df.columns.get_level_values(0))
 #print(df.columns.get_level_values(1))
