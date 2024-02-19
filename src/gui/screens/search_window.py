@@ -18,6 +18,8 @@ class SearchWindow(QMainWindow):
 
         table_label = QLabel("Insert table name", self)
         self.table_input = QLineEdit(self)
+        # Set the name of the line edit
+        self.table_input.setObjectName("table_input")
 
         self.search_button = QPushButton("Display Table", self)
         self.help_search = QPushButton("help", self) #DONE: (Search-)Help menu should pop up
@@ -59,6 +61,9 @@ class SearchWindow(QMainWindow):
 
         # Create a combo box for the table names
         self.table_names_combo_box = QComboBox(self)
+
+        # Set the name of the combo box
+        self.table_names_combo_box.setObjectName("table_names_combo_box")
 
         # Add the table names to the combo box
         self.table_names_combo_box.addItems(table_names)
