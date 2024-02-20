@@ -5,6 +5,8 @@ from database.db_config import get_db_credentials
 from gui.screens.load_data_window import LoadDataWindow  
 from gui.dialogues.connection_dialog import ConnectionDialog
 from gui.screens.search_window import SearchWindow
+from gui.screens.personal_workspace_window import personal_workspace_window
+from gui.controllers.utils import open_data_entry_window
 
 class DBController:
     def __init__(self, app, status_label, database_name_label, connect_button, load_data_button):
@@ -15,6 +17,7 @@ class DBController:
         self.data_button = load_data_button
         self.is_connected = False
         self.load_data_window = None 
+        self.data_entry_window = None
 
         # Connect buttons to functions
         self.connect_button.clicked.connect(self.toggle_connection)
@@ -62,9 +65,8 @@ class DBController:
         self.search_window.show()
 
     def open_personal_workspace_window(self):
-        self.personal_workspace_window = personal_workspace_window()
+        self.personal_workspace_window = personal_workspace_window(self.app)
         self.personal_workspace_window.show()
 
-    def open_data_entry_window(self):
-        self.data_entry_window = data_entry_window()
-        self.data_entry_window.show()
+    def open_data_entry_window(self):   
+        self.data_entry_window = open_data_entry_window(self.app)

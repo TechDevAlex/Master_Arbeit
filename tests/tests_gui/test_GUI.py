@@ -84,16 +84,48 @@ class MainWindowTest(unittest.TestCase):
             self.fail("Could not find combo box 'table_names_combo_box'")
 
 
-
-
-
-
         # Emulate a user closing the search window
         self.window.main_window_controller.search_window.close()
         # Check if the search window is closed
         self.assertFalse(self.window.main_window_controller.search_window.isVisible())
 
+        # -------------------------
+        # Testing Personal Workspace Window
+        # -------------------------
 
+        # Emulate a user clicking on the personal workspace button
+        QTest.mouseClick(self.window.findChild(QPushButton, "Personal_Workspace_Button"), Qt.MouseButton.LeftButton)
+        # Check if the personal workspace window is open
+        self.assertTrue(self.window.main_window_controller.personal_workspace_window.isVisible())
+
+        # Emulate a user clicking on the data entry button from the personal workspace window
+        QTest.mouseClick(self.window.main_window_controller.personal_workspace_window.findChild(QPushButton, "Data_Entry_Button"), Qt.MouseButton.LeftButton)
+        # Check if the data entry window is open
+        self.assertTrue(self.window.main_window_controller.personal_workspace_window.workspace_controller.data_entry_window.isVisible())
+        # Emulate a user closing the data entry window
+        self.window.main_window_controller.personal_workspace_window.workspace_controller.data_entry_window.close()
+        # Check if the data entry window is closed
+        self.assertFalse(self.window.main_window_controller.personal_workspace_window.workspace_controller.data_entry_window.isVisible())
+
+
+        # Emulate a user closing the personal workspace window
+        self.window.main_window_controller.personal_workspace_window.close()
+        # Check if the personal workspace window is closed
+        self.assertFalse(self.window.main_window_controller.personal_workspace_window.isVisible())
+
+        # -------------------------
+        # Testing Data Entry Window
+        # -------------------------
+
+        # Emulate a user clicking on the data entry button from the main window
+        QTest.mouseClick(self.window.findChild(QPushButton, "Data_Entry_Button"), Qt.MouseButton.LeftButton)
+        # Check if the data entry window is open
+        self.assertTrue(self.window.main_window_controller.data_entry_window.isVisible())
+
+        # Emulate a user closing the data entry window
+        self.window.main_window_controller.data_entry_window.close()
+        # Check if the data entry window is closed
+        self.assertFalse(self.window.main_window_controller.data_entry_window.isVisible())
 
 
 if __name__ == '__main__':

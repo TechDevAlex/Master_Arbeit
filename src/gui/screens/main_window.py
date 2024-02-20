@@ -4,11 +4,7 @@ import sys, os
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication,  QLabel
 from gui.controllers.main_window_controller import DBController
 from gui.controllers.load_media_controller import MediaController
-from gui.screens.personal_workspace_window import personal_workspace_window
 from gui.widgets.main_widgets import label, small_button
-from gui.screens.search_window import SearchWindow
-from gui.screens.data_entry_window import data_entry_window
-from gui.dialogues.connection_dialog import ConnectionDialog
 from PyQt6 import QtGui
 
 
