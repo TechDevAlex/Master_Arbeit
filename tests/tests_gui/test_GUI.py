@@ -56,14 +56,14 @@ class MainWindowTest(unittest.TestCase):
         # Emulate a user clicking on the search button
         QTest.mouseClick(self.window.findChild(QPushButton, "Search_Button"), Qt.MouseButton.LeftButton)
         # Check if the search window is open
-        self.assertTrue(self.window.search_window.isVisible())
+        self.assertTrue(self.window.main_window_controller.search_window.isVisible())
 
         # -------------------------
         # Testing Search Window
         # -------------------------
 
         # Emulate a user selecting "test_data" in the combo box
-        combo_box = self.window.search_window.findChild(QComboBox, "table_names_combo_box")
+        combo_box = self.window.main_window_controller.search_window.findChild(QComboBox, "table_names_combo_box")
 
 
         # Check if the combo_box is not None
@@ -78,7 +78,7 @@ class MainWindowTest(unittest.TestCase):
             # Set the combo_box's current index to the found index
             combo_box.setCurrentIndex(index)
             # Assert that the input field text is "test_data", it should change automatically upon currentTextChanged calling update_table_name in the search controller
-            self.assertEqual(self.window.search_window.findChild(QLineEdit, "table_input").text(), '"test_data"')
+            self.assertEqual(self.window.main_window_controller.search_window.findChild(QLineEdit, "table_input").text(), '"test_data"')
         else:
             # Fail the test if the combo_box is not found
             self.fail("Could not find combo box 'table_names_combo_box'")
@@ -89,9 +89,9 @@ class MainWindowTest(unittest.TestCase):
 
 
         # Emulate a user closing the search window
-        self.window.search_window.close()
+        self.window.main_window_controller.search_window.close()
         # Check if the search window is closed
-        self.assertFalse(self.window.search_window.isVisible())
+        self.assertFalse(self.window.main_window_controller.search_window.isVisible())
 
 
 

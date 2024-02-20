@@ -54,7 +54,6 @@ class MainWindow(QMainWindow):
         # Connect button
         self.connect_button = small_button("Establish Connection")
         self.connect_button.setObjectName("Establish_Connection_Button")
-        self.connect_button.clicked.connect(self.show_connection_dialog)  # When the 'Connect' button is clicked, the 'show_connection_dialog' method is triggered.
         layout.addWidget(self.connect_button)
 
         # Add a Load_data button
@@ -64,71 +63,44 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.load_data_button)
         
         # Add a "Search" button
-        search_button = small_button("Search")
-        search_button.setObjectName("Search_Button")
-        search_button.clicked.connect(self.open_search_window)  # Connect the button click event to a function that opens the search window
-        layout.addWidget(search_button)
+        self.search_button = small_button("Search")
+        self.search_button.setObjectName("Search_Button")
+        layout.addWidget(self.search_button)
 
         # Set the central widget for the main window
         self.setCentralWidget(central_widget)
-
-        # Create the controller and pass the widgets to it
-        self.main_window_controller = DBController(
-            status_label=self.status_label,
-            database_name_label=database_name_label,
-            connect_button=self.connect_button,
-            load_data_button=self.load_data_button,
-        )
-
-        self.adjustSize()
-        self.show()
 
         # Add a personal workspace button
         self.personal_workspace_button = small_button("Personal Workspace")
         self.personal_workspace_button.setObjectName("Personal_Workspace_Button")
         layout.addWidget(self.personal_workspace_button)
 
-        # Connect the personal workspace button to the personal workspace window
-        self.personal_workspace_button.clicked.connect(self.open_personal_workspace_window) 
-
+        
         # Add a data entry button
         self.data_entry_button = small_button("Data Entry")
         self.data_entry_button.setObjectName("Data_Entry_Button")
         layout.addWidget(self.data_entry_button)
 
-        # Connect the data entry button to the data entry window
-        self.data_entry_button.clicked.connect(self.open_data_entry_window)
+        # Create the controller and pass the widgets to it
+        self.main_window_controller = DBController(
+            app=self.app,
+            status_label=self.status_label,
+            database_name_label=database_name_label,
+            connect_button=self.connect_button,
+            load_data_button=self.load_data_button,
+        )
 
-    def open_search_window(self):
-        # Create an instance of the search window
-        self.search_window = SearchWindow()
-
-        # Show the search window
-        self.search_window.show()
-
-    def show_connection_dialog(self):        
-        self.connection_dialog = ConnectionDialog()
-        if self.connection_dialog.exec():
-            username = self.connection_dialog.username_input.text()
-            password = self.connection_dialog.password_input.text()
-            license_code = self.connection_dialog.license_input.text()
-            self.main_window_controller.toggle_connection(username, password, license_code)
     
+        # Connect the buttons to the controller methods
+        self.connect_button.clicked.connect(self.main_window_controller.show_connection_dialog)
+        self.personal_workspace_button.clicked.connect(self.main_window_controller.open_personal_workspace_window)
+        self.data_entry_button.clicked.connect(self.main_window_controller.open_data_entry_window)
+        self.search_button.clicked.connect(self.main_window_controller.open_search_window)
 
-    def open_personal_workspace_window(self):
-        # Create an instance of the personal workspace window
-        self.personal_workspace_window = personal_workspace_window()
 
-        # Show the personal workspace window
-        self.personal_workspace_window.show()
-
-    def open_data_entry_window(self):
-        # Create an instance of the data entry window
-        self.data_entry_window = data_entry_window()
-
-        # Show the data entry window
-        self.data_entry_window.show()
-
+        # Show the Main Window
+        self.adjustSize()
+        self.show()
 
 if __name__ == "__main__":
     app = QApplication.instance()

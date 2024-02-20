@@ -3,9 +3,12 @@ from PyQt6.QtWidgets import QMessageBox
 from database.db_connection import create_connection
 from database.db_config import get_db_credentials
 from gui.screens.load_data_window import LoadDataWindow  
+from gui.dialogues.connection_dialog import ConnectionDialog
+from gui.screens.search_window import SearchWindow
 
 class DBController:
-    def __init__(self, status_label, database_name_label, connect_button, load_data_button):
+    def __init__(self, app, status_label, database_name_label, connect_button, load_data_button):
+        self.app = app
         self.status_label = status_label
         self.database_name_label = database_name_label
         self.connect_button = connect_button
@@ -44,3 +47,24 @@ class DBController:
         # enable the Initiate Data button when the Database is connected
         self.load_data_window = LoadDataWindow()
         self.load_data_window.show()
+
+
+    def show_connection_dialog(self):
+        self.connection_dialog = ConnectionDialog()
+        if self.connection_dialog.exec():
+            username = self.connection_dialog.username_input.text()
+            password = self.connection_dialog.password_input.text()
+            license_code = self.connection_dialog.license_input.text()
+            self.toggle_connection(username, password, license_code)
+
+    def open_search_window(self):
+        self.search_window = SearchWindow()
+        self.search_window.show()
+
+    def open_personal_workspace_window(self):
+        self.personal_workspace_window = personal_workspace_window()
+        self.personal_workspace_window.show()
+
+    def open_data_entry_window(self):
+        self.data_entry_window = data_entry_window()
+        self.data_entry_window.show()
