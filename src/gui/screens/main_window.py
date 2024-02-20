@@ -4,8 +4,10 @@ import sys, os
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QApplication,  QLabel
 from gui.controllers.main_window_controller import DBController
 from gui.controllers.load_media_controller import MediaController
+from gui.screens.personal_workspace_window import personal_workspace_window
 from gui.widgets.main_widgets import label, small_button
 from gui.screens.search_window import SearchWindow
+from gui.screens.data_entry_window import data_entry_window
 from gui.dialogues.connection_dialog import ConnectionDialog
 from PyQt6 import QtGui
 
@@ -81,6 +83,22 @@ class MainWindow(QMainWindow):
         self.adjustSize()
         self.show()
 
+        # Add a personal workspace button
+        self.personal_workspace_button = small_button("Personal Workspace")
+        self.personal_workspace_button.setObjectName("Personal_Workspace_Button")
+        layout.addWidget(self.personal_workspace_button)
+
+        # Connect the personal workspace button to the personal workspace window
+        self.personal_workspace_button.clicked.connect(self.open_personal_workspace_window) 
+
+        # Add a data entry button
+        self.data_entry_button = small_button("Data Entry")
+        self.data_entry_button.setObjectName("Data_Entry_Button")
+        layout.addWidget(self.data_entry_button)
+
+        # Connect the data entry button to the data entry window
+        self.data_entry_button.clicked.connect(self.open_data_entry_window)
+
     def open_search_window(self):
         # Create an instance of the search window
         self.search_window = SearchWindow()
@@ -96,6 +114,21 @@ class MainWindow(QMainWindow):
             license_code = self.connection_dialog.license_input.text()
             self.main_window_controller.toggle_connection(username, password, license_code)
     
+
+    def open_personal_workspace_window(self):
+        # Create an instance of the personal workspace window
+        self.personal_workspace_window = personal_workspace_window()
+
+        # Show the personal workspace window
+        self.personal_workspace_window.show()
+
+    def open_data_entry_window(self):
+        # Create an instance of the data entry window
+        self.data_entry_window = data_entry_window()
+
+        # Show the data entry window
+        self.data_entry_window.show()
+
 
 if __name__ == "__main__":
     app = QApplication.instance()
