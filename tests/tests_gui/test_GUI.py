@@ -68,15 +68,22 @@ class MainWindowTest(unittest.TestCase):
 
         # Check if the combo_box is not None
         if combo_box is not None:
+            #print(combo_box.count())
             # Iterate over the items in the combo_box
             for i in range(combo_box.count()):
                 # Check if the item text contains "test_data"
                 if "test_data" in combo_box.itemText(i):
                     # Set the index to the current iteration value
                     index = i
+                    #print(combo_box.itemText(i))
                     break
+                
+            # Make sure the combobox has a different text in it, so the currentTextChanged signal is emitted, error handling for the case that test_data index is the last item in the combobox
+            combo_box.setCurrentIndex((index + 1) % combo_box.count())
+            
             # Set the combo_box's current index to the found index
-            combo_box.setCurrentIndex(index)
+            combo_box.setCurrentIndex(index) 
+
             # Assert that the input field text is "test_data", it should change automatically upon currentTextChanged calling update_table_name in the search controller
             self.assertEqual(self.window.main_window_controller.search_window.findChild(QLineEdit, "table_input").text(), '"test_data"')
         else:

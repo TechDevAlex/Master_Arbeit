@@ -31,7 +31,13 @@ class SearchWindowController:
         headers = result.loc[0,:].astype(str).tolist()
         
         
-        #display the Result
+       # Get the column names from the DataFrame
+        column_names = result.columns.tolist()
+
+        # Set the column names in the QTableWidget
+        self.view.results_table.setHorizontalHeaderLabels(column_names)
+
+        # Display the data in the QTableWidget
         self.view.results_table.setRowCount(len(result))
         self.view.results_table.setColumnCount(len(result.columns))
         for i, row in enumerate(result.values):

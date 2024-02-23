@@ -112,7 +112,7 @@ def add_single_entry_to_table(table_name, material_name, material_class, materia
             df[column] = pd.Series(dtype='str')
 
 
-    # Check if a row with the same material_name, material_class, and material_property exists
+    # Check if a row with the same material_name, material_class, and material_property with the given value exists
     matching_rows = df.loc[(df['material_name'] == material_name) & (df['material_class'] == material_class) & (df[material_property] == value)]
 
     if matching_rows.empty:
