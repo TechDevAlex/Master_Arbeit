@@ -129,11 +129,46 @@ class MainWindowTest(unittest.TestCase):
         # Check if the data entry window is open
         self.assertTrue(self.window.main_window_controller.data_entry_window.isVisible())
 
+        # Emulate a user entering text into the material_name_field
+        material_name_field = self.window.main_window_controller.data_entry_window.findChild(QLineEdit, "material_name_field")
+
+        QTest.keyClicks(material_name_field, "Test Material")
+        self.assertEqual(material_name_field.text(), "Test Material")
+
+        # Emulate a user entering text into the material_class_field
+        material_class_field = self.window.main_window_controller.data_entry_window.findChild(QLineEdit, "material_class_field")
+        QTest.keyClicks(material_class_field, "Test Class")
+        self.assertEqual(material_class_field.text(), "Test Class")
+     
+        # Emulate a user entering text into the trade_name_field
+        trade_name_field = self.window.main_window_controller.data_entry_window.findChild(QLineEdit, "trade_name_field")
+        QTest.keyClicks(trade_name_field, "Test Trade Name")
+        self.assertEqual(trade_name_field.text(), "Test Trade Name")
+        
+        # Emulate a user entering text into the material_property_field
+        material_property_field = self.window.main_window_controller.data_entry_window.findChild(QLineEdit, "material_property_field")
+        QTest.keyClicks(material_property_field, "Test Property")
+        self.assertEqual(material_property_field.text(), "Test Property")
+  
+        # Emulate a user entering text into the value_field
+        value_field = self.window.main_window_controller.data_entry_window.findChild(QLineEdit, "value_field")
+        QTest.keyClicks(value_field, "100")
+        self.assertEqual(value_field.text(), "100")
+   
+        # Emulate a user clicking on the max_min_toggle button
+        max_min_toggle = self.window.main_window_controller.data_entry_window.findChild(QPushButton, "max_min_toggle")
+        QTest.mouseClick(max_min_toggle, Qt.MouseButton.LeftButton)
+        self.assertTrue(max_min_toggle.isChecked())
+
+        # Emulate a user clicking on the submit button
+        submit_button = self.window.main_window_controller.data_entry_window.findChild(QPushButton, "submit_button")
+        QTest.mouseClick(submit_button, Qt.MouseButton.LeftButton)
+ 
         # Emulate a user closing the data entry window
         self.window.main_window_controller.data_entry_window.close()
         # Check if the data entry window is closed
         self.assertFalse(self.window.main_window_controller.data_entry_window.isVisible())
-
+  
 
 if __name__ == '__main__':
     unittest.main()

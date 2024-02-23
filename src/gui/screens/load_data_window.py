@@ -38,7 +38,7 @@ class LoadDataWindow(QWidget):
         layout.addWidget(self.table_name_label)  
         layout.addWidget(self.table_name_input)  
         layout.addWidget(self.load_data_button)
-        layout.addWidget(self.update_dataframe_button)  # Add the update button to the layout
+        layout.addWidget(self.update_dataframe_button) 
 
         # Keep a reference to the QFileDialog to prevent it from being garbage-collected
         file_dialog = QFileDialog()

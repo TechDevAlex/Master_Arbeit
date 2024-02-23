@@ -1,33 +1,41 @@
 # src\gui\screens\data_entry_window.py
-from PyQt6.QtWidgets import QApplication, QLineEdit, QVBoxLayout, QWidget, QLabel, QPushButton, QComboBox
-from src.database.data_insertion import add_single_entry_to_table, type_mapping_StringtoSQL
-from src.database.data_retrieval import retrieve_table_names_from_database
+from PyQt6.QtWidgets import QApplication, QLineEdit, QWidget, QLabel, QPushButton, QComboBox, QGridLayout
+from PyQt6.QtCore import Qt
+from database.data_insertion import type_mapping_StringtoSQL
+from database.data_retrieval import retrieve_table_names_from_database
+from gui.controllers.data_entry_window_controller import data_entry_window_controller
 import sys
 
 class data_entry_window(QWidget):
     def __init__(self):
         super().__init__()
 
-        # Create a QVBoxLayout to lay out the widgets
-        layout = QVBoxLayout()
+        self.controller = data_entry_window_controller(self)
 
         # Create QLineEdit widgets for each input field
         self.material_name_field = QLineEdit()
+        self.material_name_field.setObjectName("material_name_field")
         self.material_class_field = QLineEdit()
-        self.trade_name_field = QLineEdit()  # New field for trade name
+        self.material_class_field.setObjectName("material_class_field")
+        self.trade_name_field = QLineEdit() 
+        self.trade_name_field.setObjectName("trade_name_field")
         self.material_property_field = QLineEdit()
+        self.material_property_field.setObjectName("material_property_field")
 
         # Create a QComboBox for the datatype field
         self.datatype_field = QComboBox()
+        self.datatype_field.setObjectName("datatype_field")
 
         # Add the datatypes to the QComboBox
         for datatype in type_mapping_StringtoSQL().keys():
             self.datatype_field.addItem(str(datatype))
 
         self.value_field = QLineEdit()
+        self.value_field.setObjectName("value_field")
 
         # Create a QComboBox for the table names
         self.table_name_combo = QComboBox()
+        self.table_name_combo.setObjectName("table_names_combo_box")
 
         # Get the table names and add them to the QComboBox
         table_names = retrieve_table_names_from_database()
@@ -35,48 +43,72 @@ class data_entry_window(QWidget):
             table_name = table_name.strip('"')
             self.table_name_combo.addItem(table_name)
 
-        # Add the QLineEdit widgets and QComboBox to the layout with labels
-        layout.addWidget(QLabel("Table Name"))
-        layout.addWidget(self.table_name_combo)
-
-        layout.addWidget(QLabel("Material Name"))
-        layout.addWidget(self.material_name_field)
-
-        layout.addWidget(QLabel("Material Class"))
-        layout.addWidget(self.material_class_field)
-
-        layout.addWidget(QLabel("Trade Name")) 
-        layout.addWidget(self.trade_name_field) 
-
-        layout.addWidget(QLabel("Material Property"))
-        layout.addWidget(self.material_property_field)
-
-        layout.addWidget(QLabel("Data Type"))
-        layout.addWidget(self.datatype_field)
-
-        layout.addWidget(QLabel("Value"))
-        layout.addWidget(self.value_field)
-
         # Create a QPushButton that will call add_single_entry_to_table when clicked
-        submit_button = QPushButton("Submit")
-        submit_button.clicked.connect(self.submit_data)
-        layout.addWidget(submit_button)
+        self.submit_button = QPushButton("Submit")
+        self.submit_button.setObjectName("submit_button")
+        self.submit_button.clicked.connect(self.submit_data)
+
+        # Create a QLabel for the max/min display
+        self.max_min_label = QLabel("max")
+        self.max_min_label.setObjectName("max_min_label")
+        self.max_min_label.setFixedWidth(30)
+
+        # Create a QCheckBox to determine if the value is a max or min
+        self.max_min_toggle = QPushButton("max <-> min")
+        self.max_min_toggle.setObjectName("max_min_toggle")
+        self.max_min_toggle.setCheckable(True)
+        self.max_min_toggle.clicked.connect(self.toggle_max_min)
+
+        # Create a QGridLayout to lay out the widgets
+        layout = QGridLayout()
+
+        # Add the QLineEdit widgets and QComboBox to the layout with labels
+        layout.addWidget(QLabel("Table Name"), 0, 0)
+        layout.addWidget(self.table_name_combo, 0, 1)
+
+        layout.addWidget(QLabel("Material Name"), 1, 0)
+        layout.addWidget(self.material_name_field, 1, 1)
+
+        layout.addWidget(QLabel("Material Class"), 2, 0)
+        layout.addWidget(self.material_class_field, 2, 1)
+
+        layout.addWidget(QLabel("Trade Name"), 3, 0)
+        layout.addWidget(self.trade_name_field, 3, 1)
+
+        layout.addWidget(QLabel("Material Property"), 4, 0)
+        layout.addWidget(self.material_property_field, 4, 1)
+
+        layout.addWidget(QLabel("Data Type"), 5, 0)
+        layout.addWidget(self.datatype_field, 5, 1)
+
+        layout.addWidget(QLabel("Value"), 6, 0)
+        layout.addWidget(self.value_field, 6, 1)
+        layout.addWidget(self.max_min_label, 6, 2)
+        layout.addWidget(self.max_min_toggle, 6, 3)
+
+        layout.addWidget(self.submit_button, 7, 1)
 
         # Set the window's layout
         self.setLayout(layout)
 
+
     def submit_data(self):
-        # Call add_single_entry_to_table with the values from the input fields
-        print(self.table_name_combo.currentText())
-        add_single_entry_to_table(
+        # Call the controller's submit_data method
+        self.controller.submit_data(
             self.table_name_combo.currentText().strip(),
             self.material_name_field.text(),
             self.material_class_field.text(),
-            self.trade_name_field.text(), 
+            self.trade_name_field.text(),
             self.material_property_field.text(),
             self.datatype_field.currentText(),
-            self.value_field.text()
+            self.value_field.text(),
+            self.max_min_label.text()
         )
+
+    def toggle_max_min(self):
+        # Call the controller's toggle_max_min method
+        self.controller.toggle_max_min(self.max_min_toggle.isChecked())
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
