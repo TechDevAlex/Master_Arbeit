@@ -40,7 +40,7 @@ class TestAddSingleEntryToTable(unittest.TestCase):
 
     def test_add_single_entry_to_table(self):
         # Call the function with some test data
-        add_single_entry_to_table("test_table", 'test_material', 'test_class', 'test_property', 'Integer', '3')
+        add_single_entry_to_table("test_table", 'test_material', 'test_class', 'test_tradename', 'test_property', 'Integer', '3')
 
 if __name__ == '__main__':
     unittest.main()
