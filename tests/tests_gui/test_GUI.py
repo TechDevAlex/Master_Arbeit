@@ -187,5 +187,10 @@ class MainWindowTest(unittest.TestCase):
         self.assertFalse(self.window.main_window_controller.data_entry_window.isVisible())
   
 
+
+
+        
+
+
 if __name__ == '__main__':
     unittest.main()

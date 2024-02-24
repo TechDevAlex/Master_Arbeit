@@ -113,5 +113,80 @@ def add_single_entry_to_table(table_name, material_name, material_class, trade_n
         df.loc[new_row_index, 'material_class'] = material_class
         df.loc[new_row_index, 'trade_name'] = trade_name
         df.loc[new_row_index, material_property] = value
+    else:
+        # Overwrite the existing value
+        df.loc[matching_rows.index, material_property] = value
 
     df.to_sql(table_name, engine, if_exists='replace', index=False)
+
+    # Return overwritten values as a DataFrame
+    return matching_rows
+
+def delete_single_entry_from_table(table_name, material_name, material_class, trade_name, material_property, value):
+    # Create a connection to the database
+    engine = create_connection()
+
+    # Read the table into a DataFrame
+    df = pd.read_sql_table(table_name, engine)
+
+    # Check if a row with the same material_name, material_class, trade_name, and material_property with the given value exists
+    matching_rows = df.loc[(df['material_name'] == material_name) & (df['material_class'] == material_class) & (df['trade_name'] == trade_name) & (df[material_property] == value)]
+
+    if not matching_rows.empty:
+        # Delete the row from the DataFrame
+        df = df.drop(matching_rows.index)
+
+    df.to_sql(table_name, engine, if_exists='replace', index=False)
+    
+
+    # Return the deleted row as a DataFrame
+    return matching_rows
+
+
+
+def delete_table(table_name):
+    # Create a connection to the database
+    engine = create_connection()
+
+    # Read the table into a DataFrame
+    df = pd.read_sql_table(table_name, engine)
+
+    # Drop the table from the database
+    with engine.connect() as connection:
+        connection.execute(text(f"DROP TABLE {table_name}"))
+        # Ensure that the DROP TABLE command is immediately committed
+        connection.commit()
+
+    # Return the DataFrame
+    return df
+
+def delete_rows_from_table(table_name, material_name, material_class=None, trade_name=None):
+    # Create a connection to the database
+    engine = create_connection()
+
+    # Read the table into a DataFrame
+    df = pd.read_sql_table(table_name, engine)
+
+    if material_class is None and trade_name is None:
+        # Check if a row with the same material_name exists
+        matching_rows = df.loc[df['material_name'] == material_name]
+
+    elif trade_name is None:
+        # Check if a row with the same material_name and material_class
+        matching_rows = df.loc[(df['material_name'] == material_name) & (df['material_class'] == material_class)]
+
+    else:
+        # Check if a row with the same material_name, material_class, and trade_name exists
+        matching_rows = df.loc[(df['material_name'] == material_name) & (df['material_class'] == material_class) & (df['trade_name'] == trade_name)]
+
+    if not matching_rows.empty:
+        # Delete the row from the DataFrame
+        df = df.drop(matching_rows.index)
+
+    df.to_sql(table_name, engine, if_exists='replace', index=False)
+
+
+    # Return the deleted row as a DataFrame
+    return matching_rows
+
+

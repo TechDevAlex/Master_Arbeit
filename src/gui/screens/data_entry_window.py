@@ -58,6 +58,7 @@ class data_entry_window(QWidget):
         self.max_min_toggle = QPushButton("max <-> min")
         self.max_min_toggle.setObjectName("max_min_toggle")
         self.max_min_toggle.setCheckable(True)
+        self.max_min_toggle.setFixedWidth(100)
         self.max_min_toggle.clicked.connect(self.toggle_max_min)
 
         # Create a QComboBox for the material property field
@@ -87,7 +88,7 @@ class data_entry_window(QWidget):
 
         layout.addWidget(QLabel("Material Property"), 4, 0)
         layout.addWidget(self.material_property_field, 4, 1)
-        layout.addWidget(self.material_property_dropdown, 4, 2)
+        layout.addWidget(self.material_property_dropdown, 4, 3)
 
         layout.addWidget(QLabel("Data Type"), 5, 0)
         layout.addWidget(self.datatype_field, 5, 1)
