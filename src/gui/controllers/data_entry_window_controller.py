@@ -21,7 +21,7 @@ class data_entry_window_controller:
             material_name,
             material_class,
             trade_name,
-            material_property + max_min + ".",
+            material_property + " " + max_min + ".",
             datatype,
             value
         )
@@ -47,4 +47,4 @@ class data_entry_window_controller:
         filtered_column_names = [name for name in column_names if property_text_input.lower() in name.lower()]
 
         return filtered_column_names
-            
+

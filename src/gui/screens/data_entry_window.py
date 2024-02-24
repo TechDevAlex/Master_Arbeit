@@ -61,10 +61,11 @@ class data_entry_window(QWidget):
         self.max_min_toggle.clicked.connect(self.toggle_max_min)
 
         # Create a QComboBox for the material property field
-        self.material_property_drowdown = CustomComboBox()
-        self.material_property_drowdown.setObjectName("material_property_drowdown")
-        self.material_property_drowdown.setFixedWidth(200)
-        self.material_property_drowdown.popupShown.connect(self.update_material_property_dropdown)
+        self.material_property_dropdown = CustomComboBox()
+        self.material_property_dropdown.setObjectName("material_property_drowdown")
+        self.material_property_dropdown.setFixedWidth(200)
+        self.material_property_dropdown.popupShown.connect(self.update_material_property_dropdown)
+        self.material_property_dropdown.activated.connect(lambda: self.controller.set_material_property_field(self.material_property_dropdown.currentText()))
 
 
 
@@ -86,7 +87,7 @@ class data_entry_window(QWidget):
 
         layout.addWidget(QLabel("Material Property"), 4, 0)
         layout.addWidget(self.material_property_field, 4, 1)
-        layout.addWidget(self.material_property_drowdown, 4, 2)
+        layout.addWidget(self.material_property_dropdown, 4, 2)
 
         layout.addWidget(QLabel("Data Type"), 5, 0)
         layout.addWidget(self.datatype_field, 5, 1)
@@ -125,11 +126,11 @@ class data_entry_window(QWidget):
 
         
         # Clear the QComboBox
-        self.material_property_drowdown.clear()
+        self.material_property_dropdown.clear()
 
         # Add the column names to the QComboBox
         for column_name in column_names:
-            self.material_property_drowdown.addItem(column_name)
+            self.material_property_dropdown.addItem(column_name)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

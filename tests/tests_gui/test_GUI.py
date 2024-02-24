@@ -174,9 +174,10 @@ class MainWindowTest(unittest.TestCase):
 
         # Emulate a user selecting a material property in the material_property_dropdown
         material_property_dropdown = self.window.main_window_controller.data_entry_window.findChild(QComboBox, "material_property_drowdown")
-        material_property_dropdown.setCurrentText("Test_Propertymin.")
-        self.assertEqual(material_property_dropdown.currentText(), "Test_Propertymin.")
+        material_property_dropdown.setCurrentText("Test_Property min.")
+        self.assertEqual(material_property_dropdown.currentText(), "Test_Property min.")
         # Assert that the material_property_field text is "Test_Propertymin."
+        self.assertEqual(material_property_field.text(), "Test_Property")
         
 
 
