@@ -4,6 +4,7 @@ from PyQt6.QtCore import Qt
 from database.data_insertion import type_mapping_StringtoSQL
 from database.data_retrieval import retrieve_table_names_from_database
 from gui.controllers.data_entry_window_controller import data_entry_window_controller
+from gui.widgets.custom_widgets import CustomComboBox
 import sys
 
 class data_entry_window(QWidget):
@@ -59,6 +60,14 @@ class data_entry_window(QWidget):
         self.max_min_toggle.setCheckable(True)
         self.max_min_toggle.clicked.connect(self.toggle_max_min)
 
+        # Create a QComboBox for the material property field
+        self.material_property_drowdown = CustomComboBox()
+        self.material_property_drowdown.setObjectName("material_property_drowdown")
+        self.material_property_drowdown.setFixedWidth(200)
+        self.material_property_drowdown.popupShown.connect(self.update_material_property_dropdown)
+
+
+
         # Create a QGridLayout to lay out the widgets
         layout = QGridLayout()
 
@@ -77,6 +86,7 @@ class data_entry_window(QWidget):
 
         layout.addWidget(QLabel("Material Property"), 4, 0)
         layout.addWidget(self.material_property_field, 4, 1)
+        layout.addWidget(self.material_property_drowdown, 4, 2)
 
         layout.addWidget(QLabel("Data Type"), 5, 0)
         layout.addWidget(self.datatype_field, 5, 1)
@@ -109,6 +119,17 @@ class data_entry_window(QWidget):
         # Call the controller's toggle_max_min method
         self.controller.toggle_max_min(self.max_min_toggle.isChecked())
 
+    def update_material_property_dropdown(self):
+        # Update the material property dropdown
+        column_names = self.controller.update_column_names(self.table_name_combo.currentText(), self.material_property_field.text())
+
+        
+        # Clear the QComboBox
+        self.material_property_drowdown.clear()
+
+        # Add the column names to the QComboBox
+        for column_name in column_names:
+            self.material_property_drowdown.addItem(column_name)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

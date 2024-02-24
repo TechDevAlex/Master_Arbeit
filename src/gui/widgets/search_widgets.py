@@ -30,18 +30,3 @@ class SearchWidgets(QWidget):
         close_button = QPushButton("Close")
         close_button.clicked.connect(self.close)
         layout.addWidget(close_button)
-
-
-                                            
-
-    def search(self):
-        # Get the search keyword from the input field
-        search_keyword = self.search_input.text()
-
-        # Perform the search
-        # You can add your search logic here
-        print(f"Searching for: {search_keyword}")
-
-
-    def do_something(self):
-        print("Do something")

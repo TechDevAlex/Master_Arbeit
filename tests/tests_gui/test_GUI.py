@@ -129,27 +129,32 @@ class MainWindowTest(unittest.TestCase):
         # Check if the data entry window is open
         self.assertTrue(self.window.main_window_controller.data_entry_window.isVisible())
 
+        # Emulate a user selecting a table name in the table_name_combo
+        table_name_combo = self.window.main_window_controller.data_entry_window.findChild(QComboBox, "table_names_combo_box")
+        table_name_combo.setCurrentText("test_data")
+        self.assertEqual(table_name_combo.currentText(), "test_data")
+
         # Emulate a user entering text into the material_name_field
         material_name_field = self.window.main_window_controller.data_entry_window.findChild(QLineEdit, "material_name_field")
 
-        QTest.keyClicks(material_name_field, "Test Material")
-        self.assertEqual(material_name_field.text(), "Test Material")
+        QTest.keyClicks(material_name_field, "Test_Material")
+        self.assertEqual(material_name_field.text(), "Test_Material")
 
         # Emulate a user entering text into the material_class_field
         material_class_field = self.window.main_window_controller.data_entry_window.findChild(QLineEdit, "material_class_field")
-        QTest.keyClicks(material_class_field, "Test Class")
-        self.assertEqual(material_class_field.text(), "Test Class")
+        QTest.keyClicks(material_class_field, "Test_Class")
+        self.assertEqual(material_class_field.text(), "Test_Class")
      
         # Emulate a user entering text into the trade_name_field
         trade_name_field = self.window.main_window_controller.data_entry_window.findChild(QLineEdit, "trade_name_field")
-        QTest.keyClicks(trade_name_field, "Test Trade Name")
-        self.assertEqual(trade_name_field.text(), "Test Trade Name")
+        QTest.keyClicks(trade_name_field, "Test_Trade Name")
+        self.assertEqual(trade_name_field.text(), "Test_Trade Name")
         
         # Emulate a user entering text into the material_property_field
         material_property_field = self.window.main_window_controller.data_entry_window.findChild(QLineEdit, "material_property_field")
-        QTest.keyClicks(material_property_field, "Test Property")
-        self.assertEqual(material_property_field.text(), "Test Property")
-  
+        QTest.keyClicks(material_property_field, "Test_Property")
+        self.assertEqual(material_property_field.text(), "Test_Property")
+        
         # Emulate a user entering text into the value_field
         value_field = self.window.main_window_controller.data_entry_window.findChild(QLineEdit, "value_field")
         QTest.keyClicks(value_field, "100")
@@ -163,7 +168,18 @@ class MainWindowTest(unittest.TestCase):
         # Emulate a user clicking on the submit button
         submit_button = self.window.main_window_controller.data_entry_window.findChild(QPushButton, "submit_button")
         QTest.mouseClick(submit_button, Qt.MouseButton.LeftButton)
- 
+
+        # Emulate the popupShown signal of the material_property_dropdown
+        self.window.main_window_controller.data_entry_window.update_material_property_dropdown()
+
+        # Emulate a user selecting a material property in the material_property_dropdown
+        material_property_dropdown = self.window.main_window_controller.data_entry_window.findChild(QComboBox, "material_property_drowdown")
+        material_property_dropdown.setCurrentText("Test_Propertymin.")
+        self.assertEqual(material_property_dropdown.currentText(), "Test_Propertymin.")
+        # Assert that the material_property_field text is "Test_Propertymin."
+        
+
+
         # Emulate a user closing the data entry window
         self.window.main_window_controller.data_entry_window.close()
         # Check if the data entry window is closed

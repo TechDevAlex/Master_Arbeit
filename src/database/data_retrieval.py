@@ -34,3 +34,19 @@ def retrieve_table_names_from_database():
     session.close()
 
     return tables
+
+def retrieve_column_names_from_table(table_name):
+    # Create a session
+    session = create_session()
+
+    # Query to retrieve all column names from a table
+    query = text(f"SELECT column_name FROM information_schema.columns WHERE table_name = '{table_name}'")
+    result = session.execute(query)
+
+    # Fetch all column names
+    columns = [row[0] for row in result.fetchall()]
+
+    # Close the session
+    session.close()
+
+    return columns

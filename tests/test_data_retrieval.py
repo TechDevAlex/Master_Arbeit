@@ -27,6 +27,11 @@ class TestDataRetrieval(unittest.TestCase):
             table_name = "non_existent_table"
             with self.assertRaises(Exception):
                 data = retrieve_data_from_database(table_name)
+            
+    def test_retrieve_table_names(self):
+        table_names = retrieve_table_names_from_database()
+        self.assertIsNotNone(table_names)
+        self.assertIsInstance(table_names, list)
 
 
 if __name__ == '__main__':
