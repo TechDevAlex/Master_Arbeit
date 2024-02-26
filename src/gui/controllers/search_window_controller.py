@@ -1,7 +1,6 @@
 from database.data_retrieval import retrieve_data_from_database, retrieve_table_names_from_database
-from search.search_logic import search
 from database.data_conversion import convert_table_to_dataframe
-from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox, QDialog
+from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox
 from gui.screens.help_search_window import SearchHelpWindow
 
 class SearchWindowController:
@@ -9,10 +8,10 @@ class SearchWindowController:
         self.view = view
         
         # Connect signals for the Search Window inputs
-        self.view.search_button.clicked.connect(self.perform_search)
+        self.view.search_button.clicked.connect(self.display_table)
 
 
-    def perform_search(self):
+    def display_table(self):
         # Action when search button is clicked
         table_name = self.view.table_input.text()
 
@@ -27,8 +26,8 @@ class SearchWindowController:
         data = retrieve_data_from_database(table_name)
         df = convert_table_to_dataframe(data)
 
-        result = search(df)
-        headers = result.loc[0,:].astype(str).tolist()
+        result = df
+        #headers = result.loc[0,:].astype(str).tolist()
         
         
        # Get the column names from the DataFrame

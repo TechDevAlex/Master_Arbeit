@@ -130,7 +130,7 @@ class MainWindowTest(unittest.TestCase):
         self.assertTrue(self.window.main_window_controller.data_entry_window.isVisible())
 
         # Emulate a user selecting a table name in the table_name_combo
-        table_name_combo = self.window.main_window_controller.data_entry_window.findChild(QComboBox, "table_names_combo_box")
+        table_name_combo = self.window.main_window_controller.data_entry_window.findChild(QComboBox, "table_names_combobox")
         table_name_combo.setCurrentText("test_data")
         self.assertEqual(table_name_combo.currentText(), "test_data")
 
@@ -179,7 +179,21 @@ class MainWindowTest(unittest.TestCase):
         # Assert that the material_property_field text is "Test_Propertymin."
         self.assertEqual(material_property_field.text(), "Test_Property")
         
+        # Emulate a user clicking on the display table button
+        # Emulate a user clicking on the display table button
+        display_table_button = self.window.main_window_controller.data_entry_window.findChild(QPushButton, "display_table_button")
+        QTest.mouseClick(display_table_button, Qt.MouseButton.LeftButton)
 
+        # Check if any cell in the table widget contains a value
+        has_value = False
+        for i in range(self.window.main_window_controller.data_entry_window.table_widget.rowCount()):
+            for j in range(self.window.main_window_controller.data_entry_window.table_widget.columnCount()):
+                if self.window.main_window_controller.data_entry_window.table_widget.item(i, j) is not None:
+                    has_value = True
+                    break
+            if has_value:
+                break
+        self.assertTrue(has_value)
 
         # Emulate a user closing the data entry window
         self.window.main_window_controller.data_entry_window.close()

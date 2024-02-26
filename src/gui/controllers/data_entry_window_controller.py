@@ -1,6 +1,8 @@
 # src\gui\controllers\data_entry_window_controller.py
 from database.data_insertion import add_single_entry_to_table
-from database.data_retrieval import retrieve_column_names_from_table
+from database.data_retrieval import retrieve_column_names_from_table, retrieve_data_from_database
+from PyQt6.QtWidgets import QTableWidgetItem
+import pandas as pd
 
 
 
@@ -48,3 +50,31 @@ class data_entry_window_controller:
 
         return filtered_column_names
 
+    def display_table(self):
+        # Get the selected table name
+        table_name = self.window.table_name_combobox.currentText()
+
+        # Retrieve the data from the database
+        data = retrieve_data_from_database(table_name)
+
+       # Convert the data to a DataFrame
+        df = pd.DataFrame(data)
+
+
+        # # Clear the existing table widget
+        # self.window.table_widget.setRowCount(0)
+        # self.window.table_widget.setColumnCount(len(df.columns))
+        # self.window.table_widget.setHorizontalHeaderLabels(df.columns)
+
+        # Get the column names from the DataFrame
+        column_names = df.columns.tolist()
+
+        # Set the column names in the QTableWidget
+        self.window.table_widget.setHorizontalHeaderLabels(column_names)
+
+        # Display the data in the QTableWidget
+        self.window.table_widget.setRowCount(len(df))
+        self.window.table_widget.setColumnCount(len(df.columns))
+        for i, row in enumerate(df.values):
+            for j, item in enumerate(row):
+                self.window.table_widget.setItem(i, j, QTableWidgetItem(str(item)))

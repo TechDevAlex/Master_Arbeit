@@ -1,5 +1,5 @@
 # src\gui\screens\data_entry_window.py
-from PyQt6.QtWidgets import QApplication, QLineEdit, QWidget, QLabel, QPushButton, QComboBox, QGridLayout
+from PyQt6.QtWidgets import QApplication, QLineEdit, QWidget, QLabel, QPushButton, QComboBox, QGridLayout, QTableWidget
 from PyQt6.QtCore import Qt
 from database.data_insertion import type_mapping_StringtoSQL
 from database.data_retrieval import retrieve_table_names_from_database
@@ -35,14 +35,14 @@ class data_entry_window(QWidget):
         self.value_field.setObjectName("value_field")
 
         # Create a QComboBox for the table names
-        self.table_name_combo = QComboBox()
-        self.table_name_combo.setObjectName("table_names_combo_box")
+        self.table_name_combobox = QComboBox()
+        self.table_name_combobox.setObjectName("table_names_combobox")
 
         # Get the table names and add them to the QComboBox
         table_names = retrieve_table_names_from_database()
         for table_name in table_names:
             table_name = table_name.strip('"')
-            self.table_name_combo.addItem(table_name)
+            self.table_name_combobox.addItem(table_name)
 
         # Create a QPushButton that will call add_single_entry_to_table when clicked
         self.submit_button = QPushButton("Submit")
@@ -68,6 +68,20 @@ class data_entry_window(QWidget):
         self.material_property_dropdown.popupShown.connect(self.update_material_property_dropdown)
         self.material_property_dropdown.activated.connect(lambda: self.controller.set_material_property_field(self.material_property_dropdown.currentText()))
 
+        # Create  button to display the current table
+        self.display_table_button = QPushButton("Display Table")
+        self.display_table_button.setObjectName("display_table_button")
+        self.display_table_button.clicked.connect(self.controller.display_table)
+
+        # Create a widget to display the table
+        self.table_widget = QTableWidget()
+        self.table_widget.setObjectName("table_widget")
+        self.table_widget.setRowCount(10)
+        self.table_widget.setColumnCount(5)
+
+
+
+
 
 
         # Create a QGridLayout to lay out the widgets
@@ -75,7 +89,9 @@ class data_entry_window(QWidget):
 
         # Add the QLineEdit widgets and QComboBox to the layout with labels
         layout.addWidget(QLabel("Table Name"), 0, 0)
-        layout.addWidget(self.table_name_combo, 0, 1)
+        layout.addWidget(self.table_name_combobox, 0, 1)
+        layout.addWidget(self.display_table_button, 0, 2)
+        layout.addWidget(self.table_widget, 0, 3)
 
         layout.addWidget(QLabel("Material Name"), 1, 0)
         layout.addWidget(self.material_name_field, 1, 1)
@@ -107,7 +123,7 @@ class data_entry_window(QWidget):
     def submit_data(self):
         # Call the controller's submit_data method
         self.controller.submit_data(
-            self.table_name_combo.currentText().strip(),
+            self.table_name_combobox.currentText().strip(),
             self.material_name_field.text(),
             self.material_class_field.text(),
             self.trade_name_field.text(),
@@ -123,7 +139,7 @@ class data_entry_window(QWidget):
 
     def update_material_property_dropdown(self):
         # Update the material property dropdown
-        column_names = self.controller.update_column_names(self.table_name_combo.currentText(), self.material_property_field.text())
+        column_names = self.controller.update_column_names(self.table_name_combobox.currentText(), self.material_property_field.text())
 
         
         # Clear the QComboBox

@@ -13,7 +13,7 @@ class SearchWindow(QMainWindow):
         # Widgets
         self.table_table_label = QLabel("Names of uploaded tables:", self)
         self.table_table = QTableWidget(self) #DONE: should list the uploaded table names
-        self.delete_instance = QPushButton("Delete Table", self) #TODO: Should delete instance (Delete from Dataframe?)
+        self.delete_instance = QPushButton("Remove tablefrom search", self) #TODO: Should delete instance (Delete from Dataframe?)
         self.clear_table = QPushButton("Clear Tables", self) #TODO: should clear table and delete list of tables
 
         table_label = QLabel("Insert table name", self)
