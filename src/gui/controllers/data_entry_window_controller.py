@@ -1,5 +1,5 @@
 # src\gui\controllers\data_entry_window_controller.py
-from database.data_insertion import add_single_entry_to_table
+from database.data_insertion import add_single_entry_to_table, delete_single_entry_from_table
 from database.data_retrieval import retrieve_column_names_from_table, retrieve_data_from_database
 from PyQt6.QtWidgets import QTableWidgetItem
 import pandas as pd
@@ -13,20 +13,34 @@ with the Data Entry window.
 class data_entry_window_controller:
     def __init__(self, window):
         self.window = window
+        self.last_entry = None
 
 
 
     def submit_data(self, table_name, material_name, material_class, trade_name, material_property, datatype, value, max_min):
         # Call add_single_entry_to_table with the values from the input fields
+        if "max." in material_property or "min." in material_property:
+            column_name = material_property
+        else:
+            column_name = material_property + " " + max_min + "."
         add_single_entry_to_table(
             table_name,
             material_name,
             material_class,
             trade_name,
-            material_property + " " + max_min + ".",
+            column_name,
             datatype,
             value
         )
+        self.last_entry = {
+            'table_name': table_name,
+            'material_name': material_name,
+            'material_class': material_class,
+            'trade_name': trade_name,
+            'material_property': column_name,
+            'value': value
+        }
+
 
     def toggle_max_min(self, state):
         # Check the state of the toggle button
@@ -78,3 +92,19 @@ class data_entry_window_controller:
         for i, row in enumerate(df.values):
             for j, item in enumerate(row):
                 self.window.table_widget.setItem(i, j, QTableWidgetItem(str(item)))
+
+    def undo_last_entry(self):
+       
+        # Delete the last entry from the database
+        # keeping "value" despite only indices being necessary, to assert that the correct entry is deleted
+        deleted_data = delete_single_entry_from_table(
+            self.last_entry['table_name'],
+            self.last_entry['material_name'],
+            self.last_entry['material_class'],
+            self.last_entry['trade_name'],
+            self.last_entry['material_property'],
+            self.last_entry['value']
+        )
+
+        # Return the last entry as a DataFrame
+        return deleted_data

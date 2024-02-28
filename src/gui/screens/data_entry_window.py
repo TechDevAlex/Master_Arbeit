@@ -79,6 +79,11 @@ class data_entry_window(QWidget):
         self.table_widget.setRowCount(10)
         self.table_widget.setColumnCount(5)
 
+        #Create an undo button to undo the last submitted entry
+        self.undo_button = QPushButton("Undo")
+        self.undo_button.setObjectName("undo_submit_button")
+        self.undo_button.clicked.connect(self.undo_last_entry)
+
 
 
 
@@ -115,6 +120,7 @@ class data_entry_window(QWidget):
         layout.addWidget(self.max_min_toggle, 6, 3)
 
         layout.addWidget(self.submit_button, 7, 1)
+        layout.addWidget(self.undo_button, 7, 2)
 
         # Set the window's layout
         self.setLayout(layout)
@@ -148,6 +154,10 @@ class data_entry_window(QWidget):
         # Add the column names to the QComboBox
         for column_name in column_names:
             self.material_property_dropdown.addItem(column_name)
+
+    def undo_last_entry(self):
+        # Call the controller's undo_last_entry method
+        self.controller.undo_last_entry()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
