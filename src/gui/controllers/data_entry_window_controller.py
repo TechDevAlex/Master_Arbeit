@@ -1,8 +1,9 @@
 # src\gui\controllers\data_entry_window_controller.py
 from database.data_insertion import add_single_entry_to_table, delete_single_entry_from_table
 from database.data_retrieval import retrieve_column_names_from_table, retrieve_data_from_database
-from PyQt6.QtWidgets import QTableWidgetItem
+from PyQt6.QtWidgets import QTableWidgetItem, QAbstractItemView
 import pandas as pd
+
 
 
 
@@ -15,7 +16,8 @@ class data_entry_window_controller:
         self.window = window
         self.last_entry = None
 
-
+        # Create an undo stack
+        self.undo_stack = []
 
     def submit_data(self, table_name, material_name, material_class, trade_name, material_property, datatype, value, max_min):
 
@@ -47,6 +49,9 @@ class data_entry_window_controller:
             'value': value
         }
 
+        # Add the button to the undo stack
+        self.undo_stack.append(self.undo_submit_data)
+
 
     def toggle_max_min(self, state):
         # Check the state of the toggle button
@@ -77,14 +82,8 @@ class data_entry_window_controller:
         # Retrieve the data from the database
         data = retrieve_data_from_database(table_name)
 
-       # Convert the data to a DataFrame
+        # Convert the data to a DataFrame
         df = pd.DataFrame(data)
-
-
-        # # Clear the existing table widget
-        # self.window.table_widget.setRowCount(0)
-        # self.window.table_widget.setColumnCount(len(df.columns))
-        # self.window.table_widget.setHorizontalHeaderLabels(df.columns)
 
         # Get the column names from the DataFrame
         column_names = df.columns.tolist()
@@ -99,7 +98,38 @@ class data_entry_window_controller:
             for j, item in enumerate(row):
                 self.window.table_widget.setItem(i, j, QTableWidgetItem(str(item)))
 
-    def undo_last_entry(self):
+        # Make the table widget editable
+        self.window.table_widget.setEditTriggers(QAbstractItemView.EditTrigger.AllEditTriggers)
+
+
+
+
+
+
+    # -----------------------------------------------------
+    # Undo functionality
+    # -----------------------------------------------------
+        
+
+    def undo(self):
+        # Check if the undo stack is empty
+        if not self.undo_stack:
+            raise Exception("No actions to undo")
+
+
+        # Pop the last button from the undo stack
+        undo_button = self.undo_stack.pop()
+
+        # Call the button and get the return value
+        return_of_undo_function = undo_button()
+
+        # If the return value is None print an error message
+        if return_of_undo_function is None:
+            raise Exception("No further undo possible")
+
+
+
+    def undo_submit_data(self):
         
         if self.last_entry is None:
             return

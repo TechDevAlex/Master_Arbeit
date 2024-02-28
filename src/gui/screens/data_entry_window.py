@@ -72,6 +72,7 @@ class data_entry_window(QWidget):
         self.display_table_button = QPushButton("Display Table")
         self.display_table_button.setObjectName("display_table_button")
         self.display_table_button.clicked.connect(self.controller.display_table)
+   
 
         # Create a widget to display the table
         self.table_widget = QTableWidget()
@@ -80,7 +81,7 @@ class data_entry_window(QWidget):
         self.table_widget.setColumnCount(5)
 
         #Create an undo button to undo the last submitted entry
-        self.undo_button = QPushButton("Undo")
+        self.undo_button = QPushButton("Undo last action")
         self.undo_button.setObjectName("undo_submit_button")
         self.undo_button.clicked.connect(self.undo_last_entry)
 
@@ -162,7 +163,12 @@ class data_entry_window(QWidget):
 
     def undo_last_entry(self):
         # Call the controller's undo_last_entry method
-        self.controller.undo_last_entry()
+        try:
+            self.controller.undo()
+        except Exception as e:
+            errorbox = ErrorBox(str(e))
+            errorbox.exec()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
