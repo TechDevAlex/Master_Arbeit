@@ -18,6 +18,12 @@ class data_entry_window_controller:
 
 
     def submit_data(self, table_name, material_name, material_class, trade_name, material_property, datatype, value, max_min):
+
+           # Check if all fields are filled
+        if not all([table_name, material_name, material_class, trade_name, material_property, datatype, value, max_min]):
+            raise ValueError("All fields must be filled")
+
+
         # Call add_single_entry_to_table with the values from the input fields
         if "max." in material_property or "min." in material_property:
             column_name = material_property

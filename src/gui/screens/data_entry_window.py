@@ -4,7 +4,7 @@ from PyQt6.QtCore import Qt
 from database.data_insertion import type_mapping_StringtoSQL
 from database.data_retrieval import retrieve_table_names_from_database
 from gui.controllers.data_entry_window_controller import data_entry_window_controller
-from gui.widgets.custom_widgets import CustomComboBox
+from gui.widgets.custom_widgets import CustomComboBox, ErrorBox
 import sys
 
 class data_entry_window(QWidget):
@@ -128,16 +128,21 @@ class data_entry_window(QWidget):
 
     def submit_data(self):
         # Call the controller's submit_data method
-        self.controller.submit_data(
-            self.table_name_combobox.currentText().strip(),
-            self.material_name_field.text(),
-            self.material_class_field.text(),
-            self.trade_name_field.text(),
-            self.material_property_field.text(),
-            self.datatype_field.currentText(),
-            self.value_field.text(),
-            self.max_min_label.text()
-        )
+        try:
+            self.controller.submit_data(
+                self.table_name_combobox.currentText().strip(),
+                self.material_name_field.text(),
+                self.material_class_field.text(),
+                self.trade_name_field.text(),
+                self.material_property_field.text(),
+                self.datatype_field.currentText(),
+                self.value_field.text(),
+                self.max_min_label.text()
+            )
+        except ValueError as e:
+            errorbox = ErrorBox(str(e))
+            errorbox.exec()
+
 
     def toggle_max_min(self):
         # Call the controller's toggle_max_min method
