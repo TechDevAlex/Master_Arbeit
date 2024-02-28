@@ -39,7 +39,12 @@ class Test_02_AddAndDeleteSingleEntryToTable(unittest.TestCase):
         add_single_entry_to_table("test_table", 'test_material', 'test_class', 'test_tradename', 'test_property', 'Integer', '3')
 
         # Call the function again with the same test data
-        matching_rows = add_single_entry_to_table("test_table", 'test_material', 'test_class', 'test_tradename', 'test_property', 'Integer', '3')
+        matching_rows, old_value, overwritten_tag = add_single_entry_to_table("test_table", 'test_material', 'test_class', 'test_tradename', 'test_property', 'Integer', '3')
+         # Check if the old_value and overwritten_tag are correct
+        self.assertEqual(old_value, '3')
+        self.assertFalse(overwritten_tag)
+
+
 
    # Check if there is any row in the DataFrame that contains all the expected data
         self.assertTrue(any((matching_rows['material_name'] == 'test_material') & 

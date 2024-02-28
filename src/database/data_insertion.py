@@ -82,6 +82,11 @@ def type_mapping_SQLtoPython(datatype=None):
     return type_mapping
 
 def add_single_entry_to_table(table_name, material_name, material_class, trade_name, material_property, datatype, value):
+    # initialize values
+    old_value = None
+    overwritten_tag = False
+
+
     # Create a connection to the database
     engine = create_connection()
 
@@ -103,10 +108,22 @@ def add_single_entry_to_table(table_name, material_name, material_class, trade_n
         if not hasattr(df, column):
             df[column] = pd.Series(dtype='str')
 
-    # Check if a row with the same material_name, material_class, trade_name, and material_property with the given value exists
-    matching_rows = df.loc[(df['material_name'] == material_name) & (df['material_class'] == material_class) & (df['trade_name'] == trade_name) & (df[material_property] == value)]
+    # Check if a row with the same material_name, material_class, trade_name, and material_property exists
+    matching_row = df.loc[(df['material_name'] == material_name) & (df['material_class'] == material_class) & (df['trade_name'] == trade_name) & (df[material_property].notna())]
+    
+    # If such a row exists, check if the value is the same
+    if not matching_row.empty:
+        compare_values = matching_row.loc[matching_row[material_property] == value]
+        if compare_values.empty:
+            # Save the old value in a variable
+            old_value = matching_row[material_property].values[0]
+            overwritten_tag = True
+        else:
+            old_value = matching_row[material_property].values[0]
+            overwritten_tag = False
 
-    if matching_rows.empty:
+
+    if matching_row.empty:
         # Add a new row to the DataFrame
         new_row_index = len(df)
         df.loc[new_row_index, 'material_name'] = material_name
@@ -115,14 +132,16 @@ def add_single_entry_to_table(table_name, material_name, material_class, trade_n
         df.loc[new_row_index, material_property] = value
     else:
         # Overwrite the existing value
-        df.loc[matching_rows.index, material_property] = value
+        df.loc[matching_row.index, material_property] = value
 
     df.to_sql(table_name, engine, if_exists='replace', index=False)
 
-    # Return overwritten values as a DataFrame
-    return matching_rows
+    # Return the location of the new/old entry and the value of an overwritten or already existing entry
+    return matching_row, old_value, overwritten_tag
 
 def delete_single_entry_from_table(table_name, material_name, material_class, trade_name, material_property, value):
+
+
     # Create a connection to the database
     engine = create_connection()
 
@@ -140,7 +159,7 @@ def delete_single_entry_from_table(table_name, material_name, material_class, tr
     
 
     # Return the deleted row as a DataFrame
-    return matching_rows
+    return (matching_rows)
 
 
 
