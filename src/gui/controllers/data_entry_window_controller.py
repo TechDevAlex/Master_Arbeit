@@ -94,7 +94,10 @@ class data_entry_window_controller:
                 self.window.table_widget.setItem(i, j, QTableWidgetItem(str(item)))
 
     def undo_last_entry(self):
-       
+        
+        if self.last_entry is None:
+            return
+
         # Delete the last entry from the database
         # keeping "value" despite only indices being necessary, to assert that the correct entry is deleted
         deleted_data = delete_single_entry_from_table(
@@ -105,6 +108,9 @@ class data_entry_window_controller:
             self.last_entry['material_property'],
             self.last_entry['value']
         )
+
+        # Set the last_entry to None
+        self.last_entry = None
 
         # Return the last entry as a DataFrame
         return deleted_data

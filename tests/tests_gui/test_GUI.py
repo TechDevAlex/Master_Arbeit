@@ -208,7 +208,7 @@ class MainWindowTest(unittest.TestCase):
         undo_button = self.window.main_window_controller.data_entry_window.findChild(QPushButton, "undo_submit_button")
         QTest.mouseClick(undo_button, Qt.MouseButton.LeftButton)
         # Check if the last entry is undone
-        
+        self.assertEqual(self.window.main_window_controller.data_entry_window.controller.last_entry, None)
 
 
 
