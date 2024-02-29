@@ -167,14 +167,21 @@ def delete_table(table_name):
     # Create a connection to the database
     engine = create_connection()
 
-    # Read the table into a DataFrame
-    df = pd.read_sql_table(table_name, engine)
+    try:
+        # Try to read the table into a DataFrame
+        df = pd.read_sql_table(table_name, engine)
+    except ValueError:
+        print(f"Table {table_name} does not exist")
+        return
+
 
     # Drop the table from the database
     with engine.connect() as connection:
         connection.execute(text(f"DROP TABLE {table_name}"))
         # Ensure that the DROP TABLE command is immediately committed
         connection.commit()
+
+    print("Table deleted")
 
     # Return the DataFrame
     return df

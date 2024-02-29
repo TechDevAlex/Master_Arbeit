@@ -1,7 +1,7 @@
 # src\gui\screens\data_entry_window.py
-from PyQt6.QtWidgets import QApplication, QLineEdit, QWidget, QLabel, QPushButton, QComboBox, QGridLayout, QTableWidget
+from PyQt6.QtWidgets import QApplication, QLineEdit, QWidget, QLabel, QPushButton, QComboBox, QGridLayout, QTableWidget, QHBoxLayout
 from PyQt6.QtCore import Qt
-from database.data_insertion import type_mapping_StringtoSQL
+from database.data_manipulation import type_mapping_StringtoSQL
 from database.data_retrieval import retrieve_table_names_from_database
 from gui.controllers.data_entry_window_controller import data_entry_window_controller
 from gui.widgets.custom_widgets import CustomComboBox, ErrorBox
@@ -71,7 +71,7 @@ class data_entry_window(QWidget):
         # Create  button to display the current table
         self.display_table_button = QPushButton("Display Table")
         self.display_table_button.setObjectName("display_table_button")
-        self.display_table_button.clicked.connect(self.controller.display_table)
+        self.display_table_button.clicked.connect(self.display_table)
    
 
         # Create a widget to display the table
@@ -85,9 +85,24 @@ class data_entry_window(QWidget):
         self.undo_button.setObjectName("undo_submit_button")
         self.undo_button.clicked.connect(self.undo_last_entry)
 
+        # Create a delete button to delete entire rows or columns
+        self.delete_button = QPushButton("Delete")
+        self.delete_button.setObjectName("delete_button")
+        self.delete_button.clicked.connect(self.delete_data)
 
 
+        # Create a combobox to select deletion of entries, rows, or columns
+        self.delete_combobox = QComboBox()
+        self.delete_combobox.setObjectName("delete_combobox")
+        self.delete_combobox.addItems(["single entry", "row", "column", "table"])
 
+        # Create a toggle to delete via selection or by input
+        self.delete_toggle = QPushButton("input <-> select")
+        self.delete_toggle.setObjectName("delete_toggle")
+        self.delete_toggle.setCheckable(True)
+
+        # Create a queston mark button to display help window
+        # TODO: Implement help window
 
 
         # Create a QGridLayout to lay out the widgets
@@ -101,6 +116,13 @@ class data_entry_window(QWidget):
 
         layout.addWidget(QLabel("Material Name"), 1, 0)
         layout.addWidget(self.material_name_field, 1, 1)
+        layout.addWidget(self.delete_button, 1, 3)
+        layout.addWidget(self.delete_combobox, 1, 4)
+        layout.addWidget(self.delete_toggle, 1, 2)
+
+
+        layout.addWidget(self.delete_button, 1, 3)
+        layout.addWidget(self.delete_combobox, 1, 3)
 
         layout.addWidget(QLabel("Material Class"), 2, 0)
         layout.addWidget(self.material_class_field, 2, 1)
@@ -161,11 +183,26 @@ class data_entry_window(QWidget):
         for column_name in column_names:
             self.material_property_dropdown.addItem(column_name)
 
+    def display_table(self):
+        # Call the controller's display_table method
+        try:
+            self.controller.display_table()
+        except Exception as e:
+            errorbox = ErrorBox(str(e))
+            errorbox.exec()
+
     def undo_last_entry(self):
         # Call the controller's undo_last_entry method
         try:
             self.controller.undo()
         except Exception as e:
+            errorbox = ErrorBox(str(e))
+            errorbox.exec()
+
+    def delete_data(self):
+        try:
+            self.controller.delete_data()
+        except ValueError as e:
             errorbox = ErrorBox(str(e))
             errorbox.exec()
 

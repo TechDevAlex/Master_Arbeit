@@ -3,7 +3,7 @@ import unittest
 import os
 import pandas as pd
 from sqlalchemy import text
-from database.data_insertion import *
+from database.data_manipulation import *
 from database.db_connection import create_connection
 
 

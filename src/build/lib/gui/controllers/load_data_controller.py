@@ -1,7 +1,7 @@
 # src/gui/controllers/load_data_controller.py
 import os
 from PyQt6.QtWidgets import QMessageBox
-from database.data_insertion import create_table_from_csv
+from database.data_manipulation import create_table_from_csv
 from database.data_conversion import convert_database_to_dataframe
 
 class LoadDataController:

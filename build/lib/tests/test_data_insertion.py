@@ -3,7 +3,7 @@ import unittest
 import os
 import pandas as pd
 from sqlalchemy import text
-from src.database.data_insertion import create_table_from_csv
+from database.data_manipulation import create_table_from_csv
 from src.database.db_connection import create_connection
 
 class TestCreateTableFromCSV(unittest.TestCase):

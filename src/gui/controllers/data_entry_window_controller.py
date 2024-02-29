@@ -1,5 +1,5 @@
 # src\gui\controllers\data_entry_window_controller.py
-from database.data_insertion import add_single_entry_to_table, delete_single_entry_from_table
+from database.data_manipulation import add_single_entry_to_table, delete_single_entry_from_table, delete_rows_from_table, delete_table
 from database.data_retrieval import retrieve_column_names_from_table, retrieve_data_from_database
 from PyQt6.QtWidgets import QTableWidgetItem, QAbstractItemView
 import pandas as pd
@@ -78,7 +78,7 @@ class data_entry_window_controller:
     def display_table(self):
         # Get the selected table name
         table_name = self.window.table_name_combobox.currentText()
-
+        
         # Retrieve the data from the database
         data = retrieve_data_from_database(table_name)
 
@@ -101,6 +101,30 @@ class data_entry_window_controller:
         # Make the table widget editable
         self.window.table_widget.setEditTriggers(QAbstractItemView.EditTrigger.AllEditTriggers)
 
+    def delete_data(self):
+        # Getting the selected deletion options
+        combo_delete_selection = self.window.delete_combobox.currentText()
+        delete_toggle = self.window.delete_toggle.isChecked()
+
+        table_name = self.window.table_name_combobox.currentText()
+
+
+        if delete_toggle:
+
+            # Choose the appropriate function based on the selected deletion option
+            if combo_delete_selection == "single entry":
+                delete_single_entry_from_table()
+            elif combo_delete_selection == "row":
+                delete_rows_from_table()
+            elif combo_delete_selection == "column":
+                # TODO: delete_column_from_table()
+                return
+            elif combo_delete_selection == "table":
+                delete_table(table_name)
+
+        else:
+            #TODO: delete_selected_data in table
+            return
 
 
 
@@ -114,7 +138,7 @@ class data_entry_window_controller:
     def undo(self):
         # Check if the undo stack is empty
         if not self.undo_stack:
-            raise Exception("No actions to undo")
+            raise Exception("No actions")
 
 
         # Pop the last button from the undo stack
