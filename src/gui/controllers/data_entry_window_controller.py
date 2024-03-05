@@ -15,6 +15,7 @@ class data_entry_window_controller:
     def __init__(self, window):
         self.window = window
         self.last_entry = None
+        self.deleted_table = None
 
         # Create an undo stack
         self.undo_stack = []
@@ -106,11 +107,10 @@ class data_entry_window_controller:
         combo_delete_selection = self.window.delete_combobox.currentText()
         delete_toggle = self.window.delete_toggle.isChecked()
 
-        table_name = self.window.table_name_combobox.currentText()
+        table_name = sgit elf.window.table_name_combobox.currentText()
 
 
         if delete_toggle:
-
             # Choose the appropriate function based on the selected deletion option
             if combo_delete_selection == "single entry":
                 delete_single_entry_from_table()
@@ -127,7 +127,7 @@ class data_entry_window_controller:
             return
 
 
-
+        self.undo_stack.append(self.undo_delete_data)
 
 
     # -----------------------------------------------------
@@ -174,3 +174,9 @@ class data_entry_window_controller:
 
         # Return the last entry as a DataFrame
         return deleted_data
+
+    def undo_delete_data(self):
+        if self.delete_table is None:
+            return
+        
+        # Get the last deleted data

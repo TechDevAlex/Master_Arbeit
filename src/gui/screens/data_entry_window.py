@@ -83,7 +83,7 @@ class data_entry_window(QWidget):
         #Create an undo button to undo the last submitted entry
         self.undo_button = QPushButton("Undo last action")
         self.undo_button.setObjectName("undo_submit_button")
-        self.undo_button.clicked.connect(self.undo_last_entry)
+        self.undo_button.clicked.connect(self.undo_last_change)
 
         # Create a delete button to delete entire rows or columns
         self.delete_button = QPushButton("Delete")
@@ -100,6 +100,7 @@ class data_entry_window(QWidget):
         self.delete_toggle = QPushButton("input <-> select")
         self.delete_toggle.setObjectName("delete_toggle")
         self.delete_toggle.setCheckable(True)
+        self.delete_toggle.clicked.connect(self.highlight_deletion)
 
         # Create a queston mark button to display help window
         # TODO: Implement help window
@@ -191,7 +192,7 @@ class data_entry_window(QWidget):
             errorbox = ErrorBox(str(e))
             errorbox.exec()
 
-    def undo_last_entry(self):
+    def undo_last_change(self):
         # Call the controller's undo_last_entry method
         try:
             self.controller.undo()
@@ -200,11 +201,36 @@ class data_entry_window(QWidget):
             errorbox.exec()
 
     def delete_data(self):
+
         try:
             self.controller.delete_data()
         except ValueError as e:
             errorbox = ErrorBox(str(e))
             errorbox.exec()
+
+    def highlight_deletion(self):
+        delete_toggle = self.delete_toggle.isChecked()
+
+        if delete_toggle:
+            # Highlight the table
+            self.table_widget.setStyleSheet("border: 1px solid red;")
+            # Reset the style of the input fields
+            self.material_name_field.setStyleSheet("")
+            self.material_class_field.setStyleSheet("")
+            self.trade_name_field.setStyleSheet("")
+            self.material_property_field.setStyleSheet("")
+            self.datatype_field.setStyleSheet("")
+            self.value_field.setStyleSheet("")
+        else:
+            # Highlight the input fields
+            self.material_name_field.setStyleSheet("border: 1px solid red;")
+            self.material_class_field.setStyleSheet("border: 1px solid red;")
+            self.trade_name_field.setStyleSheet("border: 1px solid red;")
+            self.material_property_field.setStyleSheet("border: 1px solid red;")
+            self.datatype_field.setStyleSheet("border: 1px solid red;")
+            self.value_field.setStyleSheet("border: 1px solid red;")
+            # Reset the style of the table
+            self.table_widget.setStyleSheet("")
 
 
 if __name__ == "__main__":
