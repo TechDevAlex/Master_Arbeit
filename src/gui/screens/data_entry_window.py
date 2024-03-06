@@ -212,16 +212,6 @@ class data_entry_window(QWidget):
         delete_toggle = self.delete_toggle.isChecked()
 
         if delete_toggle:
-            # Highlight the table
-            self.table_widget.setStyleSheet("border: 1px solid red;")
-            # Reset the style of the input fields
-            self.material_name_field.setStyleSheet("")
-            self.material_class_field.setStyleSheet("")
-            self.trade_name_field.setStyleSheet("")
-            self.material_property_field.setStyleSheet("")
-            self.datatype_field.setStyleSheet("")
-            self.value_field.setStyleSheet("")
-        else:
             # Highlight the input fields
             self.material_name_field.setStyleSheet("border: 1px solid red;")
             self.material_class_field.setStyleSheet("border: 1px solid red;")
@@ -231,6 +221,16 @@ class data_entry_window(QWidget):
             self.value_field.setStyleSheet("border: 1px solid red;")
             # Reset the style of the table
             self.table_widget.setStyleSheet("")
+        else:
+            # Highlight the table
+            self.table_widget.setStyleSheet("border: 1px solid red;")
+            # Reset the style of the input fields
+            self.material_name_field.setStyleSheet("")
+            self.material_class_field.setStyleSheet("")
+            self.trade_name_field.setStyleSheet("")
+            self.material_property_field.setStyleSheet("")
+            self.datatype_field.setStyleSheet("")
+            self.value_field.setStyleSheet("")
 
 
 if __name__ == "__main__":

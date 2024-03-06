@@ -216,6 +216,14 @@ class MainWindowTest(unittest.TestCase):
         self.assertEqual(self.window.main_window_controller.data_entry_window.controller.last_entry, None)
 
 
+        # Emulate a user clicking on the deletion toggle button    
+        self.window.main_window_controller.data_entry_window.delete_toggle.click()
+        
+        # Check if the layout changed
+        self.assertEqual(self.window.main_window_controller.data_entry_window.material_class_field.styleSheet(), "border: 1px solid red;")
+
+
+
 
         # Emulate a user closing the data entry window
         self.window.main_window_controller.data_entry_window.close()
