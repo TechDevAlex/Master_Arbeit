@@ -62,30 +62,35 @@ class MainWindowTest(unittest.TestCase):
         # Testing Search Window
         # -------------------------
 
-        # Emulate a user selecting "test_data" in the combo box
+        # Emulate a user selecting "test_table" in the combo box
         combo_box = self.window.main_window_controller.search_window.findChild(QComboBox, "table_names_combo_box")
 
 
         # Check if the combo_box is not None
+        
         if combo_box is not None:
+            index = None
             #print(combo_box.count())
             # Iterate over the items in the combo_box
             for i in range(combo_box.count()):
-                # Check if the item text contains "test_data"
-                if "test_data" in combo_box.itemText(i):
+                # Check if the item text contains "test_table"
+                if "test_table" in combo_box.itemText(i):
                     # Set the index to the current iteration value
                     index = i
                     #print(combo_box.itemText(i))
                     break
+            if index is None:
+                # Fail the test if the index is not found
+                self.fail("Could not find index of 'test_table' in combo box 'table_names_combo_box'")
                 
-            # Make sure the combobox has a different text in it, so the currentTextChanged signal is emitted, error handling for the case that test_data index is the last item in the combobox
+            # Make sure the combobox has a different text in it, so the currentTextChanged signal is emitted, error handling for the case that test_table index is the last item in the combobox
             combo_box.setCurrentIndex((index + 1) % combo_box.count())
             
             # Set the combo_box's current index to the found index
             combo_box.setCurrentIndex(index) 
 
-            # Assert that the input field text is "test_data", it should change automatically upon currentTextChanged calling update_table_name in the search controller
-            self.assertEqual(self.window.main_window_controller.search_window.findChild(QLineEdit, "table_input").text(), '"test_data"')
+            # Assert that the input field text is "test_table", it should change automatically upon currentTextChanged calling update_table_name in the search controller
+            self.assertEqual(self.window.main_window_controller.search_window.findChild(QLineEdit, "table_input").text(), '"test_table"')
         else:
             # Fail the test if the combo_box is not found
             self.fail("Could not find combo box 'table_names_combo_box'")
@@ -125,7 +130,7 @@ class MainWindowTest(unittest.TestCase):
         # -------------------------
 
         TestEntryValues = {
-            "table_name": "test_data",
+            "table_name": "test_table",
             "material_name": "Test_Material",
             "material_class": "Test_Class",
             "trade_name": "Test_Trade Name",

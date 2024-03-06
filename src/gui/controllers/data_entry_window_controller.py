@@ -107,7 +107,7 @@ class data_entry_window_controller:
         combo_delete_selection = self.window.delete_combobox.currentText()
         delete_toggle = self.window.delete_toggle.isChecked()
 
-        table_name = sgit elf.window.table_name_combobox.currentText()
+        table_name = self.window.table_name_combobox.currentText()
 
 
         if delete_toggle:

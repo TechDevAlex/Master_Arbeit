@@ -181,7 +181,6 @@ def delete_table(table_name):
         # Ensure that the DROP TABLE command is immediately committed
         connection.commit()
 
-    print("Table deleted")
 
     # Return the DataFrame
     return df
