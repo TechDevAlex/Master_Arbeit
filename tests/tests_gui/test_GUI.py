@@ -27,6 +27,14 @@ class MainWindowTest(unittest.TestCase):
         """Tear down method to clean up after each test."""
         self.window.close()
 
+    def value_exists_in_table(self, value):
+        # Helper function to check if a value exists in the table widget in the data entry window
+        for i in range(self.window.main_window_controller.data_entry_window.table_widget.rowCount()):
+            for j in range(self.window.main_window_controller.data_entry_window.table_widget.columnCount()):
+                item = self.window.main_window_controller.data_entry_window.table_widget.item(i, j)
+                if item is not None and item.text() == value:
+                    return True
+
     def test_user_navigation(self):
         """
         Test the user navigation through the GUI.
@@ -83,9 +91,15 @@ class MainWindowTest(unittest.TestCase):
                 # Fail the test if the index is not found
                 self.fail("Could not find index of 'test_table' in combo box 'table_names_combo_box'")
                 
+            # ---- 
+            #    Check later
             # Make sure the combobox has a different text in it, so the currentTextChanged signal is emitted, error handling for the case that test_table index is the last item in the combobox
-            combo_box.setCurrentIndex((index + 1) % combo_box.count())
-            
+            # combo_box.setCurrentIndex((index + 1) % combo_box.count())
+            # ----
+            # Set the combo_box's current index to 1 in case the index is the first item in the combo_box, as this does not trigger the currentTextChanged signal
+            if index == 0:
+                combo_box.setCurrentIndex(1)
+          
             # Set the combo_box's current index to the found index
             combo_box.setCurrentIndex(index) 
 
@@ -215,6 +229,7 @@ class MainWindowTest(unittest.TestCase):
         # Check if the last entry is undone
         self.assertEqual(self.window.main_window_controller.data_entry_window.controller.last_entry, None)
 
+        # -- testing deletion --
 
         # Emulate a user clicking on the deletion toggle button    
         self.window.main_window_controller.data_entry_window.delete_toggle.click()
@@ -222,7 +237,37 @@ class MainWindowTest(unittest.TestCase):
         # Check if the layout changed
         self.assertEqual(self.window.main_window_controller.data_entry_window.material_class_field.styleSheet(), "border: 1px solid red;")
 
+        # Emulate a user clicking on the submit button again
+        QTest.mouseClick(submit_button, Qt.MouseButton.LeftButton)
 
+        # Emulate a user clicking on the display table button
+        QTest.mouseClick(display_table_button, Qt.MouseButton.LeftButton)
+        
+        # Check if the value is in the table widget again
+        has_value = False
+        for i in range(self.window.main_window_controller.data_entry_window.table_widget.rowCount()):
+            for j in range(self.window.main_window_controller.data_entry_window.table_widget.columnCount()):
+                if self.window.main_window_controller.data_entry_window.table_widget.item(i, j) is not None:
+                    if self.window.main_window_controller.data_entry_window.table_widget.item(i, j).text() == TestEntryValues["value"]:
+                        has_value = True
+                        break
+            if has_value:
+                break
+
+        # Emulate a user clicking on the delete button
+        delete_button = self.window.main_window_controller.data_entry_window.findChild(QPushButton, "delete_button")
+        QTest.mouseClick(delete_button, Qt.MouseButton.LeftButton)
+
+        # Check if the value is not in the table widget
+        has_value = False
+        for i in range(self.window.main_window_controller.data_entry_window.table_widget.rowCount()):
+            for j in range(self.window.main_window_controller.data_entry_window.table_widget.columnCount()):
+                if self.window.main_window_controller.data_entry_window.table_widget.item(i, j) is not None:
+                    if self.window.main_window_controller.data_entry_window.table_widget.item(i, j).text() == TestEntryValues["value"]:
+                        has_value = True
+                        break
+            if has_value:
+                break
 
 
         # Emulate a user closing the data entry window

@@ -22,7 +22,7 @@ class data_entry_window_controller:
 
     def submit_data(self, table_name, material_name, material_class, trade_name, material_property, datatype, value, max_min):
 
-           # Check if all fields are filled
+        # Check if all fields are filled
         if not all([table_name, material_name, material_class, trade_name, material_property, datatype, value, max_min]):
             raise ValueError("All fields must be filled")
 
@@ -108,18 +108,34 @@ class data_entry_window_controller:
         delete_toggle = self.window.delete_toggle.isChecked()
 
         table_name = self.window.table_name_combobox.currentText()
+        material_name = self.window.material_name_field.text()
+        material_class = self.window.material_class_field.text()
+        trade_name = self.window.trade_name_field.text()
+        max_min = self.window.max_min_label.text()
+        material_property = self.window.material_property_field.text()
+        if "max." not in material_property and "min." not in material_property:
+            material_property = material_property + " " + max_min + "."
+        
+        value = self.window.value_field.text()
 
 
         if delete_toggle:
+            # Check if any of the variables are empty
+            if not material_name or not material_class or not trade_name or not material_property:
+                raise ValueError("One or more fields are empty. Please fill all fields before deleting.")
             # Choose the appropriate function based on the selected deletion option
             if combo_delete_selection == "single entry":
-                delete_single_entry_from_table()
+                print("delete_single_entry_from_table called")
+                delete_single_entry_from_table(table_name, material_name, material_class, trade_name, material_property, value)
             elif combo_delete_selection == "row":
+                print("delete_rows_from_table called")
                 delete_rows_from_table()
             elif combo_delete_selection == "column":
+                print("delete_column_from_table called")
                 # TODO: delete_column_from_table()
                 return
             elif combo_delete_selection == "table":
+                print("delete_table called")
                 delete_table(table_name)
 
         else:
