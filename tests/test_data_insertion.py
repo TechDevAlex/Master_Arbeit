@@ -36,10 +36,10 @@ class Test_02_AddAndDeleteSingleEntryToTable(unittest.TestCase):
 
     def test_add_and_delete_single_entry_to_table(self):
         # Call the function with some test data
-        add_single_entry_to_table("test_table", 'test_material', 'test_class', 'test_tradename', 'test_property', 'Integer', '3')
+        add_single_entry_to_table("test_table", 'test_material', 'test_class', 'test_tradename', 'test_property', '3', 'Integer')
 
         # Call the function again with the same test data
-        matching_rows, old_value, overwritten_tag = add_single_entry_to_table("test_table", 'test_material', 'test_class', 'test_tradename', 'test_property', 'Integer', '3')
+        matching_rows, old_value, overwritten_tag = add_single_entry_to_table("test_table", 'test_material', 'test_class', 'test_tradename', 'test_property', '3', 'Integer')
          # Check if the old_value and overwritten_tag are correct
         self.assertEqual(old_value, '3')
         self.assertFalse(overwritten_tag)
@@ -74,7 +74,7 @@ class Test_03_DeleteRowsFromTable(unittest.TestCase):
 
     def test_delete_rows_from_table(self):
         # Call the function with some test data
-        add_single_entry_to_table("test_table", 'test_material', 'test_class', 'test_tradename', 'test_property', 'Integer', '3')
+        add_single_entry_to_table("test_table", 'test_material', 'test_class', 'test_tradename', 'test_property', '3', 'Integer')
 
         # Delete the entry from the table
         delete_rows_from_table("test_table", 'test_material', 'test_class', 'test_tradename')

@@ -15,6 +15,7 @@ class data_entry_window_controller:
     def __init__(self, window):
         self.window = window
         self.last_entry = None
+        self.deleted_entry = None
         self.deleted_table = None
 
         # Create an undo stack
@@ -38,8 +39,8 @@ class data_entry_window_controller:
             material_class,
             trade_name,
             column_name,
-            datatype,
-            value
+            value,
+            datatype
         )
         self.last_entry = {
             'table_name': table_name,
@@ -113,6 +114,7 @@ class data_entry_window_controller:
         trade_name = self.window.trade_name_field.text()
         max_min = self.window.max_min_label.text()
         material_property = self.window.material_property_field.text()
+
         if "max." not in material_property and "min." not in material_property:
             material_property = material_property + " " + max_min + "."
         
@@ -127,6 +129,19 @@ class data_entry_window_controller:
             if combo_delete_selection == "single entry":
                 print("delete_single_entry_from_table called")
                 delete_single_entry_from_table(table_name, material_name, material_class, trade_name, material_property, value)
+                self.deleted_entry = {
+                    'table_name': table_name,
+                    'material_name': material_name,
+                    'material_class': material_class,
+                    'trade_name': trade_name,
+                    'material_property': material_property,
+                    'value': value
+                    }
+                
+                self.undo_stack.append(self.undo_delete_entry)
+
+       
+
             elif combo_delete_selection == "row":
                 print("delete_rows_from_table called")
                 delete_rows_from_table()
@@ -143,7 +158,8 @@ class data_entry_window_controller:
             return
 
 
-        self.undo_stack.append(self.undo_delete_data)
+
+        
 
 
     # -----------------------------------------------------
@@ -167,7 +183,7 @@ class data_entry_window_controller:
         if return_of_undo_function is None:
             raise Exception("No further undo possible")
 
-
+        return return_of_undo_function
 
     def undo_submit_data(self):
         
@@ -191,8 +207,23 @@ class data_entry_window_controller:
         # Return the last entry as a DataFrame
         return deleted_data
 
-    def undo_delete_data(self):
-        if self.delete_table is None:
-            return
-        
-        # Get the last deleted data
+    def undo_delete_entry(self):
+        if self.deleted_entry is None:
+            raise Exception("No deleted entry found")
+   
+        # Add the deleted entry back to the database
+        inserted_data = (
+            self.deleted_entry['table_name'],
+            self.deleted_entry['material_name'],
+            self.deleted_entry['material_class'],
+            self.deleted_entry['trade_name'],
+            self.deleted_entry['material_property'],
+            self.deleted_entry['value']
+        )
+
+        add_single_entry_to_table(*inserted_data)
+
+        # Set the deleted_entry to None
+        self.deleted_entry = None
+
+        return inserted_data

@@ -4,7 +4,7 @@ from PyQt6.QtCore import Qt
 from database.data_manipulation import type_mapping_StringtoSQL
 from database.data_retrieval import retrieve_table_names_from_database
 from gui.controllers.data_entry_window_controller import data_entry_window_controller
-from gui.widgets.custom_widgets import CustomComboBox, ErrorBox
+from gui.widgets.custom_widgets import CustomComboBox, ErrorBox, QMessageBox
 import sys
 
 class data_entry_window(QWidget):
@@ -196,9 +196,13 @@ class data_entry_window(QWidget):
         # Call the controller's undo_last_entry method
         try:
             self.controller.undo()
+            
         except Exception as e:
             errorbox = ErrorBox(str(e))
             errorbox.exec()
+
+        QMessageBox.information(self, "Undo Successful", "Undo operation was successful.")
+
 
     def delete_data(self):
 

@@ -149,7 +149,8 @@ class MainWindowTest(unittest.TestCase):
             "material_class": "Test_Class",
             "trade_name": "Test_Trade Name",
             "material_property": "Test_Property min.",
-            "value": "100"
+            "value": "100",
+            "datatype": "int"
         }
 
 

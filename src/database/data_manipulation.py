@@ -81,7 +81,7 @@ def type_mapping_SQLtoPython(datatype=None):
         return type_mapping[datatype]
     return type_mapping
 
-def add_single_entry_to_table(table_name, material_name, material_class, trade_name, material_property, datatype, value):
+def add_single_entry_to_table(table_name, material_name, material_class, trade_name, material_property, value, datatype=None):
     # initialize values
     old_value = None
     overwritten_tag = False
@@ -94,10 +94,14 @@ def add_single_entry_to_table(table_name, material_name, material_class, trade_n
     if not all(isinstance(arg, str) for arg in [material_name, material_class, trade_name, material_property]):
         raise ValueError("Material name, class, trade name, and property must be strings")
 
-    # Check if the value is of the correct type
-    SQL_datatype = type_mapping_StringtoSQL()[datatype]
-    if not isinstance(type_mapping_SQLtoPython(SQL_datatype)(value), type_mapping_SQLtoPython(SQL_datatype)):
-        raise ValueError(f"Value must be of type {datatype}")
+
+
+    # Check if a datatype was entered
+    if datatype is not None:
+        # Check if the value is of the correct type
+        SQL_datatype = type_mapping_StringtoSQL()[datatype]
+        if not isinstance(type_mapping_SQLtoPython(SQL_datatype)(value), type_mapping_SQLtoPython(SQL_datatype)):
+            raise ValueError(f"Value must be of type {datatype}")
 
     # Read the table into a DataFrame
     df = pd.read_sql_table(table_name, engine)
