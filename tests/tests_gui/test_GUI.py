@@ -271,6 +271,13 @@ class MainWindowTest(unittest.TestCase):
                 break
 
 
+        # # Emulate a user clicking on the undo button
+        # QTest.mouseClick(undo_button, Qt.MouseButton.LeftButton)
+
+        # # Check if the value is in the table widget again
+        # assert False(value_exists_in_table = self.value_exists_in_table(TestEntryValues["value"]))
+
+
         # Emulate a user closing the data entry window
         self.window.main_window_controller.data_entry_window.close()
         # Check if the data entry window is closed
