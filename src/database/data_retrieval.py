@@ -1,6 +1,8 @@
 # src/data_retrieval.py
 from sqlalchemy import text
 from database.create_session import create_session
+from sqlalchemy import MetaData, Table
+import pandas as pd
 
 def retrieve_data_from_database(table_name):
     # Create a session

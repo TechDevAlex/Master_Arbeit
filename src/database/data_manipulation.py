@@ -21,6 +21,7 @@ def create_table_from_csv(csv_file_path, table_name):
     # Create a connection to the database
     engine = create_connection()
 
+
     # Read the CSV file into a pandas DataFrame
     df = convert_csv_to_dataframe(csv_file_path)
 

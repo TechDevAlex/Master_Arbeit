@@ -8,7 +8,25 @@ def convert_table_to_dataframe(table):
     return df
 
 def convert_csv_to_dataframe(csv_filepath):
-    df = pd.read_csv(csv_filepath, delimiter = ',', header = None)
+    """
+    Convert a CSV file to a pandas DataFrame.
+
+    This function reads a CSV file and converts it to a pandas DataFrame. If the CSV file is multi-indexed, the DataFrame will also be multi-indexed.
+
+    Parameters:
+    csv_filepath (str): The path to the CSV file.
+
+    Returns:
+    df (pandas.DataFrame): The DataFrame containing the data from the CSV file.
+    """
+
+    # Try to read the CSV file as a multi-indexed CSV
+    try:
+        df = pd.read_csv(csv_filepath, delimiter=';', header=[0, 1])
+    except pd.errors.ParserError:
+        # If the CSV file is not multi-indexed, read it as a regular CSV
+        df = pd.read_csv(csv_filepath)
+
     return df
 
 def convert_database_to_dataframe():
