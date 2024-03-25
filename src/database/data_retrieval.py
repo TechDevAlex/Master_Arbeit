@@ -7,7 +7,7 @@ def retrieve_data_from_database(table_name):
     session = create_session()
 
     # Execute the query from selected table
-    result = session.execute(text(f"SELECT * FROM {table_name}")) 
+    result = session.execute(text(f'SELECT * FROM "{table_name}" ')) 
 
     # Fetch all the data
     data = result.fetchall()

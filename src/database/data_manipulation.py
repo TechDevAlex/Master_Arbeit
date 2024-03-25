@@ -2,9 +2,7 @@
 import pandas as pd
 from database.data_conversion import convert_csv_to_dataframe
 from database.db_connection import create_connection
-from database.create_session import create_session
-from sqlalchemy import MetaData, Table, Table, Column, String, Integer, Float, Boolean, VARCHAR, TEXT, text, and_, select, update, insert
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import String, Integer, Float, Boolean, VARCHAR, TEXT, text
 
 def create_table_from_csv(csv_file_path, table_name):
     """
