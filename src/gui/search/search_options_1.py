@@ -36,7 +36,7 @@ class DataFrame:
         Get the attribute tuples of level 0 indices and the corresponding level 1 indices of the DataFrame as a list.
 
         Parameters:
-        - dataframe (DataFrame): The DataFrame for which to retrieve the level 0 and 1 column names.
+        - df (DataFrame): The DataFrame for which to retrieve the level 0 and 1 column names.
 
         Returns:
         - level_0_index (list): A list of level 0 indices
@@ -88,12 +88,12 @@ class DataFrame:
         return level_0_index, level_1_index, multi_index_dic
 
     @staticmethod
-    def get_attr_level_0_inf(level_0_index):
+    def get_attr_level_0_inf(level_0_index: list):
         """
         split the attribute tuples in their groups
 
         Parameters:
-        - attr_tuples (tuples): complete attribute description in a 4-tuple
+        - level_0_index (tuples): list of complete attribute description in a 4-tuple at level 0
         (full_name,descriptive,-,main_polymer_group_of_the_material)
 
         Returns:
@@ -103,7 +103,7 @@ class DataFrame:
         - attr_info (list): list of short explanation parameter
         - attr_class_unique (list): list of unique attribute class names
         """
-        attr_names, attr_class, attr_unit, attr_info = [], [], [], []
+        #attr_names, attr_class, attr_unit, attr_info = [], [], [], []
      
         try:
             #level_0_index = eval(level_0_index)
@@ -127,23 +127,83 @@ class DataFrame:
             print('InvalidAttributes: Check naming convention for attributes')
 
 
-# Example usage:
-file_path = os.path.join(os.environ.get('HOME'),'Desktop')
+    @staticmethod
+    def get_attr_level_1_inf(df: pd.DataFrame, level_0_index: list, multi_index_dic: dict):
+        """
+        get 1st level indices information based on 0 level index selection
 
-# Create an instance of ExcelLoader with the file path
-df = DataFrame(file_path + "/filaments.xlsx")
+        Parameters:
+        - level_0_index (tuples): complete attribute description in a 4-tuple
+        (full_name,descriptive,-,main_polymer_group_of_the_material)
+        - multi_index_dic (dictionary): dictionary of 0 level index tuple and corresponding 1 level index list
+        - df (DataFrame): The DataFrame for which to retrieve the level 0 and 1 column names.
 
-# Load the Excel file into a DataFrame
-df = df.load_excel_to_dataframe()
-# Use the class method to get column names as a list
-level_0_index,_,_ = DataFrame.get_attr_indices(df)
+        Returns:
+        - updated_dict (dict): dictionary of key(attr_name level 0) and list of index names level 1
+        - level_1_index_spec (list): list of index names level 1 based on specific attr_name level 0
+        """
 
-attr_names, attr_class, attr_unit, attr_dtype, attr_class_unique = DataFrame.get_attr_level_0_inf(level_0_index)
+        try:
 
-#print(df.columns.get_level_values(0))
-#print(df.columns.get_level_values(1))
+            ############################################################################################################
+            #Todo: Check if necessary
+            #dictionary with 0 level index name and corresponding 1st level indices
+            updated_dict = {}
 
-#df = df.T
+            # Iterate through the original dictionary
+            for old_key, value in multi_index_dic.items():
+                # Modify the key as needed
+                new_key = old_key[0]
+                # Add the key-value pair to the updated dictionary
+                updated_dict[new_key] = value
 
-#print(df.loc["(properties_change_recycling,ecological,%,float)"].index[2])
-#print(df.loc["(properties_change_recycling,ecological,%,float)"].iloc[1][1])
+            ############################################################################################################
+
+            # search for 1st level indices based on 0 level index input
+            df = df.T
+
+            #TODO: change in gui -> user input based on click
+            name = str(input('select 0 level property (number, name, '
+                             'molecule_information, yield_strength_0, '
+                             'properties_change_recycling,degradation_phot_oxidation, '
+                             'coordinates_company_headquarters):'))
+
+
+            for tup in level_0_index:
+                if name not in tup:
+                    pass
+                elif name in tup:
+                    target_tup = tup
+                    #format string
+                    formatted_string = "(" + ", ".join(str(item) for item in target_tup) + ")"
+                    formatted_string = formatted_string.replace(", ", ",")
+
+            level_1_index_spec = df.loc[str(formatted_string)].index.tolist()
+
+            return level_1_index_spec
+
+        except:
+            print('InvalidAttributes: Check naming convention for attributes')
+
+
+def main():
+    # Example usage:
+    file_path = os.path.join(os.environ.get('HOME'),'Desktop')
+
+    # Create an instance of ExcelLoader with the file path
+    df = DataFrame(file_path + "/filaments.xlsx")
+
+    # Load the Excel file into a DataFrame
+    df = df.load_excel_to_dataframe()
+    # Use the class method to get column names as a list
+    level_0_index,level_1_index,multi_index_dic = DataFrame.get_attr_indices(df)
+
+    # get all information from index level 0
+    attr_names, attr_class, attr_unit, attr_dtype, attr_class_unique = DataFrame.get_attr_level_0_inf(level_0_index)
+
+    # get all information from index level 1
+    DataFrame.get_attr_level_1_inf(df,level_0_index, multi_index_dic)
+
+
+if __name__ == "__main__":
+    main()
