@@ -7,7 +7,14 @@
 #import libraries
 import os
 import pandas as pd
+#from treelib import Node, Tree #TODO: Please add-in packages script
 
+
+########################################################################################################################
+
+                                                    #DATAFRAME OPERATION
+
+########################################################################################################################
 
 class DataFrame:
     def __init__(self, file_path: str, df: pd.DataFrame = None):
@@ -141,6 +148,7 @@ class DataFrame:
         Returns:
         - updated_dict (dict): dictionary of key(attr_name level 0) and list of index names level 1
         - level_1_index_spec (list): list of index names level 1 based on specific attr_name level 0
+        - level_1_index: list of all index names level 1
         """
 
         try:
@@ -156,6 +164,8 @@ class DataFrame:
                 new_key = old_key[0]
                 # Add the key-value pair to the updated dictionary
                 updated_dict[new_key] = value
+
+            level_1_index = [value for sublist in updated_dict.values() for value in sublist]
 
             ############################################################################################################
 
@@ -180,15 +190,161 @@ class DataFrame:
 
             level_1_index_spec = df.loc[str(formatted_string)].index.tolist()
 
-            return level_1_index_spec
+            return level_1_index_spec, level_1_index, updated_dict
 
         except:
             print('InvalidAttributes: Check naming convention for attributes')
 
+########################################################################################################################
+
+                                                    #SEARCH OPERATION
+
+########################################################################################################################
+
+
+class Search:
+    def __init__(self, df: DataFrame = None, sel_attr: list = None, attr: list = None, attr_names: list = None,
+                 weights: list = None):
+        self.df = df
+        self.attr = attr
+        self.attr_names = attr_names
+        self.sel_attr = sel_attr
+        self.weights = weights
+
+    @staticmethod
+    def param_visualization(index_dict):
+        """
+        visualizes the input dictionary in a tree-like structure based on recursive parent child mapping
+
+        Parameters:
+        - index_dict(dictionary): dictionary of key(attr_name level 0) and list of index names level 1
+
+         """
+        #added = set()
+        #tree = Tree()
+        #while index_dict:
+
+            #for key, value in index_dict.items():
+                #if value['parent'] in added:
+                    #tree.create_node(key, key, parent=value['parent'])
+                    #added.add(key)
+                    #index_dict.pop(key)
+                    #break
+                #elif value['parent'] is None:
+                    #tree.create_node(key, key)
+                    #added.add(key)
+                    #index_dict.pop(key)
+                    #break
+
+        #tree.show()
+
+"""
+    #TODO: Check how to store the selected attributes in a list from the user | perhaps for the beginning a max. of 10 parameters
+    #TODO: Error message, when selected parameter doubled
+    # TODO: Get a zipped list from the user with ('parameter',importance (1-10))
+
+
+    def weight(self):
+        
+        calculates the weights for each selected parameter by an integer of importance
+
+        Returns:
+        - weight_l (list): list of tuples with weights for each selected parameter
+
+    
+        weight_l = []
+        attr_length = len(self.sel_attr)
+        # Sum the second elements of each tuple
+        total_sum = sum(second_tuple[1] for second_tuple in sel_attr)
+        for el in self.sel_attr:
+            weight = el[1]/total_sum
+            weight_attr = (el[0],weight)
+            weight_l.append(weight_attr)
+
+        return weight_l, self.attr
+
+
+    def quicksearch(self):
+        
+        finds all the rows where either abbreviation or trade name correspond to a certain user input
+
+        Returns:
+        - filtered_value_abbr (dataframe): all results in form of a df based on user input regarding a
+        certain abbreviation
+        - filtered_value_tn (dataframe): all results  in form of a df based on user input regarding a
+        certain trade name
+
+       
+
+        #TODO: Dropdown Quicksearch -> Second Dropdown (abbreviation, trade_name) and Search to put in name -> Not found if not compatible
+        userinput = input('Select trade_name or abbreviation: ')
+
+        if userinput == 'abbreviation': #TODO: Just shows functionality -> replace by button click or search
+            abbreviation = input('Type in abbreviation: ')
+            position = [i for i,tup in enumerate(self.attr) if tup[0] == 'abbreviation']
+
+            filtered_value_abbr = self.df[self.df.iloc[:,position[0]].str.contains(abbreviation, case=False)]
+
+
+            if not filtered_value_abbr.empty:
+                filtered_value_abbr.columns = self.attr_names
+
+            else:
+                raise TypeError('Check abbreviation spelling of {}. '
+                                'Otherwise the abbreviation might not listed.'.format(abbreviation))
+
+            return filtered_value_abbr
+
+
+        elif userinput == 'trade_name': #TODO: Just shows functionality -> replace by button click or search
+            trade_name = input('Type in trade_name: ')
+            position = [i for i, tup in enumerate(self.attr) if tup[0] == 'trade_name']
+
+            filtered_value_tn = self.df[self.df.iloc[:,position[0]].str.contains(trade_name, case=False)]
+
+            if not filtered_value_tn.empty:
+                filtered_value_tn.columns = self.attr_names
+
+            else:
+                raise TypeError(
+                    'Check abbreviation spelling of {}. '
+                    'Otherwise the trade name might not listed.'.format(trade_name))
+
+            return filtered_value_tn
+
+    # TODO: Dropdown Attribute Search -> Dropdown with attributes to click on
+    def attribute_search(self):
+        userinput = input('Select attribute: ') #TODO: Just shows functionality -> replace by button click or search; Maybe hint regarding lower upper case
+
+        availability = [True for i, tup in enumerate(self.attr) if tup[0] == userinput]
+        print(availability)
+        if availability[0] == True:
+
+            position = [i for i, tup in enumerate(self.attr) if tup[0] == userinput]
+            print(position)
+            filtered_attribute = self.df.iloc[:,position[0]]
+            print(filtered_attribute)
+
+        else:
+            raise TypeError('Something went wrong. Check spelling of {}. '
+                            'Otherwise this attribute might not be listed.'.format(userinput))
+
+    # TODO: Addtional Configuration Button where little window pups up with min/max filter
+
+"""
+########################################################################################################################
+
+                                                    #MAIN PROTOCOL
+
+########################################################################################################################
 
 def main():
+
     # Example usage:
     file_path = os.path.join(os.environ.get('HOME'),'Desktop')
+
+    ####################################################################################################################
+    ##Dataframe operations
 
     # Create an instance of ExcelLoader with the file path
     df = DataFrame(file_path + "/filaments.xlsx")
@@ -202,7 +358,31 @@ def main():
     attr_names, attr_class, attr_unit, attr_dtype, attr_class_unique = DataFrame.get_attr_level_0_inf(level_0_index)
 
     # get all information from index level 1
-    DataFrame.get_attr_level_1_inf(df,level_0_index, multi_index_dic)
+    level_1_ind_spec, level_1_ind, index_dict = DataFrame.get_attr_level_1_inf(df,level_0_index, multi_index_dic)
+
+    ####################################################################################################################
+    ##Search operations
+
+
+
+    #sel_attr = [('youngs_modulus', 10), ('yield_point', 3), ('elongation_at_break', 7), ('elongation_z', 7),
+                #('yield_point_t', 3)]
+
+    #search_1 = Search(df, sel_attr, attr_tuples, attr_names)
+
+    # visualize indices structure
+    #TODO: Bottom in search menu but should pop up in addtional window
+    #search_1.param_visualization(index_dict)
+
+    # get weight amount
+
+    #weight, attr = search_1.weight()
+
+    # quicksearch
+    # quick = search_1.quicksearch()
+
+    # attributesearch
+    #attr_search = search_1.attribute_search()
 
 
 if __name__ == "__main__":
